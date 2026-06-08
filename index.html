@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GoodWe Comisionamiento</title>
+<link rel="manifest" href="./manifest.json">
+<meta name="theme-color" content="#E8002D">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="GW Comision">
+<link rel="apple-touch-icon" href="./icons/icon-192.png">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@400;600;700;800&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gw-red: #E8002D;
+    --gw-red-dim: #5C0011;
+    --gw-dark: #111112;
+    --gw-dark2: #18181A;
+    --gw-dark3: #222224;
+    --gw-dark4: #2C2C2F;
+    --border: #333336;
+    --text: #F2F2F2;
+    --muted: #666668;
+    --muted2: #99999C;
+    --green: #22C55E;
+    --green-dim: #14532D;
+    --blue: #3B82F6;
+    --red: #EF4444;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', sans-serif; background: var(--gw-dark); color: var(--text); min-height: 100vh; font-size: 14px; }
+  .screen { display: none; min-height: 100vh; }
+  .screen.active { display: flex; flex-direction: column; }
+
+  /* ── SPLASH ── */
+  #screen-splash {
+    align-items: center; justify-content: center; text-align: center;
+    padding: 48px 24px; position: relative; overflow: hidden;
+  }
+  #screen-splash::before {
+    content: ''; position: absolute; top: -160px; left: 50%; transform: translateX(-50%);
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(232,0,45,0.10) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .gw-logo-wrap { margin-bottom: 36px; }
+  .gw-logo-wrap img { height: 32px; filter: brightness(0) invert(1); }
+  .splash-title { font-family: 'Syne', sans-serif; font-size: 34px; font-weight: 800; line-height: 1.1; margin-bottom: 12px; }
+  .splash-title span { color: var(--gw-red); }
+  .splash-sub { color: var(--muted2); font-size: 13px; margin-bottom: 56px; line-height: 1.6; }
+  .splash-version { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); margin-top: 32px; letter-spacing: 0.08em; }
+
+  /* ── SHARED ── */
+  .btn-primary {
+    background: var(--gw-red); color: #fff; border: none; padding: 15px 28px;
+    border-radius: 10px; font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 700;
+    cursor: pointer; width: 100%; max-width: 340px; transition: opacity 0.15s, transform 0.1s;
+  }
+  .btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
+  .btn-secondary {
+    background: var(--gw-dark3); border: 1px solid var(--border); color: var(--text);
+    padding: 13px; border-radius: 10px; font-family: 'Syne', sans-serif; font-size: 14px;
+    font-weight: 600; cursor: pointer; transition: background 0.15s; width: 100%; max-width: 340px;
+  }
+  .btn-secondary:hover { background: var(--gw-dark4); }
+  .back-btn {
+    background: var(--gw-dark3); border: 1px solid var(--border); color: var(--muted2);
+    width: 36px; height: 36px; border-radius: 8px; cursor: pointer; font-size: 16px;
+    display: flex; align-items: center; justify-content: center; transition: background 0.15s; flex-shrink: 0;
+  }
+  .back-btn:hover { background: var(--gw-dark4); }
+  .screen-header { display: flex; align-items: center; gap: 12px; padding: 22px 20px 6px; }
+  .screen-title { font-family: 'Syne', sans-serif; font-size: 21px; font-weight: 700; }
+  .screen-subtitle { color: var(--muted2); font-size: 13px; line-height: 1.5; padding: 4px 20px 14px; }
+
+  /* ── COUNTRY SELECT ── */
+  #screen-country { padding-bottom: 40px; }
+  .country-search-wrap { padding: 0 20px 12px; }
+  .country-search {
+    width: 100%; background: var(--gw-dark3); border: 1px solid var(--border);
+    color: var(--text); padding: 10px 14px; border-radius: 9px; font-size: 13px;
+    outline: none; font-family: 'Inter', sans-serif; transition: border-color 0.15s;
+  }
+  .country-search:focus { border-color: var(--gw-red); }
+  .country-region { padding: 0 20px 16px; }
+  .region-title {
+    font-size: 10px; font-family: 'DM Mono', monospace; color: var(--muted); text-transform: uppercase;
+    letter-spacing: 0.1em; margin-bottom: 8px; padding-bottom: 6px; border-bottom: 1px solid var(--border);
+  }
+  .country-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .country-btn {
+    background: var(--gw-dark2); border: 1px solid var(--border); border-radius: 9px;
+    padding: 11px 12px; cursor: pointer; display: flex; align-items: center; gap: 9px;
+    transition: border-color 0.15s, background 0.15s; text-align: left;
+  }
+  .country-btn:hover { border-color: var(--gw-red); background: var(--gw-dark3); }
+  .country-flag { font-size: 20px; flex-shrink: 0; }
+  .country-info {}
+  .country-name { font-size: 13px; font-weight: 500; color: var(--text); line-height: 1.2; }
+  .country-grid-spec { font-size: 10px; font-family: 'DM Mono', monospace; color: var(--muted2); margin-top: 1px; }
+
+  /* ── TYPE SELECT ── */
+  #screen-type { padding-bottom: 40px; }
+  .country-pill {
+    display: inline-flex; align-items: center; gap: 7px; background: var(--gw-dark3);
+    border: 1px solid var(--border); border-radius: 8px; padding: 6px 12px; margin: 0 20px 14px; font-size: 12px;
+  }
+  .country-pill-flag { font-size: 16px; }
+  .country-pill-text { color: var(--muted2); }
+  .country-pill-name { color: var(--text); font-weight: 500; }
+  .type-cards { display: flex; flex-direction: column; gap: 12px; padding: 4px 20px 0; }
+  .type-card {
+    background: var(--gw-dark2); border: 1px solid var(--border); border-radius: 14px;
+    padding: 20px; cursor: pointer; transition: border-color 0.2s, background 0.2s; position: relative;
+  }
+  .type-card:hover { border-color: var(--gw-red); background: var(--gw-dark3); }
+  .type-card-icon { font-size: 26px; margin-bottom: 9px; }
+  .type-card-title { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 700; margin-bottom: 4px; color: var(--gw-red); }
+  .type-card-desc { color: var(--muted2); font-size: 12px; line-height: 1.6; }
+  .type-card-badge { position: absolute; top: 14px; right: 14px; background: var(--gw-dark4); border: 1px solid var(--border); color: var(--muted2); font-size: 10px; font-family: 'DM Mono', monospace; padding: 3px 7px; border-radius: 5px; }
+
+  /* ── MODEL SELECT ── */
+  #screen-model { padding-bottom: 40px; }
+  .model-group { padding: 0 20px 16px; }
+  .model-group-title { font-size: 10px; font-family: 'DM Mono', monospace; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px; padding: 10px 0 6px; border-bottom: 1px solid var(--border); }
+  .model-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 8px; }
+  .model-card { background: var(--gw-dark2); border: 1px solid var(--border); border-radius: 10px; padding: 14px 12px; cursor: pointer; transition: border-color 0.2s, background 0.2s; }
+  .model-card:hover { border-color: var(--gw-red); background: var(--gw-dark3); }
+  .model-name { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; margin-bottom: 5px; }
+  .model-tag { font-size: 10px; font-family: 'DM Mono', monospace; padding: 2px 6px; border-radius: 4px; width: fit-content; margin-bottom: 5px; }
+  .tag-mono { background: rgba(232,0,45,0.12); color: #FF8099; border: 1px solid rgba(232,0,45,0.25); }
+  .tag-tri { background: rgba(168,85,247,0.12); color: #D8B4FE; border: 1px solid rgba(168,85,247,0.25); }
+  .tag-ongrid { background: rgba(59,130,246,0.12); color: #93C5FD; border: 1px solid rgba(59,130,246,0.25); }
+  .tag-micro { background: rgba(34,197,94,0.12); color: #86EFAC; border: 1px solid rgba(34,197,94,0.25); }
+  .model-desc { font-size: 11px; color: var(--muted2); line-height: 1.4; }
+
+  /* ── PHASE SELECT ── */
+  #screen-phase { padding-bottom: 40px; }
+  .breadcrumb { display: flex; align-items: center; gap: 5px; padding: 0 20px 10px; font-size: 11px; font-family: 'DM Mono', monospace; color: var(--muted2); flex-wrap: wrap; }
+  .breadcrumb-sep { color: var(--border); }
+  .breadcrumb strong { color: var(--text); font-weight: 500; }
+  .model-badge { display: inline-flex; align-items: center; gap: 8px; background: var(--gw-dark3); border: 1px solid var(--border); border-radius: 8px; padding: 8px 14px; margin: 0 20px 14px; font-size: 13px; }
+  .model-badge-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--gw-red); flex-shrink: 0; }
+  .model-badge-dot.blue { background: var(--blue); }
+  .model-badge strong { font-family: 'Syne', sans-serif; font-weight: 700; }
+  .grid-pill {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(232,0,45,0.08); border: 1px solid rgba(232,0,45,0.2);
+    border-radius: 7px; padding: 5px 10px; margin: 0 20px 14px; font-size: 11px;
+    font-family: 'DM Mono', monospace; color: #FF8099;
+  }
+
+  .phase-list { display: flex; flex-direction: column; gap: 9px; padding: 0 20px; }
+  .phase-item { background: var(--gw-dark2); border: 1px solid var(--border); border-radius: 12px; padding: 16px; cursor: pointer; transition: border-color 0.2s; display: flex; align-items: center; gap: 12px; }
+  .phase-item:hover:not(.locked) { border-color: var(--gw-red); }
+  .phase-item.locked { opacity: 0.38; cursor: not-allowed; }
+  .phase-item.completed { border-color: var(--green-dim); }
+  .phase-num { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); background: var(--gw-dark4); width: 30px; height: 30px; border-radius: 7px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .phase-item.completed .phase-num { background: var(--green-dim); color: var(--green); }
+  .phase-content { flex: 1; }
+  .phase-name { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 600; margin-bottom: 2px; }
+  .phase-meta { font-size: 11px; color: var(--muted2); }
+  .phase-arrow { color: var(--muted); font-size: 16px; }
+  .phase-item.completed .phase-arrow { color: var(--green); }
+
+  .overall-bar-wrap { padding: 14px 20px 4px; }
+  .overall-bar { height: 3px; background: var(--gw-dark3); border-radius: 2px; overflow: hidden; }
+  .overall-bar-fill { height: 100%; background: var(--gw-red); border-radius: 2px; transition: width 0.4s ease; }
+  .overall-label { font-size: 11px; color: var(--muted2); font-family: 'DM Mono', monospace; padding: 5px 20px 0; }
+
+  /* ── CHECKLIST ── */
+  #screen-checklist { padding: 0; }
+  .checklist-header { background: var(--gw-dark2); border-bottom: 1px solid var(--border); padding: 14px 20px 12px; position: sticky; top: 0; z-index: 10; }
+  .checklist-header-top { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .phase-tag { font-size: 10px; font-family: 'DM Mono', monospace; padding: 3px 8px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap; }
+  .phase-tag.cold { background: rgba(59,130,246,0.12); color: #93C5FD; border: 1px solid rgba(59,130,246,0.25); }
+  .phase-tag.hot { background: rgba(232,0,45,0.12); color: #FF8099; border: 1px solid rgba(232,0,45,0.25); }
+  .phase-tag.pre { background: rgba(34,197,94,0.12); color: #86EFAC; border: 1px solid rgba(34,197,94,0.25); }
+  .phase-tag.cierre { background: rgba(168,85,247,0.12); color: #D8B4FE; border: 1px solid rgba(168,85,247,0.25); }
+  .checklist-title-text { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 700; }
+  .progress-row { display: flex; align-items: center; gap: 10px; }
+  .progress-track { flex: 1; height: 3px; background: var(--gw-dark4); border-radius: 2px; overflow: hidden; }
+  .progress-fill { height: 100%; background: var(--gw-red); border-radius: 2px; transition: width 0.3s ease; }
+  .progress-label { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted2); white-space: nowrap; }
+
+  .section-body { padding: 12px 20px 100px; }
+  .section-group { margin-bottom: 20px; }
+  .group-title { font-size: 10px; font-family: 'DM Mono', monospace; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 7px; }
+
+  .check-item { background: var(--gw-dark2); border: 1px solid var(--border); border-radius: 10px; padding: 12px 13px; margin-bottom: 6px; display: flex; gap: 11px; align-items: flex-start; transition: border-color 0.15s, background 0.15s; user-select: none; }
+  .check-item:not(.has-input):not(.has-photo) { cursor: pointer; }
+  .check-item:not(.has-input):not(.has-photo):hover { border-color: var(--gw-dark4); background: var(--gw-dark3); }
+  .check-item.done { border-color: var(--green-dim); background: rgba(34,197,94,0.03); }
+  .check-box { width: 21px; height: 21px; border: 1.5px solid var(--border); border-radius: 5px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 11px; transition: background 0.15s, border-color 0.15s; margin-top: 1px; }
+  .check-item.done .check-box { background: var(--green); border-color: var(--green); color: #fff; }
+  .check-item.na .check-box { background: var(--gw-dark4); border-color: var(--muted); color: var(--muted2); font-size: 8px; }
+  .check-content { flex: 1; min-width: 0; }
+  .check-text { font-size: 13px; line-height: 1.5; color: var(--text); }
+  .check-item.done .check-text { color: var(--muted2); text-decoration: line-through; }
+  .opt-label { color: var(--muted); font-size: 11px; }
+
+  .check-actions { display: flex; gap: 6px; margin-top: 8px; flex-wrap: wrap; }
+  .check-btn { background: var(--gw-dark4); border: 1px solid var(--border); color: var(--muted2); padding: 5px 9px; border-radius: 6px; font-size: 11px; cursor: pointer; font-family: 'DM Mono', monospace; transition: background 0.15s, color 0.15s; }
+  .check-btn:hover { background: var(--gw-dark3); color: var(--text); }
+  .check-btn.confirm { background: rgba(34,197,94,0.1); border-color: var(--green-dim); color: var(--green); }
+
+  .measure-input-row { display: flex; gap: 6px; margin-top: 8px; align-items: center; }
+  .measure-input { background: var(--gw-dark3); border: 1px solid var(--border); color: var(--text); padding: 8px 10px; border-radius: 7px; font-family: 'DM Mono', monospace; font-size: 13px; flex: 1; outline: none; transition: border-color 0.15s; min-width: 0; }
+  .measure-input:focus { border-color: var(--gw-red); }
+  .range-hint { font-size: 10px; color: var(--muted2); font-family: 'DM Mono', monospace; margin-top: 3px; }
+  .range-hint.ok { color: var(--green); }
+  .range-hint.warn { color: #FACC15; }
+  .measure-unit { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted2); padding: 8px 8px; background: var(--gw-dark4); border: 1px solid var(--border); border-radius: 7px; white-space: nowrap; flex-shrink: 0; }
+  .measure-ok { background: var(--green); border: none; color: #fff; padding: 8px 11px; border-radius: 7px; font-size: 12px; cursor: pointer; transition: opacity 0.15s; flex-shrink: 0; }
+  .measure-ok:hover { opacity: 0.85; }
+  .measure-saved { font-size: 11px; color: var(--green); font-family: 'DM Mono', monospace; margin-top: 4px; }
+
+  .photo-area { margin-top: 8px; border: 1.5px dashed var(--border); border-radius: 9px; padding: 11px; text-align: center; cursor: pointer; transition: border-color 0.15s; }
+  .photo-area:hover { border-color: var(--gw-red); }
+  .photo-area-text { font-size: 12px; color: var(--muted2); }
+  .photo-count { color: var(--gw-red); font-weight: 600; }
+
+  .bottom-cta { position: fixed; bottom: 0; left: 0; right: 0; padding: 12px 20px; background: linear-gradient(to top, var(--gw-dark) 55%, transparent); z-index: 20; }
+  .btn-complete { background: var(--gw-red); color: #fff; border: none; padding: 14px; border-radius: 10px; font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; cursor: pointer; width: 100%; transition: opacity 0.15s; }
+  .btn-complete:disabled { background: var(--gw-dark4); color: var(--muted); cursor: not-allowed; }
+  .btn-complete:not(:disabled):hover { opacity: 0.88; }
+
+  /* ── SUCCESS ── */
+  #screen-success { align-items: center; justify-content: center; text-align: center; padding: 40px 24px; }
+  .success-icon { font-size: 60px; margin-bottom: 20px; }
+  .success-title { font-family: 'Syne', sans-serif; font-size: 26px; font-weight: 800; margin-bottom: 10px; color: var(--green); }
+  .success-sub { color: var(--muted2); font-size: 13px; line-height: 1.6; margin-bottom: 36px; max-width: 320px; }
+  .success-actions { display: flex; flex-direction: column; gap: 10px; width: 100%; max-width: 340px; align-items: center; }
+
+  /* ── TOAST ── */
+  .toast { position: fixed; bottom: 88px; left: 16px; right: 16px; background: var(--gw-dark3); border: 1px solid rgba(232,0,45,0.35); border-radius: 10px; padding: 11px 13px; font-size: 13px; z-index: 100; display: flex; gap: 9px; align-items: flex-start; transform: translateY(120%); transition: transform 0.28s ease; }
+  .toast.show { transform: translateY(0); }
+  .toast-text { color: var(--muted2); line-height: 1.5; }
+
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--gw-dark4); border-radius: 2px; }
+
+  .hidden { display: none !important; }
+</style>
+</head>
+<body>
+
+<!-- SPLASH -->
+<div id="screen-splash" class="screen active">
+  <div class="gw-logo-wrap">
+    <img src="https://en.goodwe.com/images/goodwe-logo.svg" alt="GoodWe" onerror="this.style.display='none';document.getElementById('gw-logo-text').style.display='block'">
+    <div id="gw-logo-text" style="display:none;font-family:'Syne',sans-serif;font-size:22px;font-weight:800;letter-spacing:0.04em;">Good<span style="color:var(--gw-red)">We</span></div>
+  </div>
+  <div class="splash-title">Asistente de<br><span>Comisionamiento</span></div>
+  <p class="splash-sub">Guía paso a paso para instaladores certificados.<br>Híbrido · On-Grid · Residencial · C&I</p>
+  <button class="btn-primary" onclick="go('screen-country')">Iniciar →</button>
+  <div class="splash-version">v1.0 · Smart Energy Innovator</div>
+</div>
+
+<!-- COUNTRY SELECT -->
+<div id="screen-country" class="screen">
+  <div class="screen-header">
+    <button class="back-btn" onclick="go('screen-splash')">←</button>
+    <div class="screen-title">País</div>
+  </div>
+  <p class="screen-subtitle">Selecciona el país de la instalación para aplicar los parámetros de red correctos.</p>
+  <div class="country-search-wrap">
+    <input class="country-search" type="text" placeholder="🔍  Buscar país..." oninput="filterCountries(this.value)" id="country-search-input">
+  </div>
+  <div id="country-list"></div>
+</div>
+
+<!-- TYPE SELECT -->
+<div id="screen-type" class="screen">
+  <div class="screen-header">
+    <button class="back-btn" onclick="go('screen-country')">←</button>
+    <div class="screen-title">Categoría</div>
+  </div>
+  <div class="country-pill">
+    <span class="country-pill-flag" id="pill-flag">🇨🇱</span>
+    <span class="country-pill-text">Red:</span>
+    <span class="country-pill-name" id="pill-grid">220V · 50Hz</span>
+  </div>
+  <div class="type-cards">
+    <div class="type-card" onclick="selectCategory('hybrid')">
+      <div class="type-card-badge">Con batería</div>
+      <div class="type-card-icon">🔋</div>
+      <div class="type-card-title">Híbrido</div>
+      <div class="type-card-desc">Monofásico y Trifásico · Con almacenamiento<br><span style="font-family:'DM Mono',monospace;font-size:11px;">ESG2 · ES UNIQ · ET · ET-G2</span></div>
+    </div>
+    <div class="type-card" onclick="selectCategory('ongrid')">
+      <div class="type-card-badge">Sin batería</div>
+      <div class="type-card-icon">⚡</div>
+      <div class="type-card-title">On-Grid</div>
+      <div class="type-card-desc">Inyección a red · Sin almacenamiento<br><span style="font-family:'DM Mono',monospace;font-size:11px;">SMT · SDT · DNS · MS · Microinversores</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- MODEL SELECT -->
+<div id="screen-model" class="screen">
+  <div class="screen-header">
+    <button class="back-btn" onclick="go('screen-type')">←</button>
+    <div class="screen-title">Modelo</div>
+  </div>
+  <p class="screen-subtitle">Selecciona el modelo del inversor GoodWe a comisionar.</p>
+  <div id="model-groups"></div>
+</div>
+
+<!-- PHASE SELECT -->
+<div id="screen-phase" class="screen">
+  <div class="screen-header">
+    <button class="back-btn" onclick="go('screen-model')">←</button>
+    <div class="screen-title">Fases</div>
+  </div>
+  <div class="breadcrumb">
+    <span id="bc-country">Chile</span>
+    <span class="breadcrumb-sep">›</span>
+    <span id="bc-category">Híbrido</span>
+    <span class="breadcrumb-sep">›</span>
+    <strong id="bc-model">ESG2</strong>
+  </div>
+  <div class="grid-pill" id="grid-pill">⚡ 220V · 50Hz · Monofásico</div>
+  <div class="phase-list" id="phase-list"></div>
+  <div class="overall-bar-wrap">
+    <div class="overall-bar"><div class="overall-bar-fill" id="overall-progress" style="width:0%"></div></div>
+  </div>
+  <p class="overall-label" id="overall-label">0 de 4 fases completadas</p>
+</div>
+
+<!-- CHECKLIST -->
+<div id="screen-checklist" class="screen">
+  <div class="checklist-header">
+    <div class="checklist-header-top">
+      <button class="back-btn" onclick="go('screen-phase')">←</button>
+      <div id="phase-tag-el" class="phase-tag cold">Cold</div>
+      <div class="checklist-title-text" id="checklist-title">Cold Commissioning</div>
+    </div>
+    <div class="progress-row">
+      <div class="progress-track"><div class="progress-fill" id="checklist-progress" style="width:0%"></div></div>
+      <div class="progress-label" id="checklist-progress-label">0/0</div>
+    </div>
+  </div>
+  <div class="section-body" id="checklist-body"></div>
+  <div class="bottom-cta">
+    <button class="btn-complete" id="complete-btn" onclick="completePhase()" disabled>Completar fase</button>
+  </div>
+</div>
+
+<!-- SUCCESS -->
+<div id="screen-success" class="screen">
+  <div class="success-icon">✅</div>
+  <div class="success-title">¡Fase completada!</div>
+  <p class="success-sub" id="success-msg">Todos los puntos verificados.</p>
+  <div class="success-actions">
+    <button class="btn-primary" onclick="go('screen-phase')">Continuar con siguiente fase</button>
+    <button class="btn-secondary" onclick="go('screen-type')">Nuevo proyecto</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"><span>⚠️</span><span class="toast-text" id="toast-text"></span></div>
+
+<script>
+// ─── COUNTRIES ───────────────────────────────────────────────────────────────
+const COUNTRIES = [
+  { region:'LATAM — Cono Sur', items:[
+    { code:'CL', name:'Chile',     flag:'🇨🇱', v1:220, v3:380, hz:50, vRange:[207,231], hzRange:[49.5,50.5] },
+    { code:'AR', name:'Argentina', flag:'🇦🇷', v1:220, v3:380, hz:50, vRange:[207,231], hzRange:[49.5,50.5] },
+    { code:'UY', name:'Uruguay',   flag:'🇺🇾', v1:220, v3:380, hz:50, vRange:[207,231], hzRange:[49,51] },
+    { code:'PY', name:'Paraguay',  flag:'🇵🇾', v1:220, v3:380, hz:50, vRange:[207,231], hzRange:[49,51] },
+    { code:'BO', name:'Bolivia',   flag:'🇧🇴', v1:220, v3:380, hz:50, vRange:[207,231], hzRange:[49,51] },
+  ]},
+  { region:'LATAM — Eje Andino & Caribe', items:[
+    { code:'PE', name:'Perú',      flag:'🇵🇪', v1:220, v3:380, hz:60, vRange:[207,231], hzRange:[59,61] },
+    { code:'CO', name:'Colombia',  flag:'🇨🇴', v1:110, v3:220, hz:60, vRange:[104,116], hzRange:[59.5,60.5] },
+    { code:'EC', name:'Ecuador',   flag:'🇪🇨', v1:120, v3:208, hz:60, vRange:[114,126], hzRange:[59.5,60.5] },
+    { code:'VE', name:'Venezuela', flag:'🇻🇪', v1:120, v3:208, hz:60, vRange:[114,126], hzRange:[59.5,60.5] },
+    { code:'CR', name:'Costa Rica',flag:'🇨🇷', v1:120, v3:208, hz:60, vRange:[114,126], hzRange:[59.5,60.5] },
+    { code:'MX', name:'México',    flag:'🇲🇽', v1:127, v3:220, hz:60, vRange:[120,134], hzRange:[59.5,60.5] },
+    { code:'PA', name:'Panamá',    flag:'🇵🇦', v1:120, v3:208, hz:60, vRange:[114,126], hzRange:[59.5,60.5] },
+  ]},
+  { region:'LATAM — Brasil', items:[
+    { code:'BR', name:'Brasil',    flag:'🇧🇷', v1:127, v3:220, hz:60, vRange:[120,134], hzRange:[59.5,60.5], note:'Varía por región (127V/220V)' },
+  ]},
+  { region:'España & Europa', items:[
+    { code:'ES', name:'España',    flag:'🇪🇸', v1:230, v3:400, hz:50, vRange:[207,253], hzRange:[49.5,50.5] },
+    { code:'PT', name:'Portugal',  flag:'🇵🇹', v1:230, v3:400, hz:50, vRange:[207,253], hzRange:[49.5,50.5] },
+    { code:'DE', name:'Alemania',  flag:'🇩🇪', v1:230, v3:400, hz:50, vRange:[207,253], hzRange:[49.5,50.5] },
+    { code:'IT', name:'Italia',    flag:'🇮🇹', v1:230, v3:400, hz:50, vRange:[207,253], hzRange:[49.5,50.5] },
+    { code:'FR', name:'Francia',   flag:'🇫🇷', v1:230, v3:400, hz:50, vRange:[207,253], hzRange:[49.5,50.5] },
+  ]},
+  { region:'Otros', items:[
+    { code:'US', name:'EE.UU.',    flag:'🇺🇸', v1:120, v3:208, hz:60, vRange:[114,126], hzRange:[59.5,60.5] },
+    { code:'AU', name:'Australia', flag:'🇦🇺', v1:230, v3:400, hz:50, vRange:[207,253], hzRange:[49.5,50.5] },
+    { code:'ZA', name:'Sudáfrica', flag:'🇿🇦', v1:230, v3:400, hz:50, vRange:[207,253], hzRange:[49.5,50.5] },
+  ]}
+];
+
+// Flatten for search
+const ALL_COUNTRIES = COUNTRIES.flatMap(r => r.items.map(c => ({...c, region: r.region})));
+
+// ─── MODELS ──────────────────────────────────────────────────────────────────
+const MODELS = {
+  hybrid: {
+    label: 'Híbrido',
+    groups: [
+      { title:'Monofásico', items:[
+        { id:'ESG2',   name:'ESG2',    tag:'tag-mono', tagLabel:'Mono', desc:'3–6 kW · 1 MPPT · Lynx compatible' },
+        { id:'ESUNIQ', name:'ES UNIQ', tag:'tag-mono', tagLabel:'Mono', desc:'3–6 kW · 1 MPPT · All-in-one' },
+      ]},
+      { title:'Trifásico', items:[
+        { id:'ET',   name:'ET',    tag:'tag-tri', tagLabel:'Tri', desc:'5–30 kW · 2 MPPT · BMS integrado' },
+        { id:'ETG2', name:'ET-G2', tag:'tag-tri', tagLabel:'Tri', desc:'5–30 kW · 2 MPPT · Nueva generación' },
+      ]}
+    ]
+  },
+  ongrid: {
+    label: 'On-Grid',
+    groups: [
+      { title:'String Monofásico', items:[
+        { id:'SMT', name:'SMT', tag:'tag-ongrid', tagLabel:'Mono', desc:'1–3.6 kW · Residencial' },
+        { id:'DNS', name:'DNS', tag:'tag-ongrid', tagLabel:'Mono', desc:'3–6 kW · Residencial' },
+      ]},
+      { title:'String Trifásico', items:[
+        { id:'SDT', name:'SDT', tag:'tag-ongrid', tagLabel:'Tri',    desc:'3–10 kW · Trifásico pequeño' },
+        { id:'MS',  name:'MS',  tag:'tag-ongrid', tagLabel:'Tri C&I', desc:'10–50 kW · C&I' },
+      ]},
+      { title:'Microinversores', items:[
+        { id:'MICRO', name:'Microinversor', tag:'tag-micro', tagLabel:'Micro', desc:'Por panel · 300–800 W' },
+      ]}
+    ]
+  }
+};
+
+// ─── STATE ───────────────────────────────────────────────────────────────────
+let state = { country: null, category:'', model:'', modelLabel:'', checks:{}, measures:{}, photos:{}, phasesDone:{} };
+let currentPhase = null;
+
+// ─── NAV ─────────────────────────────────────────────────────────────────────
+function go(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  if (id === 'screen-phase') renderPhases();
+  window.scrollTo(0, 0);
+}
+
+// ─── COUNTRY ─────────────────────────────────────────────────────────────────
+function renderCountryList(list) {
+  const container = document.getElementById('country-list');
+  container.innerHTML = '';
+  // Group by region from filtered list
+  const regionMap = {};
+  list.forEach(c => {
+    if (!regionMap[c.region]) regionMap[c.region] = [];
+    regionMap[c.region].push(c);
+  });
+  Object.entries(regionMap).forEach(([region, items]) => {
+    const sec = document.createElement('div');
+    sec.className = 'country-region';
+    sec.innerHTML = `<div class="region-title">${region}</div><div class="country-grid" id="cg-${region.replace(/\s/g,'-')}"></div>`;
+    const grid = sec.querySelector('.country-grid');
+    items.forEach(c => {
+      const btn = document.createElement('button');
+      btn.className = 'country-btn';
+      btn.innerHTML = `<span class="country-flag">${c.flag}</span>
+        <div class="country-info">
+          <div class="country-name">${c.name}</div>
+          <div class="country-grid-spec">${c.v1}V · ${c.hz}Hz</div>
+        </div>`;
+      btn.onclick = () => selectCountry(c);
+      grid.appendChild(btn);
+    });
+    container.appendChild(sec);
+  });
+}
+
+function filterCountries(q) {
+  const filtered = q.trim() === '' ? ALL_COUNTRIES : ALL_COUNTRIES.filter(c => c.name.toLowerCase().includes(q.toLowerCase()) || c.code.toLowerCase().includes(q.toLowerCase()));
+  renderCountryList(filtered);
+}
+
+function selectCountry(c) {
+  state.country = c;
+  document.getElementById('country-search-input').value = '';
+  renderCountryList(ALL_COUNTRIES);
+  // Update pill
+  document.getElementById('pill-flag').textContent = c.flag;
+  document.getElementById('pill-grid').textContent = `${c.v1}V · ${c.hz}Hz`;
+  go('screen-type');
+}
+
+// Initialize country list
+renderCountryList(ALL_COUNTRIES);
+
+// ─── TYPE ────────────────────────────────────────────────────────────────────
+function selectCategory(cat) {
+  state.category = cat;
+  renderModels(cat);
+  go('screen-model');
+}
+
+// ─── MODELS ──────────────────────────────────────────────────────────────────
+function renderModels(cat) {
+  const data = MODELS[cat];
+  const container = document.getElementById('model-groups');
+  container.innerHTML = '';
+  data.groups.forEach(group => {
+    const grp = document.createElement('div');
+    grp.className = 'model-group';
+    grp.innerHTML = `<div class="model-group-title">${group.title}</div><div class="model-grid"></div>`;
+    const grid = grp.querySelector('.model-grid');
+    group.items.forEach(m => {
+      const card = document.createElement('div');
+      card.className = 'model-card';
+      card.innerHTML = `<div class="model-name">${m.name}</div><div class="model-tag ${m.tag}">${m.tagLabel}</div><div class="model-desc">${m.desc}</div>`;
+      card.onclick = () => selectModel(m);
+      grid.appendChild(card);
+    });
+    container.appendChild(grp);
+  });
+}
+
+function selectModel(m) {
+  state.model = m.id;
+  state.modelLabel = m.name;
+  state.checks = {}; state.measures = {}; state.photos = {}; state.phasesDone = {};
+  const isTri = ['ET','ETG2','SDT','MS'].includes(m.id);
+  const c = state.country;
+  const vNet = isTri ? c.v3 : c.v1;
+  document.getElementById('bc-country').textContent = c.flag + ' ' + c.name;
+  document.getElementById('bc-category').textContent = MODELS[state.category].label;
+  document.getElementById('bc-model').textContent = m.name;
+  document.getElementById('grid-pill').textContent = `⚡ ${vNet}V · ${c.hz}Hz · ${isTri ? 'Trifásico' : 'Monofásico'}`;
+  const dot = document.getElementById('model-badge-dot');
+  go('screen-phase');
+}
+
+// ─── PHASES BUILD ────────────────────────────────────────────────────────────
+function buildPhases() {
+  const cat = state.category;
+  const modelId = state.model;
+  const c = state.country;
+  const isHybrid = cat === 'hybrid';
+  const isMicro = modelId === 'MICRO';
+  const isTri = ['ET','ETG2','SDT','MS'].includes(modelId);
+  const vNet = isTri ? c.v3 : c.v1;
+  const vRange = isTri ? `${Math.round(c.vRange[0]*c.v3/c.v1)}–${Math.round(c.vRange[1]*c.v3/c.v1)}` : `${c.vRange[0]}–${c.vRange[1]}`;
+  const hzRange = `${c.hzRange[0]}–${c.hzRange[1]}`;
+
+  return [
+    {
+      id:'pre', name:'Pre-comisionamiento', tag:'pre', desc:'Verificación documental y de sitio',
+      sections:[
+        { title:'DOCUMENTACIÓN', items:[
+          {id:'pre1', text:'Planos eléctricos aprobados disponibles en sitio', type:'check'},
+          {id:'pre2', text:'Permisos y normas eléctricas locales en orden', type:'check'},
+          {id:'pre3', text:'Modelo y potencia correctos según especificación del proyecto', type:'check'},
+          {id:'pre4', text:'Manual del inversor GoodWe disponible', type:'check'},
+          {id:'pre5', text:'Herramientas y equipos de medición presentes (multímetro, pinza, megóhmetro)', type:'check'},
+        ]},
+        { title:'VERIFICACIÓN FÍSICA', items:[
+          {id:'pre6', text:'Estructura soporte correctamente instalada y aterrizadas', type:'check'},
+          {id:'pre7', text:'Paneles sin grietas ni daño aparente', type:'check'},
+          {id:'pre8', text:'Cables y conductos correctamente protegidos', type:'check'},
+          {id:'pre9', text:'Inversor montado con ventilación adecuada y accesible', type:'check'},
+          ...(isHybrid ? [{id:'pre10', text:'Batería ubicada con ventilación adecuada', type:'check'}] : []),
+        ]},
+        { title:'FOTO INICIAL', items:[
+          {id:'pre_f1', text:'Foto general del sistema antes de energizar', type:'photo'},
+        ]}
+      ]
+    },
+    {
+      id:'cold', name:'Cold Commissioning', tag:'cold', desc:'Inspección completa antes de energizar',
+      sections:[
+        { title:'LADO DC', items:[
+          {id:'c1',  text:'Voc string 1', type:'measure', unit:'V', placeholder:'Ej: 380', rangeHint:'Verificar vs tabla de paneles'},
+          ...(isMicro ? [] : [{id:'c1b', text:'Voc string 2 (si aplica)', type:'measure', unit:'V', placeholder:'Ej: 380', optional:true}]),
+          {id:'c2',  text:'Polaridad DC verificada (+/−)', type:'check'},
+          {id:'c3',  text:'Resistencia de aislamiento DC (≥ 1 MΩ)', type:'measure', unit:'MΩ', placeholder:'Ej: 2.5', rangeHint:'Mínimo: 1 MΩ'},
+          {id:'c4',  text:'Conectores MC4 correctamente crimpados y strings rotulados', type:'check'},
+          {id:'c5',  text:'Cable DC sin tocar cubierta de techumbre', type:'check'},
+          {id:'c6',  text:'Protecciones CC íntegras y correctamente dimensionadas', type:'check'},
+          {id:'c7',  text:'Conexión de MPPTs equilibrada', type:'check'},
+          {id:'c8',  text:'Estructura y cajas de paso aterrizadas', type:'check'},
+        ]},
+        { title:'LADO AC', items:[
+          ...(isTri ? [{id:'c9', text:'Secuencia de fases trifásica correcta (L1-L2-L3)', type:'check'}]
+                    : [{id:'c9', text:'Secuencia de fase monofásica correcta', type:'check'}]),
+          {id:'c10', text:'Voltaje de red', type:'measure', unit:'V', placeholder: String(vNet), rangeHint:`Rango esperado: ${vRange} V`},
+          {id:'c11', text:'Frecuencia de red', type:'measure', unit:'Hz', placeholder: String(c.hz), rangeHint:`Rango esperado: ${hzRange} Hz`},
+          {id:'c12', text:'Resistencia de aislamiento conductores AC (≥ 1 MΩ)', type:'measure', unit:'MΩ', placeholder:'Ej: 1.5', rangeHint:'Mínimo: 1 MΩ'},
+          {id:'c13', text:'Fases identificadas y rotuladas', type:'check'},
+          {id:'c14', text:'Protecciones AC adecuadas según manual GoodWe', type:'check'},
+          {id:'c15', text:'Sin fuga en circuitos del inmueble', type:'check'},
+          {id:'c16', text:'Cargas debidamente aterrizadas', type:'check'},
+        ]},
+        ...(isHybrid ? [{ title:'BATERÍA', items:[
+          {id:'c17', text:'Aprietes de bornera correctos', type:'check'},
+          {id:'c18', text:'Ventilación adecuada en zona de batería', type:'check'},
+          {id:'c19', text:'Protecciones de batería íntegras', type:'check'},
+          {id:'c20', text:'Compatibilidad batería–inversor verificada en manual', type:'check'},
+        ]}] : []),
+        { title:'EVIDENCIA FOTOGRÁFICA', items:[
+          {id:'cf1', text:'Foto tablero AC con protecciones', type:'photo'},
+          {id:'cf2', text:'Foto strings y conectores MC4', type:'photo'},
+          ...(isHybrid ? [{id:'cf3', text:'Foto instalación de batería', type:'photo'}] : []),
+        ]}
+      ]
+    },
+    {
+      id:'hot', name:'Hot Commissioning', tag:'hot', desc:'Verificación después de energizar',
+      sections:[
+        { title:'DC — POST ENERGIZACIÓN', items:[
+          {id:'h1', text:'Voc real string 1', type:'measure', unit:'V', placeholder:'Ej: 385'},
+          {id:'h2', text:'Vmp real string 1', type:'measure', unit:'V', placeholder:'Ej: 320'},
+          {id:'h3', text:'Todos los MPPTs generando correctamente', type:'check'},
+          {id:'h4', text:'Sin alarmas activas en inversor (lado DC)', type:'check'},
+        ]},
+        { title:'AC — POST ENERGIZACIÓN', items:[
+          {id:'h5', text:'Arranque y sincronización correcta con la red', type:'check'},
+          {id:'h6', text:'Potencia generada', type:'measure', unit:'kW', placeholder:'Ej: 3.5'},
+          {id:'h7', text:'Voltaje AC medido', type:'measure', unit:'V', placeholder: String(vNet), rangeHint:`Rango esperado: ${vRange} V`},
+          {id:'h8', text:'Frecuencia medida', type:'measure', unit:'Hz', placeholder: String(c.hz), rangeHint:`Rango esperado: ${hzRange} Hz`},
+          {id:'h9', text:'Factor de potencia', type:'measure', unit:'FP', placeholder:'Ej: 0.99'},
+          {id:'h10', text:`Perfil de red ${c.name} confirmado (${vNet}V – ${c.hz}Hz)`, type:'check'},
+          {id:'h11', text:'AFCI y diferencial sin disparos en operación normal', type:'check'},
+        ]},
+        ...(isHybrid ? [{ title:'BATERÍA — POST ENERGIZACIÓN', items:[
+          {id:'h12', text:'SOC inicial visible y carga/descarga operando correctamente', type:'check'},
+          {id:'h13', text:'Modo de operación configurado (Backup / TOU / Peakshaving)', type:'check'},
+          {id:'h14', text:'Sin alarmas activas de batería en SEMS+', type:'check'},
+        ]}] : []),
+        { title:'SEMS+ / CONECTIVIDAD', items:[
+          {id:'h15', text:'Planta creada en SEMS+ por el cliente', type:'check'},
+          {id:'h16', text:'Inversor conectado a internet (WiFi o LAN)', type:'check'},
+          {id:'h17', text:'Equipo online y datos llegando correctamente a SEMS+', type:'check'},
+          {id:'h18', text:'Acceso compartido con cliente en app SEMS+', type:'check'},
+        ]},
+        { title:'EVIDENCIA', items:[
+          {id:'hf1', text:'Foto pantalla SEMS+ con equipo online', type:'photo'},
+          {id:'hf2', text:'Foto display del inversor en operación', type:'photo'},
+        ]}
+      ]
+    },
+    {
+      id:'cierre', name:'Cierre y Entrega', tag:'cierre', desc:'Entrega profesional al cliente',
+      sections:[
+        { title:'DOCUMENTACIÓN FIRMADA', items:[
+          {id:'cl1', text:'Checklist Cold Commissioning firmado', type:'check'},
+          {id:'cl2', text:'Checklist Hot Commissioning firmado', type:'check'},
+          {id:'cl3', text:'Registro en SEMS+ completado y verificado', type:'check'},
+          {id:'cl4', text:'Certificado de garantía GoodWe entregado al cliente', type:'check'},
+        ]},
+        { title:'CAPACITACIÓN AL CLIENTE', items:[
+          {id:'cl5', text:'Cliente sabe usar app SEMS+ en su celular', type:'check'},
+          {id:'cl6', text:'Cliente tiene contacto de soporte GoodWe', type:'check'},
+          {id:'cl7', text:`Cliente informado de garantía ${isHybrid ? '10 años baterías + ' : ''}5–10 años inversor`, type:'check'},
+        ]},
+        { title:'CIERRE FOTOGRÁFICO', items:[
+          {id:'clf1', text:'Foto sistema en operación (SEMS+ visible)', type:'photo'},
+          {id:'clf2', text:'Foto conformidad / firma del cliente', type:'photo'},
+        ]}
+      ]
+    }
+  ];
+}
+
+// ─── PHASES RENDER ───────────────────────────────────────────────────────────
+function renderPhases() {
+  const phases = buildPhases();
+  const list = document.getElementById('phase-list');
+  list.innerHTML = '';
+  let doneCount = 0;
+  phases.forEach((phase, i) => {
+    const prev = i > 0 ? phases[i-1] : null;
+    const locked = prev && !state.phasesDone[prev.id];
+    const done = !!state.phasesDone[phase.id];
+    if (done) doneCount++;
+    const el = document.createElement('div');
+    el.className = 'phase-item' + (locked ? ' locked' : '') + (done ? ' completed' : '');
+    el.innerHTML = `<div class="phase-num">${done ? '✓' : String(i+1).padStart(2,'0')}</div>
+      <div class="phase-content">
+        <div class="phase-name">${phase.name}</div>
+        <div class="phase-meta">${phase.desc}${locked ? ' · 🔒 Completa la fase anterior' : ''}</div>
+      </div>
+      <div class="phase-arrow">${done ? '✓' : '›'}</div>`;
+    if (!locked) el.onclick = () => openPhase(phase);
+    list.appendChild(el);
+  });
+  const pct = Math.round(doneCount / phases.length * 100);
+  document.getElementById('overall-progress').style.width = pct + '%';
+  document.getElementById('overall-label').textContent = `${doneCount} de ${phases.length} fases completadas`;
+}
+
+// ─── CHECKLIST ───────────────────────────────────────────────────────────────
+function openPhase(phase) {
+  currentPhase = phase;
+  document.getElementById('checklist-title').textContent = phase.name;
+  const tagEl = document.getElementById('phase-tag-el');
+  tagEl.className = 'phase-tag ' + phase.tag;
+  tagEl.textContent = {pre:'Pre', cold:'Cold', hot:'Hot', cierre:'Cierre'}[phase.tag];
+  renderChecklist(phase);
+  go('screen-checklist');
+}
+
+function renderChecklist(phase) {
+  const body = document.getElementById('checklist-body');
+  body.innerHTML = '';
+  phase.sections.forEach(sec => {
+    const grp = document.createElement('div');
+    grp.className = 'section-group';
+    grp.innerHTML = `<div class="group-title">${sec.title}</div>`;
+    sec.items.forEach(item => grp.appendChild(buildItem(item)));
+    body.appendChild(grp);
+  });
+  updateProgress(phase);
+}
+
+function buildItem(item) {
+  const wrap = document.createElement('div');
+  wrap.id = 'item-' + item.id;
+  const isDone = state.checks[item.id] === true;
+  const isNA = state.checks[item.id] === 'na';
+  const hasMeasure = item.type === 'measure';
+  const hasPhoto = item.type === 'photo';
+  wrap.className = 'check-item' + (isDone ? ' done' : '') + (isNA ? ' na' : '') + (hasMeasure ? ' has-input' : '') + (hasPhoto ? ' has-photo' : '');
+
+  const box = `<div class="check-box">${isDone ? '✓' : isNA ? 'N/A' : ''}</div>`;
+  const optLabel = item.optional ? ' <span class="opt-label">(opcional)</span>' : '';
+  let inner = `<div class="check-text">${item.text}${optLabel}</div>`;
+
+  if (hasMeasure && !isDone) {
+    const val = state.measures[item.id] || '';
+    inner += `<div class="measure-input-row">
+      <input class="measure-input" id="inp-${item.id}" type="number" step="any" placeholder="${item.placeholder||''}" value="${val}" oninput="state.measures['${item.id}']=this.value;checkRange('${item.id}')">
+      <div class="measure-unit">${item.unit}</div>
+      <button class="measure-ok" onclick="confirmMeasure('${item.id}')">✓</button>
+    </div>`;
+    if (item.rangeHint) inner += `<div class="range-hint" id="rh-${item.id}">${item.rangeHint}</div>`;
+  }
+  if (hasMeasure && isDone && state.measures[item.id]) {
+    inner += `<div class="measure-saved">✓ ${state.measures[item.id]} ${item.unit}</div>`;
+  }
+  if (hasPhoto && !isDone) {
+    const count = state.photos[item.id] || 0;
+    inner += `<div class="photo-area" onclick="addPhoto('${item.id}')">
+      <div class="photo-area-text">📷 Agregar foto${count > 0 ? ` · <span class="photo-count">${count} foto(s)</span>` : ''}</div>
+    </div>`;
+    if (count > 0) inner += `<div class="check-actions"><button class="check-btn confirm" onclick="confirmPhoto('${item.id}')">✓ Confirmar foto(s)</button></div>`;
+  }
+  if (!hasMeasure && !hasPhoto && !isDone && !isNA) {
+    inner += `<div class="check-actions">
+      <button class="check-btn confirm" onclick="toggleCheck('${item.id}')">✓ Verificado</button>
+      ${item.optional ? `<button class="check-btn" onclick="markNA('${item.id}')">N/A</button>` : ''}
+    </div>`;
+  }
+  if (isDone || isNA) {
+    inner += `<div class="check-actions"><button class="check-btn" onclick="undoCheck('${item.id}')">↩ Desmarcar</button></div>`;
+  }
+
+  wrap.innerHTML = box + `<div class="check-content">${inner}</div>`;
+  if (!hasMeasure && !hasPhoto) {
+    wrap.style.cursor = 'pointer';
+    wrap.onclick = e => { if (e.target.tagName === 'BUTTON') return; toggleCheck(item.id); };
+  }
+  return wrap;
+}
+
+function checkRange(id) {
+  const c = state.country;
+  const val = parseFloat(state.measures[id]);
+  if (isNaN(val)) return;
+  const el = document.getElementById('rh-' + id);
+  if (!el) return;
+  // Check voltage/hz items
+  if (id === 'c10' || id === 'h7') {
+    const isTri = ['ET','ETG2','SDT','MS'].includes(state.model);
+    const [lo, hi] = isTri ? [Math.round(c.vRange[0]*c.v3/c.v1), Math.round(c.vRange[1]*c.v3/c.v1)] : c.vRange;
+    el.className = (val >= lo && val <= hi) ? 'range-hint ok' : 'range-hint warn';
+    el.textContent = (val >= lo && val <= hi) ? `✓ En rango (${lo}–${hi} V)` : `⚠ Fuera de rango (esperado ${lo}–${hi} V)`;
+  } else if (id === 'c11' || id === 'h8') {
+    const [lo, hi] = c.hzRange;
+    el.className = (val >= lo && val <= hi) ? 'range-hint ok' : 'range-hint warn';
+    el.textContent = (val >= lo && val <= hi) ? `✓ En rango (${lo}–${hi} Hz)` : `⚠ Fuera de rango (esperado ${lo}–${hi} Hz)`;
+  }
+}
+
+function toggleCheck(id) { state.checks[id] = true; refresh(id); updateProgress(currentPhase); }
+function markNA(id) { state.checks[id] = 'na'; refresh(id); updateProgress(currentPhase); }
+function undoCheck(id) { delete state.checks[id]; refresh(id); updateProgress(currentPhase); }
+
+function confirmMeasure(id) {
+  const val = state.measures[id] || document.getElementById('inp-'+id)?.value;
+  if (!val || isNaN(parseFloat(val))) { showToast('Ingresa un valor numérico válido antes de confirmar.'); return; }
+  state.measures[id] = val;
+  state.checks[id] = true;
+  refresh(id); updateProgress(currentPhase);
+}
+
+function addPhoto(id) {
+  state.photos[id] = (state.photos[id] || 0) + 1;
+  refresh(id); updateProgress(currentPhase);
+}
+
+function confirmPhoto(id) {
+  if (!state.photos[id]) { showToast('Agrega al menos una foto antes de confirmar.'); return; }
+  state.checks[id] = true;
+  refresh(id); updateProgress(currentPhase);
+}
+
+function refresh(id) {
+  let item = null;
+  for (const sec of currentPhase.sections) { item = sec.items.find(i => i.id === id); if (item) break; }
+  if (!item) return;
+  const old = document.getElementById('item-' + id);
+  if (old) old.replaceWith(buildItem(item));
+}
+
+function countItems(phase) {
+  let total = 0, done = 0;
+  phase.sections.forEach(sec => sec.items.forEach(item => {
+    total++;
+    if (state.checks[item.id] === true || state.checks[item.id] === 'na') done++;
+  }));
+  return { total, done };
+}
+
+function updateProgress(phase) {
+  const { total, done } = countItems(phase);
+  const pct = total ? Math.round(done / total * 100) : 0;
+  document.getElementById('checklist-progress').style.width = pct + '%';
+  document.getElementById('checklist-progress-label').textContent = `${done}/${total}`;
+  const btn = document.getElementById('complete-btn');
+  btn.disabled = done < total;
+  btn.textContent = done === total ? '✓ Completar fase' : `Completar fase (${total - done} pendiente${total-done !== 1 ? 's' : ''})`;
+}
+
+function completePhase() {
+  const { total, done } = countItems(currentPhase);
+  if (done < total) { showToast('Completa todos los puntos antes de continuar.'); return; }
+  state.phasesDone[currentPhase.id] = true;
+  document.getElementById('success-msg').textContent = `"${currentPhase.name}" completada con ${total} puntos verificados. Avanza a la siguiente fase.`;
+  go('screen-success');
+}
+
+let toastTimer;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  document.getElementById('toast-text').textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 3500);
+}
+</script>
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./sw.js")
+      .then(() => console.log("SW registered"))
+      .catch(e => console.log("SW error", e));
+  });
+}
+</script>
+</body>
+</html>
