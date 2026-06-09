@@ -28,12 +28,13 @@ body{font-family:'Inter',sans-serif;background:var(--d);color:var(--t);min-heigh
 .splash-title{font-family:'Syne',sans-serif;font-size:26px;font-weight:800;line-height:1.15;margin-bottom:10px;}
 .splash-title span{color:var(--r);}
 .splash-sub{color:var(--m2);font-size:12px;margin-bottom:44px;line-height:1.6;}
+.splash-actions{display:flex;flex-direction:column;gap:12px;width:100%;max-width:320px;align-items:center;}
 .splash-ver{font-family:'DM Mono',monospace;font-size:10px;color:var(--m);margin-top:24px;letter-spacing:.07em;}
 
 /* SHARED */
-.btn-p{background:var(--r);color:#fff;border:none;padding:14px 28px;border-radius:10px;font-family:'Syne',sans-serif;font-size:14px;font-weight:700;cursor:pointer;width:100%;max-width:320px;transition:opacity .15s,transform .1s;}
+.btn-p{background:var(--r);color:#fff;border:none;padding:14px 28px;border-radius:10px;font-family:'Syne',sans-serif;font-size:14px;font-weight:700;cursor:pointer;width:100%;max-width:320px;transition:opacity .15s,transform .1s;display:flex;align-items:center;justify-content:center;gap:9px;}
 .btn-p:hover{opacity:.88;transform:translateY(-1px);}
-.btn-s{background:var(--d3);border:1px solid var(--b);color:var(--t);padding:13px;border-radius:10px;font-family:'Syne',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:background .15s;width:100%;max-width:320px;}
+.btn-s{background:var(--d3);border:1px solid var(--b);color:var(--t);padding:13px;border-radius:10px;font-family:'Syne',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:background .15s;width:100%;max-width:320px;display:flex;align-items:center;justify-content:center;gap:9px;}
 .btn-s:hover{background:var(--d4);}
 .back{background:var(--d3);border:1px solid var(--b);color:var(--m2);width:36px;height:36px;border-radius:8px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:background .15s;flex-shrink:0;}
 .back:hover{background:var(--d4);}
@@ -129,12 +130,9 @@ body{font-family:'Inter',sans-serif;background:var(--d);color:var(--t);min-heigh
 .pt{flex:1;height:3px;background:var(--d4);border-radius:2px;overflow:hidden;}
 .pf{height:100%;background:var(--r);border-radius:2px;transition:width .3s ease;}
 .pl2{font-family:'DM Mono',monospace;font-size:11px;color:var(--m2);white-space:nowrap;}
-
 .sb{padding:11px 20px 100px;}
 .sg{margin-bottom:18px;}
 .sgt{font-size:10px;font-family:'DM Mono',monospace;color:var(--m);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px;}
-
-/* Battery toggle section */
 .bat-section-header{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:var(--d3);border:1px solid var(--b);border-radius:10px;margin-bottom:7px;cursor:pointer;transition:border-color .15s;}
 .bat-section-header:hover{border-color:var(--r);}
 .bat-section-title{font-size:12px;font-weight:600;font-family:'Syne',sans-serif;}
@@ -145,7 +143,6 @@ body{font-family:'Inter',sans-serif;background:var(--d);color:var(--t);min-heigh
 .toggle-sw.on .toggle-knob{left:18px;}
 .bat-items-wrap{overflow:hidden;transition:max-height .3s ease;max-height:0;}
 .bat-items-wrap.open{max-height:800px;}
-
 .ci{background:var(--d2);border:1px solid var(--b);border-radius:10px;padding:11px 12px;margin-bottom:6px;display:flex;gap:10px;align-items:flex-start;transition:border-color .15s,background .15s;user-select:none;}
 .ci:not(.hi):not(.hp){cursor:pointer;}
 .ci:not(.hi):not(.hp):hover{border-color:var(--d4);background:var(--d3);}
@@ -174,7 +171,6 @@ body{font-family:'Inter',sans-serif;background:var(--d);color:var(--t);min-heigh
 .pa:hover{border-color:var(--r);}
 .pa-t{font-size:12px;color:var(--m2);}
 .pc2{color:var(--r);font-weight:600;}
-
 .bcta{position:fixed;bottom:0;left:0;right:0;padding:11px 20px;background:linear-gradient(to top,var(--d) 55%,transparent);z-index:20;}
 .bc2{background:var(--r);color:#fff;border:none;padding:13px;border-radius:10px;font-family:'Syne',sans-serif;font-size:14px;font-weight:700;cursor:pointer;width:100%;transition:opacity .15s;}
 .bc2:disabled{background:var(--d4);color:var(--m);cursor:not-allowed;}
@@ -190,20 +186,94 @@ body{font-family:'Inter',sans-serif;background:var(--d);color:var(--t);min-heigh
 /* CELEBRATION */
 #screen-celebration{align-items:center;justify-content:center;text-align:center;padding:40px 28px;position:relative;overflow:hidden;}
 .confetti-wrap{position:absolute;top:0;left:0;right:0;bottom:0;pointer-events:none;overflow:hidden;}
-.confetti-piece{position:absolute;width:8px;height:8px;border-radius:2px;animation:fall linear forwards;}
+.confetti-piece{position:absolute;border-radius:2px;animation:fall linear forwards;}
 @keyframes fall{0%{transform:translateY(-20px) rotate(0deg);opacity:1;}100%{transform:translateY(110vh) rotate(720deg);opacity:0;}}
 .cel-icon{font-size:72px;margin-bottom:20px;animation:pop .5s ease-out;}
 @keyframes pop{0%{transform:scale(0);}70%{transform:scale(1.2);}100%{transform:scale(1);}}
 .cel-title{font-family:'Syne',sans-serif;font-size:28px;font-weight:800;margin-bottom:10px;background:linear-gradient(135deg,#E8002D,#FF6B6B,#FFD700);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.cel-sub{color:var(--m2);font-size:13px;line-height:1.6;margin-bottom:36px;max-width:300px;}
-.cel-stats{display:flex;gap:12px;margin-bottom:36px;flex-wrap:wrap;justify-content:center;}
-.cel-stat{background:var(--d2);border:1px solid var(--b);border-radius:10px;padding:12px 16px;min-width:80px;}
-.cel-stat-val{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:var(--r);}
+.cel-sub{color:var(--m2);font-size:13px;line-height:1.6;margin-bottom:32px;max-width:300px;}
+.cel-stats{display:flex;gap:10px;margin-bottom:32px;flex-wrap:wrap;justify-content:center;}
+.cel-stat{background:var(--d2);border:1px solid var(--b);border-radius:10px;padding:12px 14px;min-width:75px;}
+.cel-stat-val{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:var(--r);}
 .cel-stat-lbl{font-size:10px;color:var(--m2);font-family:'DM Mono',monospace;margin-top:2px;}
 .cel-act{display:flex;flex-direction:column;gap:9px;width:100%;max-width:320px;align-items:center;}
 
+/* ── MANUALES ── */
+#screen-manuals{padding-bottom:40px;}
+.manual-category{padding:0 20px 16px;}
+.manual-cat-title{font-size:10px;font-family:'DM Mono',monospace;color:var(--m);text-transform:uppercase;letter-spacing:.1em;margin-bottom:9px;padding:10px 0 6px;border-bottom:1px solid var(--b);}
+.manual-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.manual-card{background:var(--d2);border:1px solid var(--b);border-radius:11px;padding:14px 12px;cursor:pointer;transition:border-color .2s,background .2s;display:flex;flex-direction:column;gap:5px;}
+.manual-card:hover{border-color:var(--r);background:var(--d3);}
+.manual-model-name{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;}
+.manual-model-tag{font-size:10px;font-family:'DM Mono',monospace;padding:2px 6px;border-radius:4px;width:fit-content;}
+.manual-model-desc{font-size:11px;color:var(--m2);line-height:1.4;}
+
+/* MODEL DETAIL */
+#screen-model-detail{padding:0;}
+.md-header{background:var(--d2);border-bottom:1px solid var(--b);padding:14px 20px;position:sticky;top:0;z-index:10;}
+.md-header-top{display:flex;align-items:center;gap:10px;margin-bottom:4px;}
+.md-model-name{font-family:'Syne',sans-serif;font-size:17px;font-weight:800;}
+.md-model-sub{font-size:11px;color:var(--m2);}
+.md-body{padding:14px 20px 40px;}
+
+.md-section{margin-bottom:20px;}
+.md-section-title{font-size:10px;font-family:'DM Mono',monospace;color:var(--m);text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--b);}
+
+/* Specs table */
+.spec-table{width:100%;border-collapse:collapse;font-size:12px;}
+.spec-table tr{border-bottom:1px solid var(--b);}
+.spec-table tr:last-child{border-bottom:none;}
+.spec-table td{padding:8px 6px;line-height:1.4;}
+.spec-table td:first-child{color:var(--m2);width:48%;font-size:11px;}
+.spec-table td:last-child{color:var(--t);font-weight:500;font-family:'DM Mono',monospace;font-size:11px;}
+
+/* Spec highlight cards */
+.spec-highlights{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;}
+.spec-hl{background:var(--d3);border:1px solid var(--b);border-radius:9px;padding:11px 12px;}
+.spec-hl-val{font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:var(--r);margin-bottom:2px;}
+.spec-hl-lbl{font-size:10px;color:var(--m2);font-family:'DM Mono',monospace;line-height:1.4;}
+
+/* Battery compat */
+.bat-compat-list{display:flex;flex-direction:column;gap:6px;}
+.bat-compat-item{background:var(--d3);border:1px solid var(--b);border-radius:8px;padding:10px 12px;display:flex;align-items:center;justify-content:space-between;}
+.bat-compat-name{font-size:13px;font-weight:500;}
+.bat-compat-tag{font-size:10px;font-family:'DM Mono',monospace;color:var(--m2);background:var(--d4);padding:3px 7px;border-radius:5px;border:1px solid var(--b);}
+
+/* Accessories */
+.acc-list{display:flex;flex-direction:column;gap:6px;}
+.acc-item{background:var(--d3);border:1px solid var(--b);border-radius:8px;padding:10px 12px;}
+.acc-name{font-size:12px;font-weight:600;margin-bottom:2px;}
+.acc-desc{font-size:11px;color:var(--m2);}
+
+/* Box contents */
+.box-list{display:flex;flex-direction:column;gap:5px;}
+.box-item{display:flex;align-items:center;gap:9px;padding:7px 0;border-bottom:1px solid var(--b);font-size:12px;}
+.box-item:last-child{border-bottom:none;}
+.box-qty{font-family:'DM Mono',monospace;font-size:11px;color:var(--r);background:rgba(232,0,45,.08);border:1px solid rgba(232,0,45,.2);border-radius:5px;padding:2px 6px;flex-shrink:0;min-width:28px;text-align:center;}
+
+/* Protection table */
+.prot-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
+.prot-item{background:var(--d3);border:1px solid var(--b);border-radius:7px;padding:8px 10px;font-size:11px;}
+.prot-name{font-weight:600;margin-bottom:2px;}
+.prot-val{color:var(--g);font-family:'DM Mono',monospace;font-size:10px;}
+.prot-val.opt{color:var(--m2);}
+
+/* Comm ports */
+.comm-list{display:flex;flex-direction:column;gap:6px;}
+.comm-item{background:var(--d3);border:1px solid var(--b);border-radius:8px;padding:10px 12px;display:flex;align-items:flex-start;gap:10px;}
+.comm-icon{font-size:18px;flex-shrink:0;margin-top:1px;}
+.comm-name{font-size:12px;font-weight:600;margin-bottom:2px;}
+.comm-desc{font-size:11px;color:var(--m2);line-height:1.5;}
+
+/* Breaker table */
+.breaker-table{width:100%;border-collapse:collapse;font-size:11px;}
+.breaker-table th{background:var(--d4);color:var(--m2);padding:7px 8px;text-align:left;font-weight:500;font-family:'DM Mono',monospace;font-size:10px;}
+.breaker-table td{padding:7px 8px;border-bottom:1px solid var(--b);color:var(--t);font-family:'DM Mono',monospace;}
+.breaker-table tr:last-child td{border-bottom:none;}
+
 /* TOAST */
-.toast{position:fixed;bottom:90px;left:14px;right:14px;background:var(--d3);border:1px solid rgba(232,0,45,.3);border-radius:10px;padding:11px 13px;font-size:13px;z-index:100;display:none;gap:9px;align-items:flex-start;}
+.toast{position:fixed;bottom:84px;left:14px;right:14px;background:var(--d3);border:1px solid rgba(232,0,45,.3);border-radius:10px;padding:11px 13px;font-size:13px;z-index:100;display:none;gap:9px;align-items:flex-start;}
 .toast.show{display:flex;}
 .tt{color:var(--m2);line-height:1.5;}
 
@@ -215,15 +285,18 @@ body{font-family:'Inter',sans-serif;background:var(--d);color:var(--t);min-heigh
 <body>
 
 <!-- SPLASH -->
-<div id="screen-splash" class="screen active">
+<div id="screen-splash" class="screen active" id="ss">
   <div class="gw-logo">
     <img src="https://en.goodwe.com/images/goodwe-logo.svg" alt="GoodWe" onerror="this.style.display='none';document.getElementById('gwlf').style.display='block'">
     <div id="gwlf" class="gw-logo-fallback">Good<span>We</span></div>
   </div>
   <div class="splash-title">Asistente de<br><span>Comisionamiento</span></div>
-  <p class="splash-sub">Guía paso a paso para instaladores certificados.<br>Híbrido · On-Grid · Residencial · C&I</p>
-  <button class="btn-p" onclick="go('screen-country')">Iniciar →</button>
-  <div class="splash-ver">v1.3 · Smart Energy Innovator</div>
+  <p class="splash-sub">Para instaladores certificados GoodWe</p>
+  <div class="splash-actions">
+    <button class="btn-p" onclick="go('screen-country')">⚡ Iniciar Comisionamiento</button>
+    <button class="btn-s" onclick="go('screen-manuals')">📚 Fichas Técnicas</button>
+  </div>
+  <div class="splash-ver">v2.0 · Smart Energy Innovator</div>
 </div>
 
 <!-- COUNTRY -->
@@ -240,14 +313,12 @@ body{font-family:'Inter',sans-serif;background:var(--d);color:var(--t);min-heigh
   <div class="cpill"><span class="cpill-f" id="pf">🇨🇱</span><span class="cpill-t">Red:</span><span class="cpill-n" id="pg">220V · 50Hz</span></div>
   <div class="tc">
     <div class="tcard" onclick="selectCategory('hybrid')">
-      <div class="tcard-badge">Con batería</div>
-      <div class="tcard-icon">🔋</div>
+      <div class="tcard-badge">Con batería</div><div class="tcard-icon">🔋</div>
       <div class="tcard-title">Híbrido</div>
       <div class="tcard-desc">Monofásico y Trifásico · Con almacenamiento<br><span style="font-family:'DM Mono',monospace;font-size:11px;">ESG2 · ES UNIQ · ET · ET-G2</span></div>
     </div>
     <div class="tcard" onclick="selectCategory('ongrid')">
-      <div class="tcard-badge">Sin batería</div>
-      <div class="tcard-icon">⚡</div>
+      <div class="tcard-badge">Sin batería</div><div class="tcard-icon">⚡</div>
       <div class="tcard-title">On-Grid</div>
       <div class="tcard-desc">Inyección a red · Sin almacenamiento<br><span style="font-family:'DM Mono',monospace;font-size:11px;">SMT · SDT · DNS · MS · Microinversores</span></div>
     </div>
@@ -264,8 +335,8 @@ body{font-family:'Inter',sans-serif;background:var(--d);color:var(--t);min-heigh
 <!-- MPPT CONFIG -->
 <div id="screen-mppt" class="screen">
   <div class="sh"><button class="back" onclick="go('screen-model')">←</button><div class="st">Configuración</div></div>
-  <p class="ss2">Ingresa la configuración real de tu inversor.</p>
-  <div class="mppt-info" id="mppt-info">Configura los MPPTs y strings según el modelo instalado.</div>
+  <p class="ss2">Ajusta la configuración real de tu instalación.</p>
+  <div class="mppt-info" id="mppt-info">Configura los MPPTs y strings.</div>
   <div class="mppt-row">
     <div><div class="mppt-label">Número de MPPTs</div><div class="mppt-sub">Entradas MPPT del inversor</div></div>
     <div class="mppt-ctrl">
@@ -275,9 +346,7 @@ body{font-family:'Inter',sans-serif;background:var(--d);color:var(--t);min-heigh
     </div>
   </div>
   <div id="strings-config"></div>
-  <div style="padding:20px;">
-    <button class="btn-p" onclick="confirmMpptConfig()">Continuar →</button>
-  </div>
+  <div style="padding:20px;"><button class="btn-p" onclick="confirmMpptConfig()">Continuar →</button></div>
 </div>
 
 <!-- PHASE -->
@@ -320,12 +389,33 @@ body{font-family:'Inter',sans-serif;background:var(--d);color:var(--t);min-heigh
   <div class="confetti-wrap" id="confetti-wrap"></div>
   <div class="cel-icon">🏆</div>
   <div class="cel-title">¡Comisionamiento<br>Completado!</div>
-  <p class="cel-sub">Excelente trabajo. El sistema GoodWe está correctamente instalado, verificado y documentado.</p>
+  <p class="cel-sub">El sistema GoodWe está correctamente instalado, verificado y documentado.</p>
   <div class="cel-stats" id="cel-stats"></div>
   <div class="cel-act">
     <button class="btn-p" onclick="downloadPDF()">📄 Descargar Informe PDF</button>
-    <button class="btn-s" onclick="go('screen-type')">Nuevo comisionamiento</button>
+    <button class="btn-s" onclick="go('screen-splash')">Inicio</button>
   </div>
+</div>
+
+<!-- MANUALES -->
+<div id="screen-manuals" class="screen">
+  <div class="sh"><button class="back" onclick="go('screen-splash')">←</button><div class="st">Fichas Técnicas</div></div>
+  <p class="ss2">Información clave extraída de los manuales oficiales GoodWe.</p>
+  <div id="manual-list"></div>
+</div>
+
+<!-- MODEL DETAIL -->
+<div id="screen-model-detail" class="screen">
+  <div class="md-header">
+    <div class="md-header-top">
+      <button class="back" onclick="go('screen-manuals')">←</button>
+      <div>
+        <div class="md-model-name" id="md-name">ESG2</div>
+        <div class="md-model-sub" id="md-sub">Inversor Híbrido Monofásico</div>
+      </div>
+    </div>
+  </div>
+  <div class="md-body" id="md-body"></div>
 </div>
 
 <div class="toast" id="toast"><span>⚠️</span><span class="tt" id="tt"></span></div>
@@ -367,15 +457,17 @@ const COUNTRIES=[
 ];
 const ALL_C=COUNTRIES.flatMap(r=>r.items.map(c=>({...c,region:r.region})));
 
+// ─── COMMISSIONING MODELS ─────────────────────────────────────────────────────
 const MODELS={
   hybrid:{label:'Híbrido',groups:[
     {title:'Monofásico',items:[
-      {id:'ESG2',name:'ESG2',tag:'tag-mono',tl:'Mono',desc:'3–6 kW · 1 MPPT',defMppt:1,defStr:[2]},
-      {id:'ESUNIQ',name:'ES UNIQ',tag:'tag-mono',tl:'Mono',desc:'3–6 kW · 1 MPPT',defMppt:1,defStr:[2]},
+      {id:'ESG2',name:'ESG2',tag:'tag-mono',tl:'Mono',desc:'3–6 kW · 2 MPPT · LV',defMppt:2,defStr:[1,1]},
+      {id:'ESUNIQ',name:'ES UNIQ',tag:'tag-mono',tl:'Mono',desc:'3–6 kW · 2 MPPT · All-in-one',defMppt:2,defStr:[1,1]},
     ]},
     {title:'Trifásico',items:[
-      {id:'ET',name:'ET',tag:'tag-tri',tl:'Tri',desc:'5–30 kW · 2 MPPT',defMppt:2,defStr:[1,1]},
-      {id:'ETG2',name:'ET-G2',tag:'tag-tri',tl:'Tri',desc:'5–30 kW · 2 MPPT',defMppt:2,defStr:[1,1]},
+      {id:'ET',name:'ET 15-30kW',tag:'tag-tri',tl:'Tri',desc:'15–30 kW · 2-3 MPPT · HV',defMppt:2,defStr:[2,2]},
+      {id:'ETG2',name:'ET-G2',tag:'tag-tri',tl:'Tri',desc:'6–15 kW · 2-3 MPPT · HV',defMppt:2,defStr:[1,1]},
+      {id:'ET4050',name:'ET 40-50kW',tag:'tag-tri',tl:'Tri C&I',desc:'40–50 kW · 3-4 MPPT · HV',defMppt:3,defStr:[2,2,2]},
     ]}
   ]},
   ongrid:{label:'On-Grid',groups:[
@@ -393,6 +485,437 @@ const MODELS={
   ]}
 };
 
+// ─── FICHAS TÉCNICAS ──────────────────────────────────────────────────────────
+const FICHAS = {
+  hybrid: {
+    label: 'Híbridos',
+    models: [
+      {
+        id:'ESG2', name:'ESG2 / ES G2', tag:'tag-mono', tl:'Mono', sub:'Inversor Híbrido Monofásico LV · 3–6 kW',
+        highlights:[
+          {val:'3–6 kW', lbl:'Potencia nominal'},
+          {val:'2 MPPT', lbl:'Seguidores MPP'},
+          {val:'600 V', lbl:'Vdc máx entrada'},
+          {val:'IP65', lbl:'Protección'},
+        ],
+        specs: {
+          'DC — Entrada FV': [
+            ['Potencia máx. entrada','4.5–9.0 kW según modelo'],
+            ['Tensión máx. entrada','600 V'],
+            ['Rango tensión MPPT','60–550 V'],
+            ['Tensión de arranque','58 V'],
+            ['Corriente máx. por MPPT','16 A'],
+            ['Corriente cortocircuito por MPPT','23 A'],
+            ['Número de MPPTs','1 (GW3000) / 2 (resto)'],
+            ['Strings por MPPT','1'],
+          ],
+          'Batería — Entrada': [
+            ['Tipo de batería','Ion de litio / Plomo-ácido'],
+            ['Tensión nominal batería','48 V'],
+            ['Rango tensión batería','40–60 V'],
+            ['Tensión de arranque','47 V (LV) / 40 V (BR)'],
+            ['Corriente máx. carga/descarga','60–120 A según modelo'],
+            ['Potencia máx. carga','3.0–6.0 kW según modelo'],
+          ],
+          'CA — Salida (Red)': [
+            ['Potencia nominal','3.0–6.0 kW'],
+            ['Tensión nominal salida','220/230/240 V'],
+            ['Rango tensión salida','170–280 V'],
+            ['Frecuencia nominal','50/60 Hz'],
+            ['Rango frecuencia','45–55 / 55–65 Hz'],
+            ['Corriente máx. salida a red','13.6–27.3 A según modelo'],
+            ['Factor de potencia','~1 (ajustable 0.8 cap/ind)'],
+            ['THD máx.','< 3%'],
+          ],
+          'CA — Back-Up': [
+            ['Potencia nominal back-up','3.0–6.0 kW según modelo'],
+            ['Conmutación a modo back-up','< 10 ms (nivel UPS)'],
+            ['Tensión nominal salida','220/230/240 V'],
+          ],
+          'General': [
+            ['Temperatura operación','-25°C a +60°C'],
+            ['Humedad relativa','0–95%'],
+            ['Altitud máx. operación','3000 m (derating >2000 m)'],
+            ['Refrigeración','Convección natural'],
+            ['Ruido','< 30 dB'],
+            ['Topología','No aislado'],
+            ['Consumo nocturno','< 10 W'],
+            ['Dimensiones (An×Al×P)','505.9 × 434.9 × 154.8 mm'],
+            ['Peso','19.6–21.5 kg según modelo'],
+          ],
+          'Eficiencia': [
+            ['Eficiencia máx.','97.6%'],
+            ['Eficiencia europea','96.7%'],
+            ['Eficiencia CEC','96.9%'],
+            ['Eficiencia máx. batería → CA','95.5%'],
+            ['Eficiencia MPPT','99.9%'],
+          ],
+        },
+        batteries: [
+          {name:'GoodWe Lynx Home U', spec:'LV · 5.4–21.6 kWh · 48V'},
+          {name:'Pylontech US2000/US3000', spec:'LV · 48V · CAN'},
+          {name:'DYNESS A48100', spec:'LV · 48V · CAN'},
+          {name:'BYD Battery-Box Premium LVS', spec:'LV · 48V · CAN'},
+          {name:'Huawei LUNA2000-5/10/15', spec:'LV · 48V · CAN'},
+          {name:'Baterías plomo-ácido', spec:'LV · 48V · cable termosensor'},
+        ],
+        accessories: [
+          {name:'Smart Meter GM1000', desc:'Monofásico · RS485 · Para limitación de inyección y autoconsumo'},
+          {name:'Smart Meter GM3000', desc:'Trifásico / Split-phase · RS485 · Para instalaciones complejas'},
+          {name:'CT (transformador corriente)', desc:'Incluido con el inversor · Se instala en la línea de red'},
+          {name:'Módulo WiFi (kit WLAN)', desc:'Conexión a SEMS+ vía WiFi 2.4 GHz · Incluido en el inversor'},
+          {name:'Kit WiFi/LAN', desc:'Conexión dual WiFi + Ethernet · Recomendado para instalaciones fijas'},
+          {name:'Módulo 4G', desc:'Conexión celular · Para sitios sin WiFi disponible'},
+        ],
+        boxContents: [
+          {qty:'1', name:'Inversor ESG2'},
+          {qty:'1', name:'Placa de montaje'},
+          {qty:'1', name:'Módulo de comunicación (WiFi)'},
+          {qty:'N', name:'Conectores MC4 (PV+ y PV−)'},
+          {qty:'1', name:'Conector de batería'},
+          {qty:'2', name:'Conectores CA (BACK-UP y ON-GRID)'},
+          {qty:'2', name:'Cables COM (BMS y contador)'},
+          {qty:'1', name:'Smart Meter GM1000'},
+          {qty:'1', name:'Terminal OT'},
+          {qty:'4', name:'Pernos de expansión'},
+          {qty:'1', name:'Destornillador'},
+          {qty:'1', name:'Documentación'},
+        ],
+        protections: [
+          {name:'Anti-isla',val:'Integrado'},{name:'Polaridad inversa DC',val:'Integrado'},
+          {name:'Aislamiento FV',val:'Integrado'},{name:'Corriente residual',val:'Integrado'},
+          {name:'Sobrecorriente CA',val:'Integrado'},{name:'Sobretensión CA',val:'Integrado'},
+          {name:'Cortocircuito CA',val:'Integrado'},{name:'Interruptor CC',val:'Integrado'},
+          {name:'DPS CC',val:'Tipo II'},{name:'DPS CA',val:'Tipo III'},
+          {name:'AFCI',val:'Opcional'},{name:'Apagado remoto',val:'Integrado'},
+        ],
+        comms: [
+          {icon:'🔋',name:'BMS',desc:'CAN · Puerto RJ45 · Cables incluidos · Batería iones de litio\nPines 4=CAN_H, 5=CAN_L'},
+          {icon:'📊',name:'Smart Meter / CT',desc:'RS485 · Puerto METER · Cables incluidos\nPines 7=485_B1, 8=485_A1'},
+          {icon:'📱',name:'SEMS+ / Portal',desc:'WiFi 2.4 GHz + LAN (opcional) + 4G (opcional)\nBluetooth 5.1 para configuración inicial con SolarGo'},
+          {icon:'🔌',name:'Control de carga (DO)',desc:'Contacto seco integrado · Pins DO1+/DO1− · Para activar cargas externas (bomba de calor, etc.)'},
+          {icon:'⛔',name:'Apagado remoto',desc:'Pins 4 (señal) y 5 (GND) en COM2'},
+          {icon:'🔄',name:'Paralelo (EMS/PAR)',desc:'RS485A/B para EMS · CAN_H/CAN_L para paralelo\nMáx. 6 unidades en paralelo'},
+        ],
+        breakers: [
+          {model:'GW3000-ES-20',batDis:'≥75A / ≥60V',acOnGrid:'≥40A / ≥230V',pe:'4–6 mm²'},
+          {model:'GW3600-ES-20',batDis:'≥100A / ≥60V',acOnGrid:'≥40A / ≥230V',pe:'4–6 mm²'},
+          {model:'GW5000-ES-20',batDis:'≥125A / ≥60V',acOnGrid:'≥63A / ≥230V',pe:'4–6 mm²'},
+          {model:'GW6000-ES-20',batDis:'≥150A / ≥60V',acOnGrid:'≥63A / ≥230V',pe:'4–6 mm²'},
+        ],
+      },
+      {
+        id:'ETG2', name:'ET-G2', tag:'tag-tri', tl:'Tri', sub:'Inversor Híbrido Trifásico HV · 6–15 kW',
+        highlights:[
+          {val:'6–15 kW', lbl:'Potencia nominal'},
+          {val:'Hasta 3 MPPT', lbl:'Seguidores MPP'},
+          {val:'1000 V', lbl:'Vdc máx entrada'},
+          {val:'IP66', lbl:'Protección'},
+        ],
+        specs: {
+          'DC — Entrada FV': [
+            ['Potencia máx. entrada','9.6–24.0 kW según modelo'],
+            ['Tensión máx. entrada','1000 V'],
+            ['Rango tensión MPPT','120–850 V'],
+            ['Tensión de arranque','150 V'],
+            ['Corriente máx. por MPPT','16 A'],
+            ['Corriente cortocircuito por MPPT','24 A'],
+            ['Número de MPPTs','2 (6–10kW) / 3 (12–15kW)'],
+            ['Strings por MPPT','1'],
+          ],
+          'Batería — Entrada': [
+            ['Tipo de batería','Ion de litio (HV)'],
+            ['Tensión nominal batería','500 V'],
+            ['Rango tensión batería','150–720 V'],
+            ['Tensión de arranque','150 V'],
+            ['Corriente máx. carga/descarga','30A (6-8kW) / 40A (10-15kW)'],
+            ['Potencia máx. carga','9–24 kW según modelo'],
+          ],
+          'CA — Salida (Red)': [
+            ['Potencia nominal','6–15 kW'],
+            ['Tensión nominal salida','400/380 V · 3L/N/PE'],
+            ['Rango tensión salida (fase)','170–290 V'],
+            ['Frecuencia nominal','50/60 Hz'],
+            ['Rango frecuencia','45–65 Hz'],
+            ['Corriente máx. salida a red','8.7–21.7 A según modelo'],
+            ['Salida 100% desbalanceada','✓ Soportado'],
+          ],
+          'CA — Back-Up': [
+            ['Potencia nominal back-up','6–15 kW'],
+            ['Potencia máx. sin red (60s)','12–18 kVA'],
+            ['Conmutación a modo back-up','< 10 ms (nivel UPS)'],
+            ['Paralelo máx.','Hasta 6 unidades'],
+          ],
+          'General': [
+            ['Temperatura operación','-35°C a +60°C'],
+            ['Humedad relativa','0–100%'],
+            ['Altitud máx. operación','4000 m'],
+            ['Refrigeración','Convección natural'],
+            ['Ruido','< 30 dB (6-10kW) / < 45 dB (12-15kW)'],
+            ['Topología','No aislado'],
+            ['Consumo nocturno','< 15 W'],
+            ['Dimensiones (An×Al×P)','496 × 460 × 221 mm'],
+            ['Peso','23–25 kg según modelo'],
+          ],
+          'Eficiencia': [
+            ['Eficiencia máx.','98.0% (6-8kW) / 98.2% (10-15kW)'],
+            ['Eficiencia europea','97.2% (6-8kW) / 97.5% (10-15kW)'],
+            ['Eficiencia máx. batería → CA','97.2–97.5%'],
+            ['Eficiencia MPPT','99.5%'],
+          ],
+        },
+        batteries: [
+          {name:'GoodWe Lynx Home F', spec:'HV · 6.9–27.6 kWh · 100–430V'},
+          {name:'GoodWe Lynx Home H', spec:'HV · 5–30 kWh · 150–560V'},
+          {name:'BYD Battery-Box Premium HVS/HVM', spec:'HV · 200–900V · CAN/RS485'},
+          {name:'Huawei LUNA2000-5/10/15-S0', spec:'HV · 200–900V · CAN'},
+          {name:'SENEC V3 Hybrid', spec:'HV · Compatible vía RS485/CAN'},
+        ],
+        accessories: [
+          {name:'Smart Meter GM3000', desc:'Trifásico · RS485 · Para limitación de inyección'},
+          {name:'CT trifásico', desc:'3x CT · Incluido · CT1→L1, CT2→L2, CT3→L3'},
+          {name:'Módulo WiFi+LAN+BT', desc:'Incluido en el inversor · WiFi 2.4GHz + Ethernet + Bluetooth'},
+          {name:'Módulo 4G (opcional)', desc:'Para sitios sin WiFi · Kit 4G-EC'},
+          {name:'STS Box', desc:'Para back-up trifásico · Conmutación estática'},
+        ],
+        boxContents: [
+          {qty:'1', name:'Inversor ET-G2'},
+          {qty:'1', name:'Placa de montaje'},
+          {qty:'N', name:'Conectores MC4 (PV)'},
+          {qty:'1', name:'Conector de batería HV'},
+          {qty:'2', name:'Conectores CA'},
+          {qty:'2', name:'Cables COM (BMS y contador)'},
+          {qty:'1', name:'Smart Meter (incluido)'},
+          {qty:'4', name:'Pernos de expansión'},
+          {qty:'1', name:'Documentación'},
+        ],
+        protections: [
+          {name:'Anti-isla',val:'Integrado'},{name:'Polaridad inversa DC',val:'Integrado'},
+          {name:'Polaridad inversa batería',val:'Integrado'},{name:'Aislamiento FV',val:'Integrado'},
+          {name:'Corriente residual',val:'Integrado'},{name:'Sobrecorriente CA',val:'Integrado'},
+          {name:'Sobretensión CA',val:'Integrado'},{name:'Cortocircuito CA',val:'Integrado'},
+          {name:'Interruptor CC',val:'Integrado'},{name:'DPS CC',val:'Tipo II'},
+          {name:'DPS CA',val:'Tipo II'},{name:'AFCI 3.0',val:'Integrado'},
+          {name:'Apagado remoto',val:'Integrado'},{name:'Peak shaving',val:'Integrado'},
+        ],
+        comms: [
+          {icon:'🔋',name:'BMS (Batería HV)',desc:'RS485 + CAN · Puerto BMS · Cables incluidos\nCompatible con baterías HV de múltiples marcas'},
+          {icon:'📊',name:'Smart Meter trifásico',desc:'RS485 · Puerto METER · CT1→L1, CT2→L2, CT3→L3\nConectar CT según dirección que apunta el contador'},
+          {icon:'📱',name:'SEMS+ / Portal',desc:'WiFi 2.4 GHz + LAN + Bluetooth 5.1\nConfiguración inicial vía SolarGo por Bluetooth'},
+          {icon:'🔄',name:'Paralelo',desc:'Hasta 6 unidades · CAN_H/CAN_L en puerto EMS/PAR\nRequiere STS Box para back-up en paralelo'},
+          {icon:'🔌',name:'Control de carga (DO)',desc:'Contacto seco integrado · Para cargas externas\nControl por tiempo, interruptor o SOC de batería'},
+        ],
+        breakers: [
+          {model:'GW6000-ET-20',batDis:'N/A (HV - sin disyuntor externo)',acOnGrid:'≥20A / ≥400V',pe:'4–6 mm²'},
+          {model:'GW10K-ET-20',batDis:'N/A (HV)',acOnGrid:'≥32A / ≥400V',pe:'4–6 mm²'},
+          {model:'GW15K-ET-20',batDis:'N/A (HV)',acOnGrid:'≥40A / ≥400V',pe:'4–6 mm²'},
+        ],
+      },
+      {
+        id:'ET1530', name:'ET 15–30 kW', tag:'tag-tri', tl:'Tri', sub:'Inversor Híbrido Trifásico HV · 15–30 kW',
+        highlights:[
+          {val:'15–30 kW', lbl:'Potencia nominal'},
+          {val:'2–3 MPPT', lbl:'Seguidores MPP'},
+          {val:'1000 V', lbl:'Vdc máx entrada'},
+          {val:'IP66', lbl:'Protección'},
+        ],
+        specs: {
+          'DC — Entrada FV': [
+            ['Potencia máx. entrada','22.5–45.0 kW según modelo'],
+            ['Tensión máx. entrada','1000 V'],
+            ['Rango tensión MPPT','200–850 V'],
+            ['Tensión de arranque','200 V'],
+            ['Corriente máx. por MPPT','30 A'],
+            ['Corriente cortocircuito por MPPT','38 A'],
+            ['Número de MPPTs','2 (15-20kW) / 3 (25-30kW)'],
+            ['Strings por MPPT','2'],
+          ],
+          'Batería — Entrada': [
+            ['Tipo de batería','Ion de litio (HV)'],
+            ['Tensión nominal batería','500 V'],
+            ['Rango tensión batería','200–800 V'],
+            ['Tensión de arranque','200 V'],
+            ['Entradas de batería','1 (15-20kW) / 2 (25-30kW)'],
+            ['Corriente máx. carga/descarga','50 A por entrada'],
+            ['Potencia máx. carga','15–30 kW según modelo'],
+          ],
+          'CA — Salida (Red)': [
+            ['Potencia nominal','15–30 kW'],
+            ['Tensión nominal salida','380/400 V · 3L/N/PE'],
+            ['Frecuencia nominal','50/60 Hz'],
+            ['Rango frecuencia','45–65 Hz'],
+            ['Corriente máx. salida a red (380V)','25.0–50.0 A según modelo'],
+            ['Factor de potencia','~1 (ajustable 0.8 cap/ind)'],
+            ['THD máx.','≤ 3.05%'],
+          ],
+          'CA — Back-Up': [
+            ['Potencia nominal back-up','15–30 kW'],
+            ['Potencia máx. sin red (60s)','18–36 kVA'],
+            ['Potencia máx. sin red (3s)','24–36 kVA'],
+            ['Conmutación a modo back-up','< 10 ms (nivel UPS)'],
+          ],
+          'General': [
+            ['Temperatura operación','-35°C a +60°C'],
+            ['Humedad relativa','0–95%'],
+            ['Altitud máx. operación','4000 m'],
+            ['Refrigeración','Ventilador inteligente'],
+            ['Ruido','< 45 dB (15-20kW) / < 60 dB (25-30kW)'],
+            ['Topología','No aislado'],
+            ['Consumo nocturno','< 15 W'],
+            ['Dimensiones (An×Al×P)','520 × 660 × 220 mm'],
+            ['Peso','48–54 kg según modelo'],
+          ],
+          'Eficiencia': [
+            ['Eficiencia máx.','98.0%'],
+            ['Eficiencia europea','97.5%'],
+            ['Eficiencia máx. batería → CA','97.5%'],
+            ['Eficiencia MPPT','99.9%'],
+          ],
+        },
+        batteries: [
+          {name:'GoodWe Lynx Home F', spec:'HV · 6.9–27.6 kWh · 100–430V'},
+          {name:'GoodWe Lynx C (C&I)', spec:'HV · Para ET 40-50kW'},
+          {name:'BYD Battery-Box Premium HVM/HVS', spec:'HV · 200–900V'},
+          {name:'Huawei LUNA2000', spec:'HV · 200–900V'},
+          {name:'Múltiples marcas HV', spec:'Verificar lista aprobada en goodwe.com'},
+        ],
+        accessories: [
+          {name:'Smart Meter GM3000', desc:'Trifásico · RS485 · Para medición y limitación'},
+          {name:'CT trifásico (x3)', desc:'Incluido · CT1→L1, CT2→L2, CT3→L3'},
+          {name:'Módulo WiFi+LAN+BT', desc:'Incluido · WiFi 2.4GHz + Ethernet'},
+          {name:'Módulo 4G (opcional)', desc:'Para sitios sin WiFi'},
+        ],
+        boxContents: [
+          {qty:'1', name:'Inversor ET 15-30kW'},
+          {qty:'1', name:'Placa de montaje'},
+          {qty:'N', name:'Conectores MC4 (PV)'},
+          {qty:'1', name:'Conector de batería HV'},
+          {qty:'2', name:'Conectores CA'},
+          {qty:'2', name:'Cables COM'},
+          {qty:'1', name:'Smart Meter GM3000'},
+          {qty:'1', name:'Documentación'},
+        ],
+        protections: [
+          {name:'Anti-isla',val:'Integrado'},{name:'Polaridad inversa DC',val:'Integrado'},
+          {name:'Polaridad inversa batería',val:'Integrado'},{name:'Aislamiento FV',val:'Integrado'},
+          {name:'Corriente residual',val:'Integrado'},{name:'Sobrecorriente CA',val:'Integrado'},
+          {name:'Sobretensión CA',val:'Integrado'},{name:'Interruptor CC',val:'Integrado'},
+          {name:'DPS CC',val:'Tipo II'},{name:'DPS CA',val:'Tipo III'},
+          {name:'AFCI',val:'Opcional'},{name:'Apagado rápido',val:'Opcional'},
+          {name:'Apagado remoto',val:'Integrado'},{name:'Peak shaving',val:'Integrado'},
+        ],
+        comms: [
+          {icon:'🔋',name:'BMS (Batería HV)',desc:'RS485 + CAN · Puerto BMS · Compatible múltiples marcas HV'},
+          {icon:'📊',name:'Smart Meter trifásico',desc:'RS485 · CT1→L1, CT2→L2, CT3→L3\nCada inversor debe conectarse a un contador independiente'},
+          {icon:'📱',name:'SEMS+ / Portal',desc:'WiFi 2.4 GHz + LAN + Bluetooth\nConfiguración con SolarGo'},
+          {icon:'🔌',name:'Control de carga (DO)',desc:'Contacto seco · Para bomba de calor u otras cargas externas'},
+        ],
+        breakers: [
+          {model:'GW15K-ET',batDis:'N/A (HV)',acOnGrid:'≥40A / ≥400V',pe:'6–10 mm²'},
+          {model:'GW20K-ET',batDis:'N/A (HV)',acOnGrid:'≥50A / ≥400V',pe:'6–10 mm²'},
+          {model:'GW25K-ET',batDis:'N/A (HV)',acOnGrid:'≥63A / ≥400V',pe:'10–16 mm²'},
+          {model:'GW30K-ET',batDis:'N/A (HV)',acOnGrid:'≥63A / ≥400V',pe:'10–16 mm²'},
+        ],
+      },
+      {
+        id:'ET4050', name:'ET 40–50 kW', tag:'tag-tri', tl:'Tri C&I', sub:'Inversor Híbrido Trifásico HV · 40–50 kW C&I',
+        highlights:[
+          {val:'40–50 kW', lbl:'Potencia nominal'},
+          {val:'3–4 MPPT', lbl:'Seguidores MPP'},
+          {val:'98.1%', lbl:'Eficiencia máx.'},
+          {val:'IP66', lbl:'Protección'},
+        ],
+        specs: {
+          'DC — Entrada FV': [
+            ['Potencia máx. entrada','60–75 kW según modelo'],
+            ['Tensión máx. entrada','1000 V (derating >980V)'],
+            ['Rango tensión MPPT','165–850 V'],
+            ['Tensión de arranque','200 V'],
+            ['Corriente máx. MPPT (GW40K)','42/32/42 A por MPPT'],
+            ['Corriente máx. MPPT (GW50K)','42/32/42/32 A por MPPT'],
+            ['Número de MPPTs','3 (GW40K) / 4 (GW50K)'],
+            ['Strings por MPPT','2'],
+          ],
+          'Batería — Entrada': [
+            ['Tipo de batería','Ion de litio (HV)'],
+            ['Tensión nominal batería','500 V'],
+            ['Rango tensión batería','200–800 V'],
+            ['Tensión de arranque','200 V'],
+            ['Corriente máx. carga/descarga','100 A'],
+            ['Potencia máx. carga','44 kW (40K) / 55 kW (50K)'],
+          ],
+          'CA — Salida (Red)': [
+            ['Potencia nominal','40–50 kW'],
+            ['Tensión nominal salida','380/400 V · 3L/N/PE'],
+            ['Frecuencia nominal','50/60 Hz'],
+            ['Rango frecuencia','45–55 / 55–65 Hz'],
+            ['Corriente máx. salida (380V)','60.6A (40K) / 75.8A (50K)'],
+            ['Salida desequilibrada','110% soportado'],
+          ],
+          'CA — Back-Up': [
+            ['Requiere STS Box externa','Sí (obligatorio para back-up)'],
+            ['Potencia nominal back-up','40–50 kW'],
+            ['Potencia máx. sin red (60s)','48/60 kVA'],
+            ['Potencia máx. sin red (10s)','60/75 kVA'],
+            ['Conmutación','Nivel UPS (con STS Box)'],
+          ],
+          'General': [
+            ['Temperatura operación','-35°C a +60°C'],
+            ['Altitud máx. operación','4000 m'],
+            ['Refrigeración','Ventilación inteligente'],
+            ['Topología','No aislado'],
+            ['Consumo nocturno','< 15 W'],
+            ['Dimensiones (An×Al×P)','520 × 660 × 260 mm'],
+            ['Peso','62 kg (40K) / 65 kg (50K)'],
+          ],
+          'Eficiencia': [
+            ['Eficiencia máx.','98.1%'],
+            ['Eficiencia europea','97.5%'],
+            ['Eficiencia máx. batería → CA','97.7%'],
+            ['Eficiencia MPPT','99.0%'],
+          ],
+        },
+        batteries: [
+          {name:'GoodWe Lynx C', spec:'HV C&I · 200–800V · Para ET 40-50kW'},
+          {name:'BYD Battery-Box Premium HVM', spec:'HV · 200–900V'},
+          {name:'Múltiples marcas HV C&I', spec:'Verificar lista aprobada en goodwe.com'},
+        ],
+        accessories: [
+          {name:'STS Box GoodWe', desc:'Obligatorio para función back-up · Conmutación estática UPS'},
+          {name:'Smart Meter GM3000', desc:'Trifásico · RS485 · Para limitación y medición'},
+          {name:'CT trifásico (x3)', desc:'Incluido · CT1→L1, CT2→L2, CT3→L3'},
+          {name:'Módulo 4G+BT (opcional)', desc:'Para comunicación celular en sitios remotos'},
+        ],
+        boxContents: [
+          {qty:'1', name:'Inversor ET 40/50kW'},
+          {qty:'1', name:'Kit de montaje en pared'},
+          {qty:'N', name:'Conectores MC4 (PV)'},
+          {qty:'1', name:'Conector de batería HV'},
+          {qty:'1', name:'Documentación'},
+        ],
+        protections: [
+          {name:'Anti-isla',val:'Integrado'},{name:'Polaridad inversa DC',val:'Integrado'},
+          {name:'Polaridad inversa batería',val:'Integrado'},{name:'Corriente residual',val:'Integrado'},
+          {name:'Sobrecorriente CA',val:'Integrado'},{name:'Sobretensión CA',val:'Integrado'},
+          {name:'Interruptor CC',val:'Integrado'},{name:'DPS CC',val:'Tipo II (Tipo I+II opcional)'},
+          {name:'DPS CA',val:'Tipo II'},{name:'AFCI',val:'Opcional'},
+          {name:'Apagado remoto',val:'Integrado'},{name:'Peak shaving',val:'Integrado'},
+        ],
+        comms: [
+          {icon:'🔋',name:'BMS (Batería HV)',desc:'CAN · Puerto dedicado'},
+          {icon:'📊',name:'Smart Meter',desc:'RS485 · CT1→L1, CT2→L2, CT3→L3'},
+          {icon:'📱',name:'SEMS+',desc:'RS485 + WiFi/LAN + Bluetooth + 4G opcional'},
+          {icon:'🔄',name:'Paralelo on/off-grid',desc:'Conexión paralela en red y back-up\nRequiere STS Box para paralelo back-up'},
+        ],
+        breakers: [
+          {model:'GW40K-ET-10',batDis:'N/A (HV)',acOnGrid:'≥125A / ≥400V',pe:'16–25 mm²'},
+          {model:'GW50K-ET-10',batDis:'N/A (HV)',acOnGrid:'≥160A / ≥400V',pe:'16–25 mm²'},
+        ],
+      },
+    ]
+  }
+};
+
 // ─── STATE ───────────────────────────────────────────────────────────────────
 let S={country:null,category:'',model:'',modelObj:null,mppt:2,stringsPerMppt:[1,1],batEnabled:true,checks:{},measures:{},photos:{},phasesDone:{}};
 let curPhase=null;
@@ -403,6 +926,7 @@ function go(id){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   if(id==='screen-phase') renderPhases();
+  if(id==='screen-manuals') renderManuals();
   window.scrollTo(0,0);
 }
 
@@ -427,9 +951,7 @@ function renderCountryList(list){
     el.appendChild(sec);
   });
 }
-function filterCountries(q){
-  renderCountryList(q.trim()===''?ALL_C:ALL_C.filter(c=>c.name.toLowerCase().includes(q.toLowerCase())||c.code.toLowerCase().includes(q.toLowerCase())));
-}
+function filterCountries(q){renderCountryList(q.trim()===''?ALL_C:ALL_C.filter(c=>c.name.toLowerCase().includes(q.toLowerCase())));}
 function selectCountry(c){
   S.country=c;
   document.getElementById('csi').value='';
@@ -440,14 +962,8 @@ function selectCountry(c){
 }
 renderCountryList(ALL_C);
 
-// ─── TYPE ────────────────────────────────────────────────────────────────────
-function selectCategory(cat){
-  S.category=cat;
-  renderModels(cat);
-  go('screen-model');
-}
-
-// ─── MODELS ──────────────────────────────────────────────────────────────────
+// ─── TYPE & MODEL ─────────────────────────────────────────────────────────────
+function selectCategory(cat){S.category=cat;renderModels(cat);go('screen-model');}
 function renderModels(cat){
   const data=MODELS[cat];
   const container=document.getElementById('model-groups');
@@ -467,29 +983,26 @@ function renderModels(cat){
     container.appendChild(grp);
   });
 }
-
 function selectModel(m){
   S.model=m.id; S.modelObj=m;
   S.mppt=m.defMppt; S.stringsPerMppt=[...m.defStr];
   S.checks={}; S.measures={}; S.photos={}; S.phasesDone={}; S.batEnabled=true;
   startTime=Date.now();
-  // Update MPPT screen
-  document.getElementById('mppt-info').innerHTML=`<strong>${m.name}</strong> — Configuración por defecto: ${m.defMppt} MPPT(s) con ${m.defStr.join('+')} string(s). Ajusta si tu instalación es diferente.`;
+  document.getElementById('mppt-info').innerHTML=`<strong>${m.name}</strong> — Config por defecto: ${m.defMppt} MPPT(s) · ${m.defStr.join('+')} string(s). Ajusta si es diferente.`;
   document.getElementById('mppt-val').textContent=S.mppt;
   renderStringsConfig();
   go('screen-mppt');
 }
 
-// ─── MPPT CONFIG ─────────────────────────────────────────────────────────────
+// ─── MPPT ─────────────────────────────────────────────────────────────────────
 function adjustMppt(d){
   const n=Math.max(1,Math.min(4,S.mppt+d));
-  if(n>S.mppt) S.stringsPerMppt.push(1);
-  else if(n<S.mppt) S.stringsPerMppt.pop();
+  if(n>S.mppt)S.stringsPerMppt.push(1);
+  else if(n<S.mppt)S.stringsPerMppt.pop();
   S.mppt=n;
   document.getElementById('mppt-val').textContent=n;
   renderStringsConfig();
 }
-
 function renderStringsConfig(){
   const el=document.getElementById('strings-config');
   el.innerHTML='';
@@ -505,14 +1018,12 @@ function renderStringsConfig(){
     el.appendChild(row);
   }
 }
-
 function adjustStrings(mpptIdx,d){
   S.stringsPerMppt[mpptIdx]=Math.max(1,Math.min(4,(S.stringsPerMppt[mpptIdx]||1)+d));
   document.getElementById(`sv-${mpptIdx}`).textContent=S.stringsPerMppt[mpptIdx];
 }
-
 function confirmMpptConfig(){
-  const isTri=['ET','ETG2','SDT','MS'].includes(S.model);
+  const isTri=['ET','ETG2','ET4050','ET1530','SDT','MS'].includes(S.model);
   const vNet=isTri?S.country.v3:S.country.v1;
   document.getElementById('bc-c').textContent=S.country.flag+' '+S.country.name;
   document.getElementById('bc-cat').textContent=MODELS[S.category].label;
@@ -524,30 +1035,25 @@ function confirmMpptConfig(){
 // ─── PHASES ──────────────────────────────────────────────────────────────────
 function buildPhases(){
   const isH=S.category==='hybrid';
-  const isMicro=S.model==='MICRO';
-  const isTri=['ET','ETG2','SDT','MS'].includes(S.model);
+  const isTri=['ET','ETG2','ET4050','ET1530','SDT','MS'].includes(S.model);
   const c=S.country;
   const vNet=isTri?c.v3:c.v1;
   const vLo=isTri?Math.round(c.vR[0]*c.v3/c.v1):c.vR[0];
   const vHi=isTri?Math.round(c.vR[1]*c.v3/c.v1):c.vR[1];
-  const hzLo=c.hzR[0], hzHi=c.hzR[1];
+  const hzLo=c.hzR[0],hzHi=c.hzR[1];
 
-  // Build DC items dynamically from MPPT config
-  let dcItems=[];
+  let dcPreItems=[];
   for(let m=0;m<S.mppt;m++){
     const ns=S.stringsPerMppt[m]||1;
-    // Voc per string in this MPPT
     for(let s=0;s<ns;s++){
-      dcItems.push({id:`voc_m${m}_s${s}`,text:`Voc MPPT ${m+1} · String ${s+1}`,type:'measure',unit:'V',placeholder:'Ej: 380',rangeHint:'Verificar vs tabla de paneles'});
+      dcPreItems.push({id:`voc_m${m}_s${s}`,text:`Voc MPPT ${m+1} · String ${s+1}`,type:'measure',unit:'V',placeholder:'Ej: 380',rangeHint:'Verificar vs tabla de paneles'});
     }
-    // Iso per string (positivo y negativo)
     for(let s=0;s<ns;s++){
-      dcItems.push({id:`iso_pos_m${m}_s${s}`,text:`Aislamiento (+) MPPT ${m+1} · String ${s+1}`,type:'measure',unit:'MΩ',placeholder:'≥ 1.0',rangeHint:'Mínimo: 1 MΩ'});
-      dcItems.push({id:`iso_neg_m${m}_s${s}`,text:`Aislamiento (−) MPPT ${m+1} · String ${s+1}`,type:'measure',unit:'MΩ',placeholder:'≥ 1.0',rangeHint:'Mínimo: 1 MΩ'});
+      dcPreItems.push({id:`iso_pos_m${m}_s${s}`,text:`Aislamiento (+) MPPT ${m+1} · String ${s+1}`,type:'measure',unit:'MΩ',placeholder:'≥ 1.0',rangeHint:'Mínimo: 1 MΩ'});
+      dcPreItems.push({id:`iso_neg_m${m}_s${s}`,text:`Aislamiento (−) MPPT ${m+1} · String ${s+1}`,type:'measure',unit:'MΩ',placeholder:'≥ 1.0',rangeHint:'Mínimo: 1 MΩ'});
     }
   }
 
-  // Voc/Vmp hot DC items
   let hotDcItems=[];
   for(let m=0;m<S.mppt;m++){
     const ns=S.stringsPerMppt[m]||1;
@@ -573,7 +1079,7 @@ function buildPhases(){
         {id:'pre9',text:'Inversor montado con ventilación adecuada',type:'check'},
         ...(isH?[{id:'pre10',text:'Batería ubicada con ventilación adecuada',type:'check'}]:[]),
       ]},
-      {title:`AISLAMIENTO DC — PRE ENERGIZACIÓN (${S.mppt} MPPT · ${S.stringsPerMppt.join('+')} strings)`,items:dcItems},
+      {title:`AISLAMIENTO DC — PRE ENERGIZACIÓN (${S.mppt} MPPT · ${S.stringsPerMppt.join('+')} strings)`,items:dcPreItems},
       {title:'FOTO INICIAL',items:[
         {id:'pre_f1',text:'Foto general del sistema antes de energizar',type:'photo'},
       ]}
@@ -704,16 +1210,14 @@ function renderChecklist(phase){
     const grp=document.createElement('div');
     grp.className='sg';
     if(sec.battery){
-      // Battery section with toggle
       const header=document.createElement('div');
       header.className='bat-section-header';
       header.onclick=()=>toggleBatSection();
-      header.id='bat-header-'+sec.title.replace(/\s/g,'');
       const isOn=S.batEnabled;
       header.innerHTML=`<div class="bat-section-title">🔋 ${sec.title}</div>
         <div class="bat-toggle">
           <span>${isOn?'Incluida':'Excluida'}</span>
-          <div class="toggle-sw ${isOn?'on':''}" id="bat-toggle-sw"><div class="toggle-knob"></div></div>
+          <div class="toggle-sw ${isOn?'on':''}"><div class="toggle-knob"></div></div>
         </div>`;
       grp.appendChild(header);
       const wrap=document.createElement('div');
@@ -730,11 +1234,7 @@ function renderChecklist(phase){
   updateProgress(phase);
 }
 
-function toggleBatSection(){
-  S.batEnabled=!S.batEnabled;
-  // Re-render checklist to update toggle and counts
-  renderChecklist(curPhase);
-}
+function toggleBatSection(){S.batEnabled=!S.batEnabled;renderChecklist(curPhase);}
 
 function buildItem(item){
   const wrap=document.createElement('div');
@@ -762,18 +1262,14 @@ function buildItem(item){
   }
   if(isDone||isNA) inner+=`<div class="ca"><button class="cbtn" onclick="undoCheck('${item.id}')">↩ Desmarcar</button></div>`;
   wrap.innerHTML=box+`<div class="cc">${inner}</div>`;
-  if(!hasMeasure&&!hasPhoto){
-    wrap.style.cursor='pointer';
-    wrap.onclick=e=>{if(e.target.tagName==='BUTTON')return;tCheck(item.id);};
-  }
+  if(!hasMeasure&&!hasPhoto){wrap.style.cursor='pointer';wrap.onclick=e=>{if(e.target.tagName==='BUTTON')return;tCheck(item.id);};}
   return wrap;
 }
 
 function chkRange(id){
-  const c=S.country; const val=parseFloat(S.measures[id]); if(isNaN(val))return;
-  const el=document.getElementById('rh-'+id); if(!el)return;
-  const isTri=['ET','ETG2','SDT','MS'].includes(S.model);
-  // Find item to get rKey
+  const c=S.country;const val=parseFloat(S.measures[id]);if(isNaN(val))return;
+  const el=document.getElementById('rh-'+id);if(!el)return;
+  const isTri=['ET','ETG2','ET4050','ET1530','SDT','MS'].includes(S.model);
   let item=null;
   for(const sec of curPhase.sections){item=sec.items?.find(i=>i.id===id);if(item)break;}
   if(!item||!item.rKey)return;
@@ -782,9 +1278,9 @@ function chkRange(id){
     const hi=isTri?Math.round(c.vR[1]*c.v3/c.v1):c.vR[1];
     el.className=(val>=lo&&val<=hi)?'rh ok':'rh warn';
     el.textContent=(val>=lo&&val<=hi)?`✓ En rango (${lo}–${hi} V)`:`⚠ Fuera de rango (${lo}–${hi} V)`;
-  } else if(item.rKey==='hz'){
+  }else if(item.rKey==='hz'){
     el.className=(val>=c.hzR[0]&&val<=c.hzR[1])?'rh ok':'rh warn';
-    el.textContent=(val>=c.hzR[0]&&val<=c.hzR[1])?`✓ En rango (${c.hzR[0]}–${c.hzR[1]} Hz)`:`⚠ Fuera de rango (${c.hzR[0]}–${c.hzR[1]} Hz)`;
+    el.textContent=(val>=c.hzR[0]&&val<=c.hzR[1])?`✓ En rango (${c.hzR[0]}–${c.hzR[1]} Hz)`:`⚠ Fuera de rango`;
   }
 }
 
@@ -794,14 +1290,13 @@ function undoCheck(id){delete S.checks[id];refresh(id);updateProgress(curPhase);
 function confirmMeasure(id){
   const val=S.measures[id]||document.querySelector(`#item-${id} input`)?.value;
   if(!val||isNaN(parseFloat(val))){showToast('Ingresa un valor numérico válido.');return;}
-  S.measures[id]=val; S.checks[id]=true; refresh(id); updateProgress(curPhase);
+  S.measures[id]=val;S.checks[id]=true;refresh(id);updateProgress(curPhase);
 }
 function addPhoto(id){S.photos[id]=(S.photos[id]||0)+1;refresh(id);updateProgress(curPhase);}
 function confirmPhoto(id){
   if(!S.photos[id]){showToast('Agrega al menos una foto.');return;}
-  S.checks[id]=true; refresh(id); updateProgress(curPhase);
+  S.checks[id]=true;refresh(id);updateProgress(curPhase);
 }
-
 function refresh(id){
   let item=null;
   for(const sec of curPhase.sections){item=sec.items?.find(i=>i.id===id);if(item)break;}
@@ -809,19 +1304,14 @@ function refresh(id){
   const old=document.getElementById('item-'+id);
   if(old)old.replaceWith(buildItem(item));
 }
-
 function countItems(phase){
   let total=0,done=0;
   phase.sections.forEach(sec=>{
-    if(sec.battery&&!S.batEnabled)return; // skip battery if disabled
-    sec.items?.forEach(item=>{
-      total++;
-      if(S.checks[item.id]===true||S.checks[item.id]==='na')done++;
-    });
+    if(sec.battery&&!S.batEnabled)return;
+    sec.items?.forEach(item=>{total++;if(S.checks[item.id]===true||S.checks[item.id]==='na')done++;});
   });
   return{total,done};
 }
-
 function updateProgress(phase){
   const{total,done}=countItems(phase);
   const pct=total?Math.round(done/total*100):0;
@@ -831,66 +1321,36 @@ function updateProgress(phase){
   btn.disabled=done<total;
   btn.textContent=done===total?'✓ Completar fase':`Completar fase (${total-done} pendiente${total-done!==1?'s':''})`;
 }
-
 function completePhase(){
   const{total,done}=countItems(curPhase);
   if(done<total){showToast('Completa todos los puntos antes de continuar.');return;}
   S.phasesDone[curPhase.id]=true;
-
-  // Check if all 4 phases done
   const phases=buildPhases();
   const allDone=phases.every(p=>S.phasesDone[p.id]);
-  if(allDone){
-    showCelebration(phases);
-    return;
-  }
+  if(allDone){showCelebration(phases);return;}
   document.getElementById('smsg').textContent=`"${curPhase.name}" completada con ${total} puntos verificados.`;
   go('screen-success');
 }
 
 // ─── CELEBRATION ─────────────────────────────────────────────────────────────
 function showCelebration(phases){
-  // Count totals
-  let totalItems=0, totalMeasures=0, totalPhotos=0;
-  phases.forEach(p=>{
-    p.sections.forEach(sec=>{
-      if(sec.battery&&!S.batEnabled)return;
-      sec.items?.forEach(item=>{
-        totalItems++;
-        if(item.type==='measure'&&S.measures[item.id])totalMeasures++;
-        if(item.type==='photo'&&S.photos[item.id])totalPhotos++;
-      });
-    });
-  });
+  let totalItems=0,totalMeasures=0,totalPhotos=0;
+  phases.forEach(p=>{p.sections.forEach(sec=>{if(sec.battery&&!S.batEnabled)return;sec.items?.forEach(item=>{totalItems++;if(item.type==='measure'&&S.measures[item.id])totalMeasures++;if(item.type==='photo'&&S.photos[item.id])totalPhotos++;});});});
   const mins=Math.round((Date.now()-startTime)/60000);
-
   document.getElementById('cel-stats').innerHTML=`
     <div class="cel-stat"><div class="cel-stat-val">${totalItems}</div><div class="cel-stat-lbl">Puntos<br>verificados</div></div>
     <div class="cel-stat"><div class="cel-stat-val">${totalMeasures}</div><div class="cel-stat-lbl">Mediciones<br>registradas</div></div>
     <div class="cel-stat"><div class="cel-stat-val">${totalPhotos}</div><div class="cel-stat-lbl">Fotos<br>tomadas</div></div>
-    <div class="cel-stat"><div class="cel-stat-val">${mins}</div><div class="cel-stat-lbl">Minutos<br>totales</div></div>
-  `;
+    <div class="cel-stat"><div class="cel-stat-val">${mins}</div><div class="cel-stat-lbl">Minutos<br>totales</div></div>`;
   go('screen-celebration');
   launchConfetti();
 }
-
 function launchConfetti(){
-  const wrap=document.getElementById('confetti-wrap');
-  wrap.innerHTML='';
+  const wrap=document.getElementById('confetti-wrap');wrap.innerHTML='';
   const colors=['#E8002D','#FFD700','#22C55E','#3B82F6','#A855F7','#FF8099','#86EFAC'];
   for(let i=0;i<60;i++){
-    const p=document.createElement('div');
-    p.className='confetti-piece';
-    p.style.cssText=`
-      left:${Math.random()*100}%;
-      top:${-Math.random()*20}px;
-      background:${colors[Math.floor(Math.random()*colors.length)]};
-      width:${6+Math.random()*8}px;
-      height:${6+Math.random()*8}px;
-      border-radius:${Math.random()>0.5?'50%':'2px'};
-      animation-duration:${2+Math.random()*3}s;
-      animation-delay:${Math.random()*2}s;
-    `;
+    const p=document.createElement('div');p.className='confetti-piece';
+    p.style.cssText=`left:${Math.random()*100}%;top:${-Math.random()*20}px;background:${colors[Math.floor(Math.random()*colors.length)]};width:${6+Math.random()*8}px;height:${6+Math.random()*8}px;border-radius:${Math.random()>.5?'50%':'2px'};animation-duration:${2+Math.random()*3}s;animation-delay:${Math.random()*2}s;`;
     wrap.appendChild(p);
   }
 }
@@ -899,78 +1359,149 @@ function launchConfetti(){
 function downloadPDF(){
   const phases=buildPhases();
   const c=S.country;
-  const isTri=['ET','ETG2','SDT','MS'].includes(S.model);
+  const isTri=['ET','ETG2','ET4050','ET1530','SDT','MS'].includes(S.model);
   const date=new Date().toLocaleDateString('es-CL',{day:'2-digit',month:'2-digit',year:'numeric'});
   const time=new Date().toLocaleTimeString('es-CL',{hour:'2-digit',minute:'2-digit'});
-
-  let html=`<!DOCTYPE html><html><head><meta charset="UTF-8">
-  <style>
-    body{font-family:Arial,sans-serif;max-width:800px;margin:0 auto;padding:30px;color:#111;font-size:13px;}
-    .header{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:3px solid #E8002D;padding-bottom:16px;margin-bottom:24px;}
-    .brand{font-size:22px;font-weight:900;letter-spacing:.03em;}
-    .brand span{color:#E8002D;}
-    .meta{text-align:right;font-size:11px;color:#666;line-height:1.8;}
-    .info-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:24px;}
-    .info-box{background:#f8f8f8;border:1px solid #e0e0e0;border-radius:6px;padding:10px 12px;}
-    .info-label{font-size:10px;color:#888;text-transform:uppercase;letter-spacing:.05em;margin-bottom:3px;}
-    .info-val{font-size:14px;font-weight:700;}
-    .phase-title{background:#E8002D;color:white;padding:8px 14px;border-radius:6px;font-weight:700;font-size:13px;margin:20px 0 10px;}
-    .sec-title{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:#888;margin:12px 0 6px;padding-bottom:4px;border-bottom:1px solid #eee;}
-    .item{display:flex;align-items:flex-start;gap:10px;padding:6px 0;border-bottom:1px solid #f5f5f5;}
-    .check{width:16px;height:16px;border-radius:3px;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;font-size:10px;}
-    .check.ok{background:#22C55E;color:white;}
-    .check.na{background:#999;color:white;}
-    .check.pending{border:1.5px solid #ddd;}
-    .item-text{flex:1;font-size:12px;}
-    .item-val{font-size:11px;font-weight:700;color:#E8002D;font-family:monospace;}
-    .footer{margin-top:40px;border-top:1px solid #eee;padding-top:14px;display:flex;justify-content:space-between;font-size:10px;color:#aaa;}
-    .sign-row{display:flex;gap:30px;margin-top:30px;}
-    .sign-box{flex:1;border-top:1px solid #333;padding-top:8px;font-size:11px;color:#555;}
-    @media print{body{padding:15px;}}
-  </style></head><body>
-  <div class="header">
-    <div><div class="brand">Good<span>We</span></div><div style="font-size:13px;font-weight:600;margin-top:4px;">Informe de Comisionamiento</div></div>
-    <div class="meta"><div>${date} · ${time}</div><div>${c.flag} ${c.name} · ${isTri?c.v3:c.v1}V · ${c.hz}Hz</div></div>
-  </div>
-  <div class="info-grid">
-    <div class="info-box"><div class="info-label">Modelo</div><div class="info-val">${S.modelObj.name}</div></div>
-    <div class="info-box"><div class="info-label">Categoría</div><div class="info-val">${MODELS[S.category].label}</div></div>
-    <div class="info-box"><div class="info-label">Configuración</div><div class="info-val">${S.mppt} MPPT · ${S.stringsPerMppt.join('+')} strings</div></div>
-  </div>`;
-
+  let html=`<!DOCTYPE html><html><head><meta charset="UTF-8"><style>body{font-family:Arial,sans-serif;max-width:800px;margin:0 auto;padding:30px;color:#111;font-size:13px;}.header{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:3px solid #E8002D;padding-bottom:16px;margin-bottom:24px;}.brand{font-size:22px;font-weight:900;}.brand span{color:#E8002D;}.meta{text-align:right;font-size:11px;color:#666;line-height:1.8;}.info-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:24px;}.info-box{background:#f8f8f8;border:1px solid #e0e0e0;border-radius:6px;padding:10px 12px;}.info-label{font-size:10px;color:#888;text-transform:uppercase;margin-bottom:3px;}.info-val{font-size:14px;font-weight:700;}.phase-title{background:#E8002D;color:white;padding:8px 14px;border-radius:6px;font-weight:700;font-size:13px;margin:20px 0 10px;}.sec-title{font-size:10px;text-transform:uppercase;color:#888;margin:12px 0 6px;padding-bottom:4px;border-bottom:1px solid #eee;}.item{display:flex;align-items:flex-start;gap:10px;padding:6px 0;border-bottom:1px solid #f5f5f5;}.check{width:16px;height:16px;border-radius:3px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px;}.check.ok{background:#22C55E;color:white;}.check.na{background:#999;color:white;}.check.pending{border:1.5px solid #ddd;}.item-text{flex:1;font-size:12px;}.item-val{font-size:11px;font-weight:700;color:#E8002D;font-family:monospace;}.sign-row{display:flex;gap:30px;margin-top:30px;}.sign-box{flex:1;border-top:1px solid #333;padding-top:8px;font-size:11px;color:#555;}.footer{margin-top:40px;border-top:1px solid #eee;padding-top:14px;display:flex;justify-content:space-between;font-size:10px;color:#aaa;}@media print{body{padding:15px;}}</style></head><body>
+  <div class="header"><div><div class="brand">Good<span>We</span></div><div style="font-size:13px;font-weight:600;margin-top:4px;">Informe de Comisionamiento</div></div><div class="meta"><div>${date} · ${time}</div><div>${c.flag} ${c.name} · ${isTri?c.v3:c.v1}V · ${c.hz}Hz</div></div></div>
+  <div class="info-grid"><div class="info-box"><div class="info-label">Modelo</div><div class="info-val">${S.modelObj.name}</div></div><div class="info-box"><div class="info-label">Categoría</div><div class="info-val">${MODELS[S.category].label}</div></div><div class="info-box"><div class="info-label">Configuración</div><div class="info-val">${S.mppt} MPPT · ${S.stringsPerMppt.join('+')} strings</div></div></div>`;
   phases.forEach(phase=>{
     html+=`<div class="phase-title">${phase.name}</div>`;
     phase.sections.forEach(sec=>{
       if(sec.battery&&!S.batEnabled)return;
       html+=`<div class="sec-title">${sec.title}</div>`;
       sec.items?.forEach(item=>{
-        const chk=S.checks[item.id];
-        const val=S.measures[item.id]||'';
-        const photos=S.photos[item.id]||0;
+        const chk=S.checks[item.id];const val=S.measures[item.id]||'';const photos=S.photos[item.id]||0;
         let statusClass=chk===true?'ok':chk==='na'?'na':'pending';
         let statusChar=chk===true?'✓':chk==='na'?'N/A':'';
         let valStr='';
-        if(item.type==='measure'&&val) valStr=`<span class="item-val">${val} ${item.unit}</span>`;
-        if(item.type==='photo'&&photos>0) valStr=`<span class="item-val">${photos} foto(s)</span>`;
+        if(item.type==='measure'&&val)valStr=`<span class="item-val">${val} ${item.unit}</span>`;
+        if(item.type==='photo'&&photos>0)valStr=`<span class="item-val">${photos} foto(s)</span>`;
         html+=`<div class="item"><div class="check ${statusClass}">${statusChar}</div><div class="item-text">${item.text}</div>${valStr}</div>`;
       });
     });
   });
-
-  html+=`<div class="sign-row">
-    <div class="sign-box">Instalador · Firma y Nombre</div>
-    <div class="sign-box">Cliente · Firma y Nombre</div>
-    <div class="sign-box">Fecha y Lugar</div>
-  </div>
-  <div class="footer"><div>GoodWe Comisionamiento App v1.1</div><div>Documento generado automáticamente</div></div>
-  </body></html>`;
-
+  html+=`<div class="sign-row"><div class="sign-box">Instalador · Firma y Nombre</div><div class="sign-box">Cliente · Firma y Nombre</div><div class="sign-box">Fecha y Lugar</div></div>
+  <div class="footer"><div>GoodWe Comisionamiento App v2.0</div><div>Documento generado automáticamente</div></div></body></html>`;
   const blob=new Blob([html],{type:'text/html'});
   const url=URL.createObjectURL(blob);
   const a=document.createElement('a');
-  a.href=url; a.download=`GoodWe_Comisionamiento_${S.modelObj.name}_${date.replace(/\//g,'-')}.html`;
-  a.click(); URL.revokeObjectURL(url);
-  showToast('Informe descargado. Ábrelo en el navegador y usa Imprimir → Guardar como PDF.');
+  a.href=url;a.download=`GoodWe_Comisionamiento_${S.modelObj.name}_${date.replace(/\//g,'-')}.html`;
+  a.click();URL.revokeObjectURL(url);
+  showToast('Informe descargado. Ábrelo y usa Imprimir → Guardar como PDF.');
+}
+
+// ─── MANUALES ────────────────────────────────────────────────────────────────
+function renderManuals(){
+  const el=document.getElementById('manual-list');
+  el.innerHTML='';
+  Object.entries(FICHAS).forEach(([catKey,cat])=>{
+    const sec=document.createElement('div');
+    sec.className='manual-category';
+    sec.innerHTML=`<div class="manual-cat-title">${cat.label}</div><div class="manual-grid"></div>`;
+    const grid=sec.querySelector('.manual-grid');
+    cat.models.forEach(m=>{
+      const card=document.createElement('div');
+      card.className='manual-card';
+      card.innerHTML=`<div class="manual-model-name">${m.name}</div><div class="manual-model-tag ${m.tag}">${m.tl}</div><div class="manual-model-desc">${m.sub}</div>`;
+      card.onclick=()=>openModelDetail(m);
+      grid.appendChild(card);
+    });
+    el.appendChild(sec);
+  });
+}
+
+function openModelDetail(m){
+  document.getElementById('md-name').textContent=m.name;
+  document.getElementById('md-sub').textContent=m.sub;
+  const body=document.getElementById('md-body');
+  body.innerHTML='';
+
+  // Highlights
+  const hlSec=document.createElement('div');
+  hlSec.className='md-section';
+  hlSec.innerHTML=`<div class="md-section-title">⚡ DATOS CLAVE</div><div class="spec-highlights"></div>`;
+  const hlGrid=hlSec.querySelector('.spec-highlights');
+  m.highlights.forEach(h=>{
+    hlGrid.innerHTML+=`<div class="spec-hl"><div class="spec-hl-val">${h.val}</div><div class="spec-hl-lbl">${h.lbl}</div></div>`;
+  });
+  body.appendChild(hlSec);
+
+  // Specs
+  Object.entries(m.specs).forEach(([groupName,rows])=>{
+    const sec=document.createElement('div');
+    sec.className='md-section';
+    sec.innerHTML=`<div class="md-section-title">📐 ${groupName.toUpperCase()}</div><table class="spec-table"></table>`;
+    const table=sec.querySelector('table');
+    rows.forEach(([label,val])=>{
+      table.innerHTML+=`<tr><td>${label}</td><td>${val}</td></tr>`;
+    });
+    body.appendChild(sec);
+  });
+
+  // Battery compat
+  if(m.batteries?.length){
+    const sec=document.createElement('div');
+    sec.className='md-section';
+    sec.innerHTML=`<div class="md-section-title">🔋 COMPATIBILIDAD DE BATERÍAS</div><div class="bat-compat-list"></div>`;
+    const list=sec.querySelector('.bat-compat-list');
+    m.batteries.forEach(b=>{list.innerHTML+=`<div class="bat-compat-item"><span class="bat-compat-name">${b.name}</span><span class="bat-compat-tag">${b.spec}</span></div>`;});
+    body.appendChild(sec);
+  }
+
+  // Accessories
+  if(m.accessories?.length){
+    const sec=document.createElement('div');
+    sec.className='md-section';
+    sec.innerHTML=`<div class="md-section-title">🔌 ACCESORIOS Y DONGLES</div><div class="acc-list"></div>`;
+    const list=sec.querySelector('.acc-list');
+    m.accessories.forEach(a=>{list.innerHTML+=`<div class="acc-item"><div class="acc-name">${a.name}</div><div class="acc-desc">${a.desc}</div></div>`;});
+    body.appendChild(sec);
+  }
+
+  // Box contents
+  if(m.boxContents?.length){
+    const sec=document.createElement('div');
+    sec.className='md-section';
+    sec.innerHTML=`<div class="md-section-title">📦 CONTENIDO DE LA CAJA</div><div class="box-list"></div>`;
+    const list=sec.querySelector('.box-list');
+    m.boxContents.forEach(b=>{list.innerHTML+=`<div class="box-item"><span class="box-qty">×${b.qty}</span><span>${b.name}</span></div>`;});
+    body.appendChild(sec);
+  }
+
+  // Protections
+  if(m.protections?.length){
+    const sec=document.createElement('div');
+    sec.className='md-section';
+    sec.innerHTML=`<div class="md-section-title">🛡️ PROTECCIONES</div><div class="prot-grid"></div>`;
+    const grid=sec.querySelector('.prot-grid');
+    m.protections.forEach(p=>{grid.innerHTML+=`<div class="prot-item"><div class="prot-name">${p.name}</div><div class="prot-val ${p.val==='Opcional'?'opt':''}">${p.val}</div></div>`;});
+    body.appendChild(sec);
+  }
+
+  // Communications
+  if(m.comms?.length){
+    const sec=document.createElement('div');
+    sec.className='md-section';
+    sec.innerHTML=`<div class="md-section-title">📡 PUERTOS DE COMUNICACIÓN</div><div class="comm-list"></div>`;
+    const list=sec.querySelector('.comm-list');
+    m.comms.forEach(c=>{list.innerHTML+=`<div class="comm-item"><div class="comm-icon">${c.icon}</div><div><div class="comm-name">${c.name}</div><div class="comm-desc">${c.desc.replace(/\n/g,'<br>')}</div></div></div>`;});
+    body.appendChild(sec);
+  }
+
+  // Breakers
+  if(m.breakers?.length){
+    const sec=document.createElement('div');
+    sec.className='md-section';
+    sec.innerHTML=`<div class="md-section-title">⚡ DISYUNTORES Y PUESTA A TIERRA RECOMENDADOS</div>
+    <table class="breaker-table">
+      <tr><th>Modelo</th><th>Interruptor batería</th><th>Disyuntor CA</th><th>PE (tierra)</th></tr>
+      ${m.breakers.map(b=>`<tr><td>${b.model}</td><td>${b.batDis}</td><td>${b.acOnGrid}</td><td>${b.pe}</td></tr>`).join('')}
+    </table>`;
+    body.appendChild(sec);
+  }
+
+  go('screen-model-detail');
 }
 
 // ─── TOAST ───────────────────────────────────────────────────────────────────
@@ -980,14 +1511,11 @@ function showToast(msg){
   document.getElementById('tt').textContent=msg;
   t.classList.add('show');
   clearTimeout(tTimer);
-  tTimer=setTimeout(()=>{t.classList.remove("show");},4000);
+  tTimer=setTimeout(()=>t.classList.remove('show'),4000);
 }
 
-// Hide stale toast on load
 window.addEventListener('load',()=>document.getElementById('toast').classList.remove('show'));
-if('serviceWorker' in navigator){
-  window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
-}
+if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));}
 </script>
 </body>
 </html>
