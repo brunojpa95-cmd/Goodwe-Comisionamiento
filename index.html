@@ -287,7 +287,7 @@ body{font-family:'Inter',sans-serif;background:var(--d);color:var(--t);min-heigh
 <!-- SPLASH -->
 <div id="screen-splash" class="screen active" id="ss">
   <div class="gw-logo">
-    <img src="https://en.goodwe.com/images/goodwe-logo.svg" alt="GoodWe" onerror="this.style.display='none';document.getElementById('gwlf').style.display='block'">
+    <img src="https://en.goodwe.com/Content/Images/logo.png" alt="GoodWe" onerror="this.style.display='none';document.getElementById('gwlf').style.display='block'">
     <div id="gwlf" class="gw-logo-fallback">Good<span>We</span></div>
   </div>
   <div class="splash-title">Asistente de<br><span>Comisionamiento</span></div>
@@ -296,7 +296,7 @@ body{font-family:'Inter',sans-serif;background:var(--d);color:var(--t);min-heigh
     <button class="btn-p" onclick="go('screen-country')">⚡ Iniciar Comisionamiento</button>
     <button class="btn-s" onclick="go('screen-manuals')">📚 Fichas Técnicas</button>
   </div>
-  <div class="splash-ver">v2.0 · Smart Energy Innovator</div>
+  <div class="splash-ver">v2.1 · Smart Energy Innovator</div>
 </div>
 
 <!-- COUNTRY -->
@@ -462,7 +462,7 @@ const MODELS={
   hybrid:{label:'Híbrido',groups:[
     {title:'Monofásico',items:[
       {id:'ESG2',name:'ESG2',tag:'tag-mono',tl:'Mono',desc:'3–6 kW · 2 MPPT · LV',defMppt:2,defStr:[1,1]},
-      {id:'ESUNIQ',name:'ES UNIQ',tag:'tag-mono',tl:'Mono',desc:'3–6 kW · 2 MPPT · All-in-one',defMppt:2,defStr:[1,1]},
+      {id:'ESUNIQ',name:'ES UNIQ',tag:'tag-mono',tl:'Mono',desc:'3–12 kW · 1-2 MPPT · LV · IP66',defMppt:2,defStr:[1,1]},
     ]},
     {title:'Trifásico',items:[
       {id:'ET',name:'ET 15-30kW',tag:'tag-tri',tl:'Tri',desc:'15–30 kW · 2-3 MPPT · HV',defMppt:2,defStr:[2,2]},
@@ -605,6 +605,126 @@ const FICHAS = {
         ],
       },
       {
+      {
+        id:'ESUNIQ', name:'ES UNIQ', tag:'tag-mono', tl:'Mono', sub:'Inversor Híbrido Monofásico LV · 3–12 kW · IP66',
+        highlights:[
+          {val:'3–12 kW', lbl:'Potencia nominal'},
+          {val:'1–2 MPPT', lbl:'Seguidores MPP'},
+          {val:'600 V', lbl:'Vdc máx entrada'},
+          {val:'IP66', lbl:'Protección'},
+        ],
+        specs: {
+          'DC — Entrada FV': [
+            ['Potencia máx. entrada','6–24 kW según modelo (200% oversizing)'],
+            ['Tensión máx. entrada','600 V (standby >580V)'],
+            ['Rango tensión MPPT','60–550 V'],
+            ['Tensión de arranque','58 V'],
+            ['Corriente máx. por MPPT','20A (3-6kW) / 32A (8-12kW)'],
+            ['Corriente cortocircuito por MPPT','26A (3-6kW) / 48A (8-12kW)'],
+            ['Número de MPPTs','1 (3kW) / 2 (3.6–12kW)'],
+            ['Strings por MPPT','1 (3-6kW) / 2 (8-12kW)'],
+          ],
+          'Batería — Entrada': [
+            ['Tipo de batería','Ion de litio / Plomo-ácido'],
+            ['Tensión nominal batería','48 V'],
+            ['Rango tensión batería','40–60 V'],
+            ['Tensión de arranque','44.2 V'],
+            ['Corriente máx. carga/descarga','70A (3kW) → 240A (12kW)'],
+            ['Potencia máx. carga','3.0–12.0 kW según modelo'],
+            ['Potencia máx. descarga','3.3–13.2 kW según modelo'],
+          ],
+          'CA — Salida (Red)': [
+            ['Potencia nominal','3.0–12.0 kW'],
+            ['Potencia máx. activa','3.3–13.2 kW (limitado a Pn en Chile/Brasil)'],
+            ['Tensión nominal salida','220/230/240 V'],
+            ['Rango tensión salida','170–280 V'],
+            ['Frecuencia nominal','50/60 Hz'],
+            ['Rango frecuencia','45–55 / 55–65 Hz'],
+            ['Corriente máx. salida a red','15–60 A según modelo'],
+            ['Factor de potencia','~1 (ajustable 0.8 cap/ind)'],
+            ['THD máx.','< 3%'],
+          ],
+          'CA — Back-Up': [
+            ['Potencia nominal back-up','3.0–12.0 kW'],
+            ['Potencia máx. sin red (10s)','6.0–24.0 kVA'],
+            ['Conmutación a modo back-up','< 4 ms (nivel UPS)'],
+            ['Paralelo máx.','Hasta 6 unidades (on-grid y off-grid)'],
+          ],
+          'CA — Generador (Puerto 3-en-1)': [
+            ['Puerto especial 3-en-1','Generador + Cargas inteligentes + Inversor on-grid'],
+            ['Potencia nominal desde generador','3.0–12.0 kW según modelo'],
+            ['Tensión entrada generador','220/230/240 V'],
+            ['Frecuencia generador','50/60 Hz'],
+            ['Operación micro-grid','✓ Con inversor FV conectado a red'],
+          ],
+          'General': [
+            ['Temperatura operación','-35°C a +60°C'],
+            ['Humedad relativa','0–95%'],
+            ['Altitud máx. operación','3000 m'],
+            ['Refrigeración','Convección natural (3-6kW) / Ventilador (8-12kW)'],
+            ['Ruido','< 30 dB'],
+            ['Topología','No aislado'],
+            ['Pantalla','LCD táctil (diferenciador clave vs ESG2)'],
+            ['Dimensiones 3-6kW','560 × 415 × 204 mm'],
+            ['Dimensiones 8-12kW','560 × 444.5 × 226 mm'],
+            ['Peso 3-6kW','14.5–15.5 kg'],
+            ['Peso 8-12kW','27.0–29.0 kg'],
+          ],
+          'Eficiencia': [
+            ['Eficiencia máx.','97.6%'],
+            ['Eficiencia europea','96.2%'],
+            ['Eficiencia máx. batería → CA','95.5%'],
+            ['Eficiencia MPPT','99.9%'],
+          ],
+        },
+        batteries: [
+          {name:'GoodWe Lynx Home A', spec:'LV · Lynx A series · 48V · Para ES UNIQ'},
+          {name:'GoodWe Lynx Home U', spec:'LV · Lynx U series · 48V · Para ES UNIQ'},
+          {name:'Pylontech US2000/US3000', spec:'LV · 48V · CAN'},
+          {name:'BYD Battery-Box Premium LVS', spec:'LV · 48V · CAN'},
+          {name:'Baterías plomo-ácido', spec:'LV · 48V · Compatible'},
+        ],
+        accessories: [
+          {name:'Smart Meter GM1000', desc:'Monofásico · RS485 · Para limitación de inyección y autoconsumo'},
+          {name:'CT (transformador corriente)', desc:'Incluido · Se instala en línea de red'},
+          {name:'Módulo WiFi+LAN+BT', desc:'WiFi 2.4 GHz + LAN + Bluetooth · Incluido'},
+          {name:'Módulo 4G (opcional)', desc:'Para sitios sin WiFi disponible'},
+          {name:'Puerto 3-en-1 (exclusivo)', desc:'Generador + Smart Loads + Inversor on-grid en un solo puerto'},
+        ],
+        boxContents: [
+          {qty:'1', name:'Inversor ES UNIQ'},
+          {qty:'1', name:'Placa de montaje'},
+          {qty:'N', name:'Conectores MC4 (PV)'},
+          {qty:'1', name:'Conector de batería'},
+          {qty:'2', name:'Conectores CA (BACK-UP y ON-GRID)'},
+          {qty:'2', name:'Cables COM (BMS y contador)'},
+          {qty:'1', name:'Smart Meter GM1000'},
+          {qty:'4', name:'Pernos de expansión'},
+          {qty:'1', name:'Documentación'},
+        ],
+        protections: [
+          {name:'Anti-isla',val:'Integrado'},{name:'Polaridad inversa DC',val:'Integrado'},
+          {name:'Aislamiento FV',val:'Integrado'},{name:'Corriente residual',val:'Integrado'},
+          {name:'Sobrecorriente CA',val:'Integrado'},{name:'Sobretensión CA',val:'Integrado'},
+          {name:'Cortocircuito CA',val:'Integrado'},{name:'Interruptor CC',val:'Integrado'},
+          {name:'DPS CC',val:'Tipo III'},{name:'DPS CA',val:'Tipo III'},
+          {name:'AFCI (AI)',val:'Opcional'},{name:'Apagado rápido',val:'Opcional'},
+          {name:'Apagado remoto',val:'Integrado'},{name:'Back-up <4ms',val:'Integrado'},
+        ],
+        comms: [
+          {icon:'🔋',name:'BMS',desc:'CAN · Compatible con Lynx A, Lynx U y otras baterías LV'},
+          {icon:'📊',name:'Smart Meter / CT',desc:'RS485 · CT incluido · Puerto METER'},
+          {icon:'📱',name:'SEMS+ / Portal',desc:'WiFi 2.4 GHz + LAN + Bluetooth · Protocolos Modbus-RTU y Modbus-TCP'},
+          {icon:'⚡',name:'Puerto 3-en-1 (exclusivo ES UNIQ)',desc:'Un solo puerto para: Generador diésel · Cargas inteligentes · Inversor on-grid de terceros\nPermite operación micro-grid con inversor FV'},
+          {icon:'🔄',name:'Paralelo on/off-grid',desc:'Hasta 6 unidades · Tanto en modo conectado como en back-up'},
+        ],
+        breakers: [
+          {model:'GW3000/3600-ES-C10',batDis:'≥75A / ≥60V',acOnGrid:'≥20A / ≥230V',pe:'4–6 mm²'},
+          {model:'GW5000/6000-ES-C10',batDis:'≥125-150A / ≥60V',acOnGrid:'≥32A / ≥230V',pe:'4–6 mm²'},
+          {model:'GW8000-ES-C10',batDis:'≥160A / ≥60V',acOnGrid:'≥50A / ≥230V',pe:'6–10 mm²'},
+          {model:'GW10K/12K-ES-C10',batDis:'≥200-240A / ≥60V',acOnGrid:'≥63A / ≥230V',pe:'6–10 mm²'},
+        ],
+      },
         id:'ETG2', name:'ET-G2', tag:'tag-tri', tl:'Tri', sub:'Inversor Híbrido Trifásico HV · 6–15 kW',
         highlights:[
           {val:'6–15 kW', lbl:'Potencia nominal'},
