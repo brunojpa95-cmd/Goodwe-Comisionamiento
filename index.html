@@ -203,8 +203,8 @@ body{font-family:'Inter',sans-serif;background:var(--d);color:var(--t);min-heigh
 .cel-act{display:flex;flex-direction:column;gap:9px;width:100%;max-width:320px;align-items:center;}
 
 /* TOAST */
-.toast{position:fixed;bottom:84px;left:14px;right:14px;background:var(--d3);border:1px solid rgba(232,0,45,.3);border-radius:10px;padding:11px 13px;font-size:13px;z-index:100;display:flex;gap:9px;align-items:flex-start;transform:translateY(120%);transition:transform .28s ease;}
-.toast.show{transform:translateY(0);}
+.toast{position:fixed;bottom:90px;left:14px;right:14px;background:var(--d3);border:1px solid rgba(232,0,45,.3);border-radius:10px;padding:11px 13px;font-size:13px;z-index:100;display:none;gap:9px;align-items:flex-start;}
+.toast.show{display:flex;}
 .tt{color:var(--m2);line-height:1.5;}
 
 ::-webkit-scrollbar{width:3px;}
@@ -223,7 +223,7 @@ body{font-family:'Inter',sans-serif;background:var(--d);color:var(--t);min-heigh
   <div class="splash-title">Asistente de<br><span>Comisionamiento</span></div>
   <p class="splash-sub">Guía paso a paso para instaladores certificados.<br>Híbrido · On-Grid · Residencial · C&I</p>
   <button class="btn-p" onclick="go('screen-country')">Iniciar →</button>
-  <div class="splash-ver">v1.2 · Smart Energy Innovator</div>
+  <div class="splash-ver">v1.3 · Smart Energy Innovator</div>
 </div>
 
 <!-- COUNTRY -->
@@ -980,7 +980,7 @@ function showToast(msg){
   document.getElementById('tt').textContent=msg;
   t.classList.add('show');
   clearTimeout(tTimer);
-  tTimer=setTimeout(()=>t.classList.remove('show'),4000);
+  tTimer=setTimeout(()=>{t.classList.remove("show");},4000);
 }
 
 // Hide stale toast on load
