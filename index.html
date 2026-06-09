@@ -277,6 +277,12 @@ body{font-family:'Inter',sans-serif;background:var(--d);color:var(--t);min-heigh
 .toast.show{display:flex;}
 .tt{color:var(--m2);line-height:1.5;}
 
+
+.btn-p, .btn-s {position:relative;overflow:hidden;}
+.btn-p::after, .btn-s::after{content:'';position:absolute;border-radius:50%;background:rgba(255,255,255,0.3);width:100px;height:100px;margin-top:-50px;margin-left:-50px;top:50%;left:50%;transform:scale(0);animation:none;pointer-events:none;}
+.btn-p.rippling::after, .btn-s.rippling::after{animation:ripple 0.5s ease-out;}
+@keyframes ripple{0%{transform:scale(0);opacity:1;}100%{transform:scale(4);opacity:0;}}
+.btn-p:active, .btn-s:active{transform:scale(0.97);}
 ::-webkit-scrollbar{width:3px;}
 ::-webkit-scrollbar-track{background:transparent;}
 ::-webkit-scrollbar-thumb{background:var(--d4);border-radius:2px;}
@@ -296,7 +302,7 @@ body{font-family:'Inter',sans-serif;background:var(--d);color:var(--t);min-heigh
     <button class="btn-p" onclick="go('screen-country')">⚡ Iniciar Comisionamiento</button>
     <button class="btn-s" onclick="go('screen-manuals')">📚 Fichas Técnicas</button>
   </div>
-  <div class="splash-ver">v2.1 · Smart Energy Innovator</div>
+  <div class="splash-ver">v2.3 · Smart Energy Innovator</div>
 </div>
 
 <!-- COUNTRY -->
@@ -605,7 +611,6 @@ const FICHAS = {
         ],
       },
       {
-      {
         id:'ESUNIQ', name:'ES UNIQ', tag:'tag-mono', tl:'Mono', sub:'Inversor Híbrido Monofásico LV · 3–12 kW · IP66',
         highlights:[
           {val:'3–12 kW', lbl:'Potencia nominal'},
@@ -725,6 +730,7 @@ const FICHAS = {
           {model:'GW10K/12K-ES-C10',batDis:'≥200-240A / ≥60V',acOnGrid:'≥63A / ≥230V',pe:'6–10 mm²'},
         ],
       },
+      {
         id:'ETG2', name:'ET-G2', tag:'tag-tri', tl:'Tri', sub:'Inversor Híbrido Trifásico HV · 6–15 kW',
         highlights:[
           {val:'6–15 kW', lbl:'Potencia nominal'},
@@ -1634,6 +1640,16 @@ function showToast(msg){
   tTimer=setTimeout(()=>t.classList.remove('show'),4000);
 }
 
+
+// Ripple effect
+document.querySelectorAll('.btn-p, .btn-s').forEach(btn=>{
+  btn.addEventListener('click',function(e){
+    this.classList.remove('rippling');
+    void this.offsetWidth;
+    this.classList.add('rippling');
+    setTimeout(()=>this.classList.remove('rippling'),500);
+  });
+});
 window.addEventListener('load',()=>document.getElementById('toast').classList.remove('show'));
 if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));}
 </script>
