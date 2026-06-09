@@ -983,6 +983,8 @@ function showToast(msg){
   tTimer=setTimeout(()=>t.classList.remove('show'),4000);
 }
 
+// Hide stale toast on load
+window.addEventListener('load',()=>document.getElementById('toast').classList.remove('show'));
 if('serviceWorker' in navigator){
   window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
 }
