@@ -17,10 +17,9 @@
 body{font-family:'Inter',sans-serif;background:var(--d);color:var(--t);min-height:100vh;font-size:14px;overflow-x:hidden;}
 .screen{display:none;min-height:100vh;}
 .screen.active{display:flex;flex-direction:column;}
-
 /* SPLASH */
-#ss{align-items:center;justify-content:center;text-align:center;padding:40px 28px;position:relative;overflow:hidden;}
-#ss::before{content:'';position:absolute;top:-150px;left:50%;transform:translateX(-50%);width:400px;height:400px;background:radial-gradient(circle,rgba(232,0,45,.10) 0%,transparent 70%);pointer-events:none;}
+#screen-splash{align-items:center;justify-content:center;text-align:center;padding:40px 28px;position:relative;overflow:hidden;}
+#screen-splash::before{content:'';position:absolute;top:-150px;left:50%;transform:translateX(-50%);width:400px;height:400px;background:radial-gradient(circle,rgba(232,0,45,.10) 0%,transparent 70%);pointer-events:none;}
 .gw-logo{margin-bottom:28px;}
 .gw-logo img{height:28px;filter:brightness(0) invert(1);}
 .gw-logo-fallback{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;letter-spacing:.04em;display:none;}
@@ -30,18 +29,16 @@ body{font-family:'Inter',sans-serif;background:var(--d);color:var(--t);min-heigh
 .splash-sub{color:var(--m2);font-size:12px;margin-bottom:44px;line-height:1.6;}
 .splash-actions{display:flex;flex-direction:column;gap:12px;width:100%;max-width:320px;align-items:center;}
 .splash-ver{font-family:'DM Mono',monospace;font-size:10px;color:var(--m);margin-top:24px;letter-spacing:.07em;}
-
 /* SHARED */
-.btn-p{background:var(--r);color:#fff;border:none;padding:14px 28px;border-radius:10px;font-family:'Syne',sans-serif;font-size:14px;font-weight:700;cursor:pointer;width:100%;max-width:320px;transition:opacity .15s,transform .1s;display:flex;align-items:center;justify-content:center;gap:9px;}
-.btn-p:hover{opacity:.88;transform:translateY(-1px);}
-.btn-s{background:var(--d3);border:1px solid var(--b);color:var(--t);padding:13px;border-radius:10px;font-family:'Syne',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:background .15s;width:100%;max-width:320px;display:flex;align-items:center;justify-content:center;gap:9px;}
-.btn-s:hover{background:var(--d4);}
+.btn-p{background:var(--r);color:#fff;border:none;padding:14px 28px;border-radius:10px;font-family:'Syne',sans-serif;font-size:14px;font-weight:700;cursor:pointer;width:100%;max-width:320px;transition:opacity .15s,transform .1s;display:flex;align-items:center;justify-content:center;gap:9px;position:relative;overflow:hidden;}
+.btn-p:active{opacity:.88;transform:scale(0.97);}
+.btn-s{background:var(--d3);border:1px solid var(--b);color:var(--t);padding:13px;border-radius:10px;font-family:'Syne',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:background .15s;width:100%;max-width:320px;display:flex;align-items:center;justify-content:center;gap:9px;position:relative;overflow:hidden;}
+.btn-s:active{background:var(--d4);transform:scale(0.97);}
 .back{background:var(--d3);border:1px solid var(--b);color:var(--m2);width:36px;height:36px;border-radius:8px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:background .15s;flex-shrink:0;}
-.back:hover{background:var(--d4);}
+.back:active{background:var(--d4);}
 .sh{display:flex;align-items:center;gap:12px;padding:20px 20px 6px;}
 .st{font-family:'Syne',sans-serif;font-size:20px;font-weight:700;}
 .ss2{color:var(--m2);font-size:13px;line-height:1.5;padding:4px 20px 12px;}
-
 /* COUNTRY */
 .csw{padding:0 20px 10px;}
 .csi{width:100%;background:var(--d3);border:1px solid var(--b);color:var(--t);padding:10px 14px;border-radius:9px;font-size:13px;outline:none;font-family:'Inter',sans-serif;transition:border-color .15s;}
@@ -50,11 +47,10 @@ body{font-family:'Inter',sans-serif;background:var(--d);color:var(--t);min-heigh
 .crt{font-size:10px;font-family:'DM Mono',monospace;color:var(--m);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px;padding-bottom:5px;border-bottom:1px solid var(--b);}
 .cg{display:grid;grid-template-columns:1fr 1fr;gap:7px;}
 .cb{background:var(--d2);border:1px solid var(--b);border-radius:9px;padding:10px 11px;cursor:pointer;display:flex;align-items:center;gap:8px;transition:border-color .15s,background .15s;text-align:left;}
-.cb:hover{border-color:var(--r);background:var(--d3);}
+.cb:active{border-color:var(--r);background:var(--d3);}
 .cf{font-size:18px;flex-shrink:0;}
 .cn{font-size:13px;font-weight:500;color:var(--t);line-height:1.2;}
 .cs2{font-size:10px;font-family:'DM Mono',monospace;color:var(--m2);margin-top:1px;}
-
 /* TYPE */
 .cpill{display:inline-flex;align-items:center;gap:7px;background:var(--d3);border:1px solid var(--b);border-radius:8px;padding:6px 12px;margin:0 20px 12px;font-size:12px;}
 .cpill-f{font-size:15px;}
@@ -62,12 +58,11 @@ body{font-family:'Inter',sans-serif;background:var(--d);color:var(--t);min-heigh
 .cpill-n{color:var(--t);font-weight:500;}
 .tc{display:flex;flex-direction:column;gap:10px;padding:4px 20px 0;}
 .tcard{background:var(--d2);border:1px solid var(--b);border-radius:13px;padding:18px;cursor:pointer;transition:border-color .2s,background .2s;position:relative;}
-.tcard:hover{border-color:var(--r);background:var(--d3);}
+.tcard:active{border-color:var(--r);background:var(--d3);}
 .tcard-icon{font-size:24px;margin-bottom:8px;}
 .tcard-title{font-family:'Syne',sans-serif;font-size:17px;font-weight:700;margin-bottom:4px;color:var(--r);}
 .tcard-desc{color:var(--m2);font-size:12px;line-height:1.6;}
 .tcard-badge{position:absolute;top:12px;right:12px;background:var(--d4);border:1px solid var(--b);color:var(--m2);font-size:10px;font-family:'DM Mono',monospace;padding:3px 7px;border-radius:5px;}
-
 /* MPPT CONFIG */
 #screen-mppt{padding-bottom:40px;}
 .mppt-info{background:var(--d2);border:1px solid var(--b);border-radius:10px;padding:14px;margin:0 20px 16px;font-size:12px;color:var(--m2);line-height:1.6;}
@@ -77,15 +72,14 @@ body{font-family:'Inter',sans-serif;background:var(--d);color:var(--t);min-heigh
 .mppt-sub{font-size:11px;color:var(--m2);margin-top:2px;}
 .mppt-ctrl{display:flex;align-items:center;gap:12px;}
 .mppt-btn{background:var(--d4);border:1px solid var(--b);color:var(--t);width:32px;height:32px;border-radius:8px;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s;}
-.mppt-btn:hover{background:var(--d3);}
+.mppt-btn:active{background:var(--d3);}
 .mppt-val{font-family:'DM Mono',monospace;font-size:16px;font-weight:500;min-width:24px;text-align:center;}
-
 /* MODEL */
 .mg{padding:0 20px 14px;}
 .mgt{font-size:10px;font-family:'DM Mono',monospace;color:var(--m);text-transform:uppercase;letter-spacing:.1em;margin-bottom:7px;padding:9px 0 5px;border-bottom:1px solid var(--b);}
 .mgrid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:7px;}
 .mcard{background:var(--d2);border:1px solid var(--b);border-radius:10px;padding:13px 11px;cursor:pointer;transition:border-color .2s,background .2s;}
-.mcard:hover{border-color:var(--r);background:var(--d3);}
+.mcard:active{border-color:var(--r);background:var(--d3);}
 .mn{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;margin-bottom:4px;}
 .mt{font-size:10px;font-family:'DM Mono',monospace;padding:2px 6px;border-radius:4px;width:fit-content;margin-bottom:4px;}
 .tag-mono{background:rgba(232,0,45,.1);color:#FF8099;border:1px solid rgba(232,0,45,.2);}
@@ -93,7 +87,6 @@ body{font-family:'Inter',sans-serif;background:var(--d);color:var(--t);min-heigh
 .tag-og{background:rgba(59,130,246,.1);color:#93C5FD;border:1px solid rgba(59,130,246,.2);}
 .tag-mi{background:rgba(34,197,94,.1);color:#86EFAC;border:1px solid rgba(34,197,94,.2);}
 .md2{font-size:11px;color:var(--m2);line-height:1.4;}
-
 /* PHASE */
 .bc{display:flex;align-items:center;gap:5px;padding:0 20px 8px;font-size:11px;font-family:'DM Mono',monospace;color:var(--m2);flex-wrap:wrap;}
 .bc-sep{color:var(--b);}
@@ -101,7 +94,7 @@ body{font-family:'Inter',sans-serif;background:var(--d);color:var(--t);min-heigh
 .gpill{display:inline-flex;align-items:center;gap:6px;background:rgba(232,0,45,.07);border:1px solid rgba(232,0,45,.18);border-radius:7px;padding:5px 10px;margin:0 20px 12px;font-size:11px;font-family:'DM Mono',monospace;color:#FF8099;}
 .pl{display:flex;flex-direction:column;gap:8px;padding:0 20px;}
 .pi{background:var(--d2);border:1px solid var(--b);border-radius:11px;padding:15px;cursor:pointer;transition:border-color .2s;display:flex;align-items:center;gap:11px;}
-.pi:hover:not(.lk){border-color:var(--r);}
+.pi:active:not(.lk){border-color:var(--r);}
 .pi.lk{opacity:.38;cursor:not-allowed;}
 .pi.done{border-color:var(--gd);}
 .pn{font-family:'DM Mono',monospace;font-size:11px;color:var(--m);background:var(--d4);width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
@@ -115,7 +108,6 @@ body{font-family:'Inter',sans-serif;background:var(--d);color:var(--t);min-heigh
 .ob{height:3px;background:var(--d3);border-radius:2px;overflow:hidden;}
 .obf{height:100%;background:var(--r);border-radius:2px;transition:width .4s ease;}
 .ol{font-size:11px;color:var(--m2);font-family:'DM Mono',monospace;padding:5px 20px 0;}
-
 /* CHECKLIST */
 #screen-checklist{padding:0;}
 .clh{background:var(--d2);border-bottom:1px solid var(--b);padding:13px 20px 11px;position:sticky;top:0;z-index:10;}
@@ -134,7 +126,7 @@ body{font-family:'Inter',sans-serif;background:var(--d);color:var(--t);min-heigh
 .sg{margin-bottom:18px;}
 .sgt{font-size:10px;font-family:'DM Mono',monospace;color:var(--m);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px;}
 .bat-section-header{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:var(--d3);border:1px solid var(--b);border-radius:10px;margin-bottom:7px;cursor:pointer;transition:border-color .15s;}
-.bat-section-header:hover{border-color:var(--r);}
+.bat-section-header:active{border-color:var(--r);}
 .bat-section-title{font-size:12px;font-weight:600;font-family:'Syne',sans-serif;}
 .bat-toggle{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--m2);font-family:'DM Mono',monospace;}
 .toggle-sw{width:36px;height:20px;background:var(--d4);border-radius:10px;border:1px solid var(--b);position:relative;transition:background .2s;}
@@ -145,7 +137,7 @@ body{font-family:'Inter',sans-serif;background:var(--d);color:var(--t);min-heigh
 .bat-items-wrap.open{max-height:800px;}
 .ci{background:var(--d2);border:1px solid var(--b);border-radius:10px;padding:11px 12px;margin-bottom:6px;display:flex;gap:10px;align-items:flex-start;transition:border-color .15s,background .15s;user-select:none;}
 .ci:not(.hi):not(.hp){cursor:pointer;}
-.ci:not(.hi):not(.hp):hover{border-color:var(--d4);background:var(--d3);}
+.ci:not(.hi):not(.hp):active{border-color:var(--d4);background:var(--d3);}
 .ci.done{border-color:var(--gd);background:rgba(34,197,94,.03);}
 .cb2{width:20px;height:20px;border:1.5px solid var(--b);border-radius:5px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;transition:background .15s,border-color .15s;margin-top:1px;}
 .ci.done .cb2{background:var(--g);border-color:var(--g);color:#fff;}
@@ -156,7 +148,7 @@ body{font-family:'Inter',sans-serif;background:var(--d);color:var(--t);min-heigh
 .opt{color:var(--m);font-size:11px;}
 .ca{display:flex;gap:5px;margin-top:7px;flex-wrap:wrap;}
 .cbtn{background:var(--d4);border:1px solid var(--b);color:var(--m2);padding:4px 8px;border-radius:6px;font-size:11px;cursor:pointer;font-family:'DM Mono',monospace;transition:background .15s,color .15s;}
-.cbtn:hover{background:var(--d3);color:var(--t);}
+.cbtn:active{background:var(--d3);color:var(--t);}
 .cbtn.ok{background:rgba(34,197,94,.1);border-color:var(--gd);color:var(--g);}
 .mi2{display:flex;gap:5px;margin-top:7px;align-items:center;}
 .mi2 input{background:var(--d3);border:1px solid var(--b);color:var(--t);padding:7px 9px;border-radius:7px;font-family:'DM Mono',monospace;font-size:12px;flex:1;outline:none;transition:border-color .15s;min-width:0;}
@@ -168,21 +160,19 @@ body{font-family:'Inter',sans-serif;background:var(--d);color:var(--t);min-heigh
 .rh.warn{color:#FACC15;}
 .msaved{font-size:11px;color:var(--g);font-family:'DM Mono',monospace;margin-top:3px;}
 .pa{margin-top:7px;border:1.5px dashed var(--b);border-radius:9px;padding:10px;text-align:center;cursor:pointer;transition:border-color .15s;}
-.pa:hover{border-color:var(--r);}
+.pa:active{border-color:var(--r);}
 .pa-t{font-size:12px;color:var(--m2);}
 .pc2{color:var(--r);font-weight:600;}
 .bcta{position:fixed;bottom:0;left:0;right:0;padding:11px 20px;background:linear-gradient(to top,var(--d) 55%,transparent);z-index:20;}
 .bc2{background:var(--r);color:#fff;border:none;padding:13px;border-radius:10px;font-family:'Syne',sans-serif;font-size:14px;font-weight:700;cursor:pointer;width:100%;transition:opacity .15s;}
 .bc2:disabled{background:var(--d4);color:var(--m);cursor:not-allowed;}
-.bc2:not(:disabled):hover{opacity:.88;}
-
+.bc2:not(:disabled):active{opacity:.88;}
 /* SUCCESS */
 #screen-success{align-items:center;justify-content:center;text-align:center;padding:40px 24px;}
 .si{font-size:56px;margin-bottom:18px;}
 .stitle{font-family:'Syne',sans-serif;font-size:24px;font-weight:800;margin-bottom:10px;color:var(--g);}
 .ssub{color:var(--m2);font-size:13px;line-height:1.6;margin-bottom:32px;max-width:300px;}
 .sact{display:flex;flex-direction:column;gap:9px;width:100%;max-width:320px;align-items:center;}
-
 /* CELEBRATION */
 #screen-celebration{align-items:center;justify-content:center;text-align:center;padding:40px 28px;position:relative;overflow:hidden;}
 .confetti-wrap{position:absolute;top:0;left:0;right:0;bottom:0;pointer-events:none;overflow:hidden;}
@@ -197,18 +187,16 @@ body{font-family:'Inter',sans-serif;background:var(--d);color:var(--t);min-heigh
 .cel-stat-val{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:var(--r);}
 .cel-stat-lbl{font-size:10px;color:var(--m2);font-family:'DM Mono',monospace;margin-top:2px;}
 .cel-act{display:flex;flex-direction:column;gap:9px;width:100%;max-width:320px;align-items:center;}
-
-/* ── MANUALES ── */
+/* MANUALES */
 #screen-manuals{padding-bottom:40px;}
 .manual-category{padding:0 20px 16px;}
 .manual-cat-title{font-size:10px;font-family:'DM Mono',monospace;color:var(--m);text-transform:uppercase;letter-spacing:.1em;margin-bottom:9px;padding:10px 0 6px;border-bottom:1px solid var(--b);}
 .manual-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
 .manual-card{background:var(--d2);border:1px solid var(--b);border-radius:11px;padding:14px 12px;cursor:pointer;transition:border-color .2s,background .2s;display:flex;flex-direction:column;gap:5px;}
-.manual-card:hover{border-color:var(--r);background:var(--d3);}
+.manual-card:active{border-color:var(--r);background:var(--d3);}
 .manual-model-name{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;}
 .manual-model-tag{font-size:10px;font-family:'DM Mono',monospace;padding:2px 6px;border-radius:4px;width:fit-content;}
 .manual-model-desc{font-size:11px;color:var(--m2);line-height:1.4;}
-
 /* MODEL DETAIL */
 #screen-model-detail{padding:0;}
 .md-header{background:var(--d2);border-bottom:1px solid var(--b);padding:14px 20px;position:sticky;top:0;z-index:10;}
@@ -216,73 +204,48 @@ body{font-family:'Inter',sans-serif;background:var(--d);color:var(--t);min-heigh
 .md-model-name{font-family:'Syne',sans-serif;font-size:17px;font-weight:800;}
 .md-model-sub{font-size:11px;color:var(--m2);}
 .md-body{padding:14px 20px 40px;}
-
 .md-section{margin-bottom:20px;}
 .md-section-title{font-size:10px;font-family:'DM Mono',monospace;color:var(--m);text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--b);}
-
-/* Specs table */
 .spec-table{width:100%;border-collapse:collapse;font-size:12px;}
 .spec-table tr{border-bottom:1px solid var(--b);}
 .spec-table tr:last-child{border-bottom:none;}
 .spec-table td{padding:8px 6px;line-height:1.4;}
 .spec-table td:first-child{color:var(--m2);width:48%;font-size:11px;}
 .spec-table td:last-child{color:var(--t);font-weight:500;font-family:'DM Mono',monospace;font-size:11px;}
-
-/* Spec highlight cards */
 .spec-highlights{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;}
 .spec-hl{background:var(--d3);border:1px solid var(--b);border-radius:9px;padding:11px 12px;}
 .spec-hl-val{font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:var(--r);margin-bottom:2px;}
 .spec-hl-lbl{font-size:10px;color:var(--m2);font-family:'DM Mono',monospace;line-height:1.4;}
-
-/* Battery compat */
 .bat-compat-list{display:flex;flex-direction:column;gap:6px;}
 .bat-compat-item{background:var(--d3);border:1px solid var(--b);border-radius:8px;padding:10px 12px;display:flex;align-items:center;justify-content:space-between;}
 .bat-compat-name{font-size:13px;font-weight:500;}
 .bat-compat-tag{font-size:10px;font-family:'DM Mono',monospace;color:var(--m2);background:var(--d4);padding:3px 7px;border-radius:5px;border:1px solid var(--b);}
-
-/* Accessories */
 .acc-list{display:flex;flex-direction:column;gap:6px;}
 .acc-item{background:var(--d3);border:1px solid var(--b);border-radius:8px;padding:10px 12px;}
 .acc-name{font-size:12px;font-weight:600;margin-bottom:2px;}
 .acc-desc{font-size:11px;color:var(--m2);}
-
-/* Box contents */
 .box-list{display:flex;flex-direction:column;gap:5px;}
 .box-item{display:flex;align-items:center;gap:9px;padding:7px 0;border-bottom:1px solid var(--b);font-size:12px;}
 .box-item:last-child{border-bottom:none;}
 .box-qty{font-family:'DM Mono',monospace;font-size:11px;color:var(--r);background:rgba(232,0,45,.08);border:1px solid rgba(232,0,45,.2);border-radius:5px;padding:2px 6px;flex-shrink:0;min-width:28px;text-align:center;}
-
-/* Protection table */
 .prot-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
 .prot-item{background:var(--d3);border:1px solid var(--b);border-radius:7px;padding:8px 10px;font-size:11px;}
 .prot-name{font-weight:600;margin-bottom:2px;}
 .prot-val{color:var(--g);font-family:'DM Mono',monospace;font-size:10px;}
 .prot-val.opt{color:var(--m2);}
-
-/* Comm ports */
 .comm-list{display:flex;flex-direction:column;gap:6px;}
 .comm-item{background:var(--d3);border:1px solid var(--b);border-radius:8px;padding:10px 12px;display:flex;align-items:flex-start;gap:10px;}
 .comm-icon{font-size:18px;flex-shrink:0;margin-top:1px;}
 .comm-name{font-size:12px;font-weight:600;margin-bottom:2px;}
 .comm-desc{font-size:11px;color:var(--m2);line-height:1.5;}
-
-/* Breaker table */
 .breaker-table{width:100%;border-collapse:collapse;font-size:11px;}
 .breaker-table th{background:var(--d4);color:var(--m2);padding:7px 8px;text-align:left;font-weight:500;font-family:'DM Mono',monospace;font-size:10px;}
 .breaker-table td{padding:7px 8px;border-bottom:1px solid var(--b);color:var(--t);font-family:'DM Mono',monospace;}
 .breaker-table tr:last-child td{border-bottom:none;}
-
 /* TOAST */
 .toast{position:fixed;bottom:84px;left:14px;right:14px;background:var(--d3);border:1px solid rgba(232,0,45,.3);border-radius:10px;padding:11px 13px;font-size:13px;z-index:100;display:none;gap:9px;align-items:flex-start;}
 .toast.show{display:flex;}
 .tt{color:var(--m2);line-height:1.5;}
-
-
-.btn-p, .btn-s {position:relative;overflow:hidden;}
-.btn-p::after, .btn-s::after{content:'';position:absolute;border-radius:50%;background:rgba(255,255,255,0.3);width:100px;height:100px;margin-top:-50px;margin-left:-50px;top:50%;left:50%;transform:scale(0);animation:none;pointer-events:none;}
-.btn-p.rippling::after, .btn-s.rippling::after{animation:ripple 0.5s ease-out;}
-@keyframes ripple{0%{transform:scale(0);opacity:1;}100%{transform:scale(4);opacity:0;}}
-.btn-p:active, .btn-s:active{transform:scale(0.97);}
 ::-webkit-scrollbar{width:3px;}
 ::-webkit-scrollbar-track{background:transparent;}
 ::-webkit-scrollbar-thumb{background:var(--d4);border-radius:2px;}
@@ -291,7 +254,7 @@ body{font-family:'Inter',sans-serif;background:var(--d);color:var(--t);min-heigh
 <body>
 
 <!-- SPLASH -->
-<div id="screen-splash" class="screen active" id="ss">
+<div id="screen-splash" class="screen active">
   <div class="gw-logo">
     <img src="https://en.goodwe.com/Content/Images/logo.png" alt="GoodWe" onerror="this.style.display='none';document.getElementById('gwlf').style.display='block'">
     <div id="gwlf" class="gw-logo-fallback">Good<span>We</span></div>
@@ -302,7 +265,7 @@ body{font-family:'Inter',sans-serif;background:var(--d);color:var(--t);min-heigh
     <button class="btn-p" onclick="go('screen-country')">⚡ Iniciar Comisionamiento</button>
     <button class="btn-s" onclick="go('screen-manuals')">📚 Fichas Técnicas</button>
   </div>
-  <div class="splash-ver">v2.3 · Smart Energy Innovator</div>
+  <div class="splash-ver">v2.4 · Smart Energy Innovator</div>
 </div>
 
 <!-- COUNTRY -->
@@ -326,7 +289,7 @@ body{font-family:'Inter',sans-serif;background:var(--d);color:var(--t);min-heigh
     <div class="tcard" onclick="selectCategory('ongrid')">
       <div class="tcard-badge">Sin batería</div><div class="tcard-icon">⚡</div>
       <div class="tcard-title">On-Grid</div>
-      <div class="tcard-desc">Inyección a red · Sin almacenamiento<br><span style="font-family:'DM Mono',monospace;font-size:11px;">SMT · SDT · DNS · MS · Microinversores</span></div>
+      <div class="tcard-desc">Inyección a red · Sin almacenamiento<br><span style="font-family:'DM Mono',monospace;font-size:11px;">XS · DNS · MS · SDT · SMT · GT</span></div>
     </div>
   </div>
 </div>
@@ -406,7 +369,7 @@ body{font-family:'Inter',sans-serif;background:var(--d);color:var(--t);min-heigh
 <!-- MANUALES -->
 <div id="screen-manuals" class="screen">
   <div class="sh"><button class="back" onclick="go('screen-splash')">←</button><div class="st">Fichas Técnicas</div></div>
-  <p class="ss2">Información clave extraída de los manuales oficiales GoodWe.</p>
+  <p class="ss2">Información clave extraída de los datasheets oficiales GoodWe.</p>
   <div id="manual-list"></div>
 </div>
 
@@ -467,580 +430,162 @@ const ALL_C=COUNTRIES.flatMap(r=>r.items.map(c=>({...c,region:r.region})));
 const MODELS={
   hybrid:{label:'Híbrido',groups:[
     {title:'Monofásico',items:[
-      {id:'ESG2',name:'ESG2',tag:'tag-mono',tl:'Mono',desc:'3–6 kW · 2 MPPT · LV',defMppt:2,defStr:[1,1]},
-      {id:'ESUNIQ',name:'ES UNIQ',tag:'tag-mono',tl:'Mono',desc:'3–12 kW · 1-2 MPPT · LV · IP66',defMppt:2,defStr:[1,1]},
+      {id:'ESG2',  name:'ESG2',    tag:'tag-mono',tl:'Mono',   desc:'3–6 kW · 2 MPPT · LV',         defMppt:2,defStr:[1,1]},
+      {id:'ESUNIQ',name:'ES UNIQ', tag:'tag-mono',tl:'Mono',   desc:'3–12 kW · 1-2 MPPT · LV · IP66',defMppt:2,defStr:[1,1]},
     ]},
     {title:'Trifásico',items:[
-      {id:'ET',name:'ET 15-30kW',tag:'tag-tri',tl:'Tri',desc:'15–30 kW · 2-3 MPPT · HV',defMppt:2,defStr:[2,2]},
-      {id:'ETG2',name:'ET-G2',tag:'tag-tri',tl:'Tri',desc:'6–15 kW · 2-3 MPPT · HV',defMppt:2,defStr:[1,1]},
-      {id:'ET4050',name:'ET 40-50kW',tag:'tag-tri',tl:'Tri C&I',desc:'40–50 kW · 3-4 MPPT · HV',defMppt:3,defStr:[2,2,2]},
+      {id:'ETG2',  name:'ET-G2',   tag:'tag-tri', tl:'Tri',    desc:'6–15 kW · 2-3 MPPT · HV',      defMppt:2,defStr:[1,1]},
+      {id:'ET1530',name:'ET 15-30kW',tag:'tag-tri',tl:'Tri',   desc:'15–30 kW · 2-3 MPPT · HV',     defMppt:2,defStr:[2,2]},
+      {id:'ET4050',name:'ET 40-50kW',tag:'tag-tri',tl:'Tri C&I',desc:'40–50 kW · 3-4 MPPT · HV',   defMppt:3,defStr:[2,2,2]},
     ]}
   ]},
   ongrid:{label:'On-Grid',groups:[
-    {title:'String Monofásico',items:[
-      {id:'SMT',name:'SMT',tag:'tag-og',tl:'Mono',desc:'1–3.6 kW · 1 MPPT',defMppt:1,defStr:[1]},
-      {id:'DNS',name:'DNS',tag:'tag-og',tl:'Mono',desc:'3–6 kW · 1 MPPT',defMppt:1,defStr:[2]},
+    {title:'Monofásico Residencial',items:[
+      {id:'XSPLUS',name:'XS Plus+', tag:'tag-og',tl:'Mono',    desc:'0.7–3 kW · 1 MPPT · IP65',     defMppt:1,defStr:[1]},
+      {id:'DNSG3', name:'DNS G3',   tag:'tag-og',tl:'Mono',    desc:'3–6 kW · 2 MPPT · IP66',       defMppt:2,defStr:[1,1]},
+      {id:'MSG3',  name:'MS G3',    tag:'tag-og',tl:'Mono',    desc:'5–10 kW · 3 MPPT · IP66',      defMppt:3,defStr:[1,1,1]},
     ]},
-    {title:'String Trifásico',items:[
-      {id:'SDT',name:'SDT',tag:'tag-og',tl:'Tri',desc:'3–10 kW · 2 MPPT',defMppt:2,defStr:[1,1]},
-      {id:'MS',name:'MS',tag:'tag-og',tl:'Tri C&I',desc:'10–50 kW · 3 MPPT',defMppt:3,defStr:[1,1,1]},
+    {title:'Trifásico Residencial / Comercial',items:[
+      {id:'SDTG3', name:'SDT G3',   tag:'tag-og',tl:'Tri',     desc:'8–30 kW · 2 MPPT · IP66',      defMppt:2,defStr:[1,1]},
     ]},
-    {title:'Microinversores',items:[
-      {id:'MICRO',name:'Microinversor',tag:'tag-mi',tl:'Micro',desc:'300–800 W · 1 MPPT',defMppt:1,defStr:[1]},
+    {title:'Trifásico C&I',items:[
+      {id:'SMT2536',name:'SMT 25-36kW',tag:'tag-og',tl:'Tri C&I',desc:'25–36 kW · 3 MPPT · IP65', defMppt:3,defStr:[2,2,2]},
+      {id:'SMT5060',name:'SMT 50-60kW',tag:'tag-og',tl:'Tri C&I',desc:'50–60 kW · 5-6 MPPT · IP65',defMppt:5,defStr:[2,2,2,2,2]},
+      {id:'GT',    name:'GT 75-125kW',tag:'tag-og',tl:'Tri C&I',desc:'75–125 kW · 8-10 MPPT · IP66',defMppt:8,defStr:[2,2,2,2,2,2,2,2]},
     ]}
   ]}
 };
 
 // ─── FICHAS TÉCNICAS ──────────────────────────────────────────────────────────
-const FICHAS = {
-  hybrid: {
-    label: 'Híbridos',
-    models: [
-      {
-        id:'ESG2', name:'ESG2 / ES G2', tag:'tag-mono', tl:'Mono', sub:'Inversor Híbrido Monofásico LV · 3–6 kW',
-        highlights:[
-          {val:'3–6 kW', lbl:'Potencia nominal'},
-          {val:'2 MPPT', lbl:'Seguidores MPP'},
-          {val:'600 V', lbl:'Vdc máx entrada'},
-          {val:'IP65', lbl:'Protección'},
-        ],
-        specs: {
-          'DC — Entrada FV': [
-            ['Potencia máx. entrada','4.5–9.0 kW según modelo'],
-            ['Tensión máx. entrada','600 V'],
-            ['Rango tensión MPPT','60–550 V'],
-            ['Tensión de arranque','58 V'],
-            ['Corriente máx. por MPPT','16 A'],
-            ['Corriente cortocircuito por MPPT','23 A'],
-            ['Número de MPPTs','1 (GW3000) / 2 (resto)'],
-            ['Strings por MPPT','1'],
-          ],
-          'Batería — Entrada': [
-            ['Tipo de batería','Ion de litio / Plomo-ácido'],
-            ['Tensión nominal batería','48 V'],
-            ['Rango tensión batería','40–60 V'],
-            ['Tensión de arranque','47 V (LV) / 40 V (BR)'],
-            ['Corriente máx. carga/descarga','60–120 A según modelo'],
-            ['Potencia máx. carga','3.0–6.0 kW según modelo'],
-          ],
-          'CA — Salida (Red)': [
-            ['Potencia nominal','3.0–6.0 kW'],
-            ['Tensión nominal salida','220/230/240 V'],
-            ['Rango tensión salida','170–280 V'],
-            ['Frecuencia nominal','50/60 Hz'],
-            ['Rango frecuencia','45–55 / 55–65 Hz'],
-            ['Corriente máx. salida a red','13.6–27.3 A según modelo'],
-            ['Factor de potencia','~1 (ajustable 0.8 cap/ind)'],
-            ['THD máx.','< 3%'],
-          ],
-          'CA — Back-Up': [
-            ['Potencia nominal back-up','3.0–6.0 kW según modelo'],
-            ['Conmutación a modo back-up','< 10 ms (nivel UPS)'],
-            ['Tensión nominal salida','220/230/240 V'],
-          ],
-          'General': [
-            ['Temperatura operación','-25°C a +60°C'],
-            ['Humedad relativa','0–95%'],
-            ['Altitud máx. operación','3000 m (derating >2000 m)'],
-            ['Refrigeración','Convección natural'],
-            ['Ruido','< 30 dB'],
-            ['Topología','No aislado'],
-            ['Consumo nocturno','< 10 W'],
-            ['Dimensiones (An×Al×P)','505.9 × 434.9 × 154.8 mm'],
-            ['Peso','19.6–21.5 kg según modelo'],
-          ],
-          'Eficiencia': [
-            ['Eficiencia máx.','97.6%'],
-            ['Eficiencia europea','96.7%'],
-            ['Eficiencia CEC','96.9%'],
-            ['Eficiencia máx. batería → CA','95.5%'],
-            ['Eficiencia MPPT','99.9%'],
-          ],
-        },
-        batteries: [
-          {name:'GoodWe Lynx Home U', spec:'LV · 5.4–21.6 kWh · 48V'},
-          {name:'Pylontech US2000/US3000', spec:'LV · 48V · CAN'},
-          {name:'DYNESS A48100', spec:'LV · 48V · CAN'},
-          {name:'BYD Battery-Box Premium LVS', spec:'LV · 48V · CAN'},
-          {name:'Huawei LUNA2000-5/10/15', spec:'LV · 48V · CAN'},
-          {name:'Baterías plomo-ácido', spec:'LV · 48V · cable termosensor'},
-        ],
-        accessories: [
-          {name:'Smart Meter GM1000', desc:'Monofásico · RS485 · Para limitación de inyección y autoconsumo'},
-          {name:'Smart Meter GM3000', desc:'Trifásico / Split-phase · RS485 · Para instalaciones complejas'},
-          {name:'CT (transformador corriente)', desc:'Incluido con el inversor · Se instala en la línea de red'},
-          {name:'Módulo WiFi (kit WLAN)', desc:'Conexión a SEMS+ vía WiFi 2.4 GHz · Incluido en el inversor'},
-          {name:'Kit WiFi/LAN', desc:'Conexión dual WiFi + Ethernet · Recomendado para instalaciones fijas'},
-          {name:'Módulo 4G', desc:'Conexión celular · Para sitios sin WiFi disponible'},
-        ],
-        boxContents: [
-          {qty:'1', name:'Inversor ESG2'},
-          {qty:'1', name:'Placa de montaje'},
-          {qty:'1', name:'Módulo de comunicación (WiFi)'},
-          {qty:'N', name:'Conectores MC4 (PV+ y PV−)'},
-          {qty:'1', name:'Conector de batería'},
-          {qty:'2', name:'Conectores CA (BACK-UP y ON-GRID)'},
-          {qty:'2', name:'Cables COM (BMS y contador)'},
-          {qty:'1', name:'Smart Meter GM1000'},
-          {qty:'1', name:'Terminal OT'},
-          {qty:'4', name:'Pernos de expansión'},
-          {qty:'1', name:'Destornillador'},
-          {qty:'1', name:'Documentación'},
-        ],
-        protections: [
-          {name:'Anti-isla',val:'Integrado'},{name:'Polaridad inversa DC',val:'Integrado'},
-          {name:'Aislamiento FV',val:'Integrado'},{name:'Corriente residual',val:'Integrado'},
-          {name:'Sobrecorriente CA',val:'Integrado'},{name:'Sobretensión CA',val:'Integrado'},
-          {name:'Cortocircuito CA',val:'Integrado'},{name:'Interruptor CC',val:'Integrado'},
-          {name:'DPS CC',val:'Tipo II'},{name:'DPS CA',val:'Tipo III'},
-          {name:'AFCI',val:'Opcional'},{name:'Apagado remoto',val:'Integrado'},
-        ],
-        comms: [
-          {icon:'🔋',name:'BMS',desc:'CAN · Puerto RJ45 · Cables incluidos · Batería iones de litio\nPines 4=CAN_H, 5=CAN_L'},
-          {icon:'📊',name:'Smart Meter / CT',desc:'RS485 · Puerto METER · Cables incluidos\nPines 7=485_B1, 8=485_A1'},
-          {icon:'📱',name:'SEMS+ / Portal',desc:'WiFi 2.4 GHz + LAN (opcional) + 4G (opcional)\nBluetooth 5.1 para configuración inicial con SolarGo'},
-          {icon:'🔌',name:'Control de carga (DO)',desc:'Contacto seco integrado · Pins DO1+/DO1− · Para activar cargas externas (bomba de calor, etc.)'},
-          {icon:'⛔',name:'Apagado remoto',desc:'Pins 4 (señal) y 5 (GND) en COM2'},
-          {icon:'🔄',name:'Paralelo (EMS/PAR)',desc:'RS485A/B para EMS · CAN_H/CAN_L para paralelo\nMáx. 6 unidades en paralelo'},
-        ],
-        breakers: [
-          {model:'GW3000-ES-20',batDis:'≥75A / ≥60V',acOnGrid:'≥40A / ≥230V',pe:'4–6 mm²'},
-          {model:'GW3600-ES-20',batDis:'≥100A / ≥60V',acOnGrid:'≥40A / ≥230V',pe:'4–6 mm²'},
-          {model:'GW5000-ES-20',batDis:'≥125A / ≥60V',acOnGrid:'≥63A / ≥230V',pe:'4–6 mm²'},
-          {model:'GW6000-ES-20',batDis:'≥150A / ≥60V',acOnGrid:'≥63A / ≥230V',pe:'4–6 mm²'},
-        ],
+const FICHAS={
+  hybrid:{
+    label:'Híbridos',
+    models:[
+      {id:'ESG2',name:'ESG2 / ES G2',tag:'tag-mono',tl:'Mono',sub:'Inversor Híbrido Monofásico LV · 3–6 kW',
+        highlights:[{val:'3–6 kW',lbl:'Potencia nominal'},{val:'2 MPPT',lbl:'Seguidores MPP'},{val:'600 V',lbl:'Vdc máx entrada'},{val:'IP65',lbl:'Protección'}],
+        specs:{'DC — Entrada FV':[['Potencia máx. entrada','4.5–9.0 kW según modelo'],['Tensión máx. entrada','600 V'],['Rango tensión MPPT','60–550 V'],['Tensión de arranque','58 V'],['Corriente máx. por MPPT','16 A'],['Corriente cortocircuito por MPPT','23 A'],['Número de MPPTs','1 (GW3000) / 2 (resto)'],['Strings por MPPT','1']],'Batería':[['Tipo','Ion de litio / Plomo-ácido'],['Tensión nominal','48 V'],['Rango tensión','40–60 V'],['Corriente máx. carga/descarga','60–120 A según modelo']],'CA — Salida':[['Potencia nominal','3.0–6.0 kW'],['Tensión nominal','220/230/240 V'],['Rango tensión','170–280 V'],['Frecuencia','50/60 Hz'],['Factor de potencia','~1 (ajustable 0.8 cap/ind)'],['THD máx.','< 3%']],'General':[['Temperatura operación','-25°C a +60°C'],['Altitud máx.','3000 m'],['Refrigeración','Convección natural'],['Ruido','< 30 dB'],['Eficiencia máx.','97.6%'],['Peso','19.6–21.5 kg']]},
+        batteries:[{name:'GoodWe Lynx Home U',spec:'LV · 5.4–21.6 kWh · 48V'},{name:'Pylontech US2000/US3000',spec:'LV · 48V · CAN'},{name:'BYD Battery-Box Premium LVS',spec:'LV · 48V · CAN'}],
+        accessories:[{name:'Smart Meter GM1000',desc:'Monofásico · RS485'},{name:'CT corriente',desc:'Incluido · Instalar en línea de red'},{name:'Módulo WiFi',desc:'Incluido · 2.4 GHz'}],
+        boxContents:[{qty:'1',name:'Inversor ESG2'},{qty:'1',name:'Placa de montaje'},{qty:'N',name:'Conectores MC4'},{qty:'1',name:'Smart Meter GM1000'},{qty:'1',name:'Documentación'}],
+        protections:[{name:'Anti-isla',val:'Integrado'},{name:'Polaridad inversa DC',val:'Integrado'},{name:'Aislamiento FV',val:'Integrado'},{name:'DPS CC',val:'Tipo II'},{name:'DPS CA',val:'Tipo III'},{name:'AFCI',val:'Opcional'}],
+        comms:[{icon:'🔋',name:'BMS',desc:'CAN · Puerto RJ45 · Baterías litio'},{icon:'📊',name:'Smart Meter',desc:'RS485 · Puerto METER'},{icon:'📱',name:'SEMS+',desc:'WiFi 2.4 GHz + LAN + Bluetooth 5.1'}],
+        breakers:[{model:'GW3000-ES-20',batDis:'≥75A / ≥60V',acOnGrid:'≥40A',pe:'4–6 mm²'},{model:'GW6000-ES-20',batDis:'≥150A / ≥60V',acOnGrid:'≥63A',pe:'4–6 mm²'}]
       },
-      {
-        id:'ESUNIQ', name:'ES UNIQ', tag:'tag-mono', tl:'Mono', sub:'Inversor Híbrido Monofásico LV · 3–12 kW · IP66',
-        highlights:[
-          {val:'3–12 kW', lbl:'Potencia nominal'},
-          {val:'1–2 MPPT', lbl:'Seguidores MPP'},
-          {val:'600 V', lbl:'Vdc máx entrada'},
-          {val:'IP66', lbl:'Protección'},
-        ],
-        specs: {
-          'DC — Entrada FV': [
-            ['Potencia máx. entrada','6–24 kW según modelo (200% oversizing)'],
-            ['Tensión máx. entrada','600 V (standby >580V)'],
-            ['Rango tensión MPPT','60–550 V'],
-            ['Tensión de arranque','58 V'],
-            ['Corriente máx. por MPPT','20A (3-6kW) / 32A (8-12kW)'],
-            ['Corriente cortocircuito por MPPT','26A (3-6kW) / 48A (8-12kW)'],
-            ['Número de MPPTs','1 (3kW) / 2 (3.6–12kW)'],
-            ['Strings por MPPT','1 (3-6kW) / 2 (8-12kW)'],
-          ],
-          'Batería — Entrada': [
-            ['Tipo de batería','Ion de litio / Plomo-ácido'],
-            ['Tensión nominal batería','48 V'],
-            ['Rango tensión batería','40–60 V'],
-            ['Tensión de arranque','44.2 V'],
-            ['Corriente máx. carga/descarga','70A (3kW) → 240A (12kW)'],
-            ['Potencia máx. carga','3.0–12.0 kW según modelo'],
-            ['Potencia máx. descarga','3.3–13.2 kW según modelo'],
-          ],
-          'CA — Salida (Red)': [
-            ['Potencia nominal','3.0–12.0 kW'],
-            ['Potencia máx. activa','3.3–13.2 kW (limitado a Pn en Chile/Brasil)'],
-            ['Tensión nominal salida','220/230/240 V'],
-            ['Rango tensión salida','170–280 V'],
-            ['Frecuencia nominal','50/60 Hz'],
-            ['Rango frecuencia','45–55 / 55–65 Hz'],
-            ['Corriente máx. salida a red','15–60 A según modelo'],
-            ['Factor de potencia','~1 (ajustable 0.8 cap/ind)'],
-            ['THD máx.','< 3%'],
-          ],
-          'CA — Back-Up': [
-            ['Potencia nominal back-up','3.0–12.0 kW'],
-            ['Potencia máx. sin red (10s)','6.0–24.0 kVA'],
-            ['Conmutación a modo back-up','< 4 ms (nivel UPS)'],
-            ['Paralelo máx.','Hasta 6 unidades (on-grid y off-grid)'],
-          ],
-          'CA — Generador (Puerto 3-en-1)': [
-            ['Puerto especial 3-en-1','Generador + Cargas inteligentes + Inversor on-grid'],
-            ['Potencia nominal desde generador','3.0–12.0 kW según modelo'],
-            ['Tensión entrada generador','220/230/240 V'],
-            ['Frecuencia generador','50/60 Hz'],
-            ['Operación micro-grid','✓ Con inversor FV conectado a red'],
-          ],
-          'General': [
-            ['Temperatura operación','-35°C a +60°C'],
-            ['Humedad relativa','0–95%'],
-            ['Altitud máx. operación','3000 m'],
-            ['Refrigeración','Convección natural (3-6kW) / Ventilador (8-12kW)'],
-            ['Ruido','< 30 dB'],
-            ['Topología','No aislado'],
-            ['Pantalla','LCD táctil (diferenciador clave vs ESG2)'],
-            ['Dimensiones 3-6kW','560 × 415 × 204 mm'],
-            ['Dimensiones 8-12kW','560 × 444.5 × 226 mm'],
-            ['Peso 3-6kW','14.5–15.5 kg'],
-            ['Peso 8-12kW','27.0–29.0 kg'],
-          ],
-          'Eficiencia': [
-            ['Eficiencia máx.','97.6%'],
-            ['Eficiencia europea','96.2%'],
-            ['Eficiencia máx. batería → CA','95.5%'],
-            ['Eficiencia MPPT','99.9%'],
-          ],
-        },
-        batteries: [
-          {name:'GoodWe Lynx Home A', spec:'LV · Lynx A series · 48V · Para ES UNIQ'},
-          {name:'GoodWe Lynx Home U', spec:'LV · Lynx U series · 48V · Para ES UNIQ'},
-          {name:'Pylontech US2000/US3000', spec:'LV · 48V · CAN'},
-          {name:'BYD Battery-Box Premium LVS', spec:'LV · 48V · CAN'},
-          {name:'Baterías plomo-ácido', spec:'LV · 48V · Compatible'},
-        ],
-        accessories: [
-          {name:'Smart Meter GM1000', desc:'Monofásico · RS485 · Para limitación de inyección y autoconsumo'},
-          {name:'CT (transformador corriente)', desc:'Incluido · Se instala en línea de red'},
-          {name:'Módulo WiFi+LAN+BT', desc:'WiFi 2.4 GHz + LAN + Bluetooth · Incluido'},
-          {name:'Módulo 4G (opcional)', desc:'Para sitios sin WiFi disponible'},
-          {name:'Puerto 3-en-1 (exclusivo)', desc:'Generador + Smart Loads + Inversor on-grid en un solo puerto'},
-        ],
-        boxContents: [
-          {qty:'1', name:'Inversor ES UNIQ'},
-          {qty:'1', name:'Placa de montaje'},
-          {qty:'N', name:'Conectores MC4 (PV)'},
-          {qty:'1', name:'Conector de batería'},
-          {qty:'2', name:'Conectores CA (BACK-UP y ON-GRID)'},
-          {qty:'2', name:'Cables COM (BMS y contador)'},
-          {qty:'1', name:'Smart Meter GM1000'},
-          {qty:'4', name:'Pernos de expansión'},
-          {qty:'1', name:'Documentación'},
-        ],
-        protections: [
-          {name:'Anti-isla',val:'Integrado'},{name:'Polaridad inversa DC',val:'Integrado'},
-          {name:'Aislamiento FV',val:'Integrado'},{name:'Corriente residual',val:'Integrado'},
-          {name:'Sobrecorriente CA',val:'Integrado'},{name:'Sobretensión CA',val:'Integrado'},
-          {name:'Cortocircuito CA',val:'Integrado'},{name:'Interruptor CC',val:'Integrado'},
-          {name:'DPS CC',val:'Tipo III'},{name:'DPS CA',val:'Tipo III'},
-          {name:'AFCI (AI)',val:'Opcional'},{name:'Apagado rápido',val:'Opcional'},
-          {name:'Apagado remoto',val:'Integrado'},{name:'Back-up <4ms',val:'Integrado'},
-        ],
-        comms: [
-          {icon:'🔋',name:'BMS',desc:'CAN · Compatible con Lynx A, Lynx U y otras baterías LV'},
-          {icon:'📊',name:'Smart Meter / CT',desc:'RS485 · CT incluido · Puerto METER'},
-          {icon:'📱',name:'SEMS+ / Portal',desc:'WiFi 2.4 GHz + LAN + Bluetooth · Protocolos Modbus-RTU y Modbus-TCP'},
-          {icon:'⚡',name:'Puerto 3-en-1 (exclusivo ES UNIQ)',desc:'Un solo puerto para: Generador diésel · Cargas inteligentes · Inversor on-grid de terceros\nPermite operación micro-grid con inversor FV'},
-          {icon:'🔄',name:'Paralelo on/off-grid',desc:'Hasta 6 unidades · Tanto en modo conectado como en back-up'},
-        ],
-        breakers: [
-          {model:'GW3000/3600-ES-C10',batDis:'≥75A / ≥60V',acOnGrid:'≥20A / ≥230V',pe:'4–6 mm²'},
-          {model:'GW5000/6000-ES-C10',batDis:'≥125-150A / ≥60V',acOnGrid:'≥32A / ≥230V',pe:'4–6 mm²'},
-          {model:'GW8000-ES-C10',batDis:'≥160A / ≥60V',acOnGrid:'≥50A / ≥230V',pe:'6–10 mm²'},
-          {model:'GW10K/12K-ES-C10',batDis:'≥200-240A / ≥60V',acOnGrid:'≥63A / ≥230V',pe:'6–10 mm²'},
-        ],
+      {id:'ESUNIQ',name:'ES UNIQ',tag:'tag-mono',tl:'Mono',sub:'Inversor Híbrido Monofásico LV · 3–12 kW · IP66',
+        highlights:[{val:'3–12 kW',lbl:'Potencia nominal'},{val:'1–2 MPPT',lbl:'Seguidores MPP'},{val:'600 V',lbl:'Vdc máx entrada'},{val:'IP66',lbl:'Protección'}],
+        specs:{'DC — Entrada FV':[['Potencia máx. entrada','6–24 kW (200% oversizing)'],['Tensión máx. entrada','600 V'],['Rango MPPT','60–550 V'],['Corriente máx. MPPT','20A (3-6kW) / 32A (8-12kW)'],['Número MPPTs','1 (3kW) / 2 (3.6–12kW)']],'Batería':[['Tipo','Ion de litio / Plomo-ácido'],['Tensión nominal','48 V'],['Rango tensión','40–60 V'],['Corriente máx. carga/descarga','70A (3kW) → 240A (12kW)']],'CA — Salida':[['Potencia nominal','3.0–12.0 kW'],['Conmutación back-up','< 4 ms'],['Paralelo máx.','6 unidades']],'General':[['Temperatura','-35°C a +60°C'],['IP','IP66'],['Pantalla','LCD táctil'],['Eficiencia máx.','97.6%']]},
+        batteries:[{name:'GoodWe Lynx Home A/U',spec:'LV · 48V'},{name:'Pylontech US2000/US3000',spec:'LV · 48V · CAN'},{name:'BYD Battery-Box Premium LVS',spec:'LV · 48V · CAN'}],
+        accessories:[{name:'Smart Meter GM1000',desc:'Monofásico · RS485'},{name:'Puerto 3-en-1 (exclusivo)',desc:'Generador + Smart Loads + Inversor on-grid'}],
+        boxContents:[{qty:'1',name:'Inversor ES UNIQ'},{qty:'N',name:'Conectores MC4'},{qty:'1',name:'Smart Meter GM1000'},{qty:'1',name:'Documentación'}],
+        protections:[{name:'Anti-isla',val:'Integrado'},{name:'Aislamiento FV',val:'Integrado'},{name:'Back-up <4ms',val:'Integrado'},{name:'DPS CC',val:'Tipo III'},{name:'DPS CA',val:'Tipo III'},{name:'AFCI',val:'Opcional'}],
+        comms:[{icon:'🔋',name:'BMS',desc:'CAN · Compatible Lynx A, Lynx U'},{icon:'📱',name:'SEMS+',desc:'WiFi + LAN + Bluetooth'},{icon:'⚡',name:'Puerto 3-en-1',desc:'Generador · Cargas inteligentes · Inversor on-grid'}],
+        breakers:[{model:'GW3000/3600-ES-C10',batDis:'≥75A / ≥60V',acOnGrid:'≥20A',pe:'4–6 mm²'},{model:'GW10K/12K-ES-C10',batDis:'≥200-240A / ≥60V',acOnGrid:'≥63A',pe:'6–10 mm²'}]
       },
-      {
-        id:'ETG2', name:'ET-G2', tag:'tag-tri', tl:'Tri', sub:'Inversor Híbrido Trifásico HV · 6–15 kW',
-        highlights:[
-          {val:'6–15 kW', lbl:'Potencia nominal'},
-          {val:'Hasta 3 MPPT', lbl:'Seguidores MPP'},
-          {val:'1000 V', lbl:'Vdc máx entrada'},
-          {val:'IP66', lbl:'Protección'},
-        ],
-        specs: {
-          'DC — Entrada FV': [
-            ['Potencia máx. entrada','9.6–24.0 kW según modelo'],
-            ['Tensión máx. entrada','1000 V'],
-            ['Rango tensión MPPT','120–850 V'],
-            ['Tensión de arranque','150 V'],
-            ['Corriente máx. por MPPT','16 A'],
-            ['Corriente cortocircuito por MPPT','24 A'],
-            ['Número de MPPTs','2 (6–10kW) / 3 (12–15kW)'],
-            ['Strings por MPPT','1'],
-          ],
-          'Batería — Entrada': [
-            ['Tipo de batería','Ion de litio (HV)'],
-            ['Tensión nominal batería','500 V'],
-            ['Rango tensión batería','150–720 V'],
-            ['Tensión de arranque','150 V'],
-            ['Corriente máx. carga/descarga','30A (6-8kW) / 40A (10-15kW)'],
-            ['Potencia máx. carga','9–24 kW según modelo'],
-          ],
-          'CA — Salida (Red)': [
-            ['Potencia nominal','6–15 kW'],
-            ['Tensión nominal salida','400/380 V · 3L/N/PE'],
-            ['Rango tensión salida (fase)','170–290 V'],
-            ['Frecuencia nominal','50/60 Hz'],
-            ['Rango frecuencia','45–65 Hz'],
-            ['Corriente máx. salida a red','8.7–21.7 A según modelo'],
-            ['Salida 100% desbalanceada','✓ Soportado'],
-          ],
-          'CA — Back-Up': [
-            ['Potencia nominal back-up','6–15 kW'],
-            ['Potencia máx. sin red (60s)','12–18 kVA'],
-            ['Conmutación a modo back-up','< 10 ms (nivel UPS)'],
-            ['Paralelo máx.','Hasta 6 unidades'],
-          ],
-          'General': [
-            ['Temperatura operación','-35°C a +60°C'],
-            ['Humedad relativa','0–100%'],
-            ['Altitud máx. operación','4000 m'],
-            ['Refrigeración','Convección natural'],
-            ['Ruido','< 30 dB (6-10kW) / < 45 dB (12-15kW)'],
-            ['Topología','No aislado'],
-            ['Consumo nocturno','< 15 W'],
-            ['Dimensiones (An×Al×P)','496 × 460 × 221 mm'],
-            ['Peso','23–25 kg según modelo'],
-          ],
-          'Eficiencia': [
-            ['Eficiencia máx.','98.0% (6-8kW) / 98.2% (10-15kW)'],
-            ['Eficiencia europea','97.2% (6-8kW) / 97.5% (10-15kW)'],
-            ['Eficiencia máx. batería → CA','97.2–97.5%'],
-            ['Eficiencia MPPT','99.5%'],
-          ],
-        },
-        batteries: [
-          {name:'GoodWe Lynx Home F', spec:'HV · 6.9–27.6 kWh · 100–430V'},
-          {name:'GoodWe Lynx Home H', spec:'HV · 5–30 kWh · 150–560V'},
-          {name:'BYD Battery-Box Premium HVS/HVM', spec:'HV · 200–900V · CAN/RS485'},
-          {name:'Huawei LUNA2000-5/10/15-S0', spec:'HV · 200–900V · CAN'},
-          {name:'SENEC V3 Hybrid', spec:'HV · Compatible vía RS485/CAN'},
-        ],
-        accessories: [
-          {name:'Smart Meter GM3000', desc:'Trifásico · RS485 · Para limitación de inyección'},
-          {name:'CT trifásico', desc:'3x CT · Incluido · CT1→L1, CT2→L2, CT3→L3'},
-          {name:'Módulo WiFi+LAN+BT', desc:'Incluido en el inversor · WiFi 2.4GHz + Ethernet + Bluetooth'},
-          {name:'Módulo 4G (opcional)', desc:'Para sitios sin WiFi · Kit 4G-EC'},
-          {name:'STS Box', desc:'Para back-up trifásico · Conmutación estática'},
-        ],
-        boxContents: [
-          {qty:'1', name:'Inversor ET-G2'},
-          {qty:'1', name:'Placa de montaje'},
-          {qty:'N', name:'Conectores MC4 (PV)'},
-          {qty:'1', name:'Conector de batería HV'},
-          {qty:'2', name:'Conectores CA'},
-          {qty:'2', name:'Cables COM (BMS y contador)'},
-          {qty:'1', name:'Smart Meter (incluido)'},
-          {qty:'4', name:'Pernos de expansión'},
-          {qty:'1', name:'Documentación'},
-        ],
-        protections: [
-          {name:'Anti-isla',val:'Integrado'},{name:'Polaridad inversa DC',val:'Integrado'},
-          {name:'Polaridad inversa batería',val:'Integrado'},{name:'Aislamiento FV',val:'Integrado'},
-          {name:'Corriente residual',val:'Integrado'},{name:'Sobrecorriente CA',val:'Integrado'},
-          {name:'Sobretensión CA',val:'Integrado'},{name:'Cortocircuito CA',val:'Integrado'},
-          {name:'Interruptor CC',val:'Integrado'},{name:'DPS CC',val:'Tipo II'},
-          {name:'DPS CA',val:'Tipo II'},{name:'AFCI 3.0',val:'Integrado'},
-          {name:'Apagado remoto',val:'Integrado'},{name:'Peak shaving',val:'Integrado'},
-        ],
-        comms: [
-          {icon:'🔋',name:'BMS (Batería HV)',desc:'RS485 + CAN · Puerto BMS · Cables incluidos\nCompatible con baterías HV de múltiples marcas'},
-          {icon:'📊',name:'Smart Meter trifásico',desc:'RS485 · Puerto METER · CT1→L1, CT2→L2, CT3→L3\nConectar CT según dirección que apunta el contador'},
-          {icon:'📱',name:'SEMS+ / Portal',desc:'WiFi 2.4 GHz + LAN + Bluetooth 5.1\nConfiguración inicial vía SolarGo por Bluetooth'},
-          {icon:'🔄',name:'Paralelo',desc:'Hasta 6 unidades · CAN_H/CAN_L en puerto EMS/PAR\nRequiere STS Box para back-up en paralelo'},
-          {icon:'🔌',name:'Control de carga (DO)',desc:'Contacto seco integrado · Para cargas externas\nControl por tiempo, interruptor o SOC de batería'},
-        ],
-        breakers: [
-          {model:'GW6000-ET-20',batDis:'N/A (HV - sin disyuntor externo)',acOnGrid:'≥20A / ≥400V',pe:'4–6 mm²'},
-          {model:'GW10K-ET-20',batDis:'N/A (HV)',acOnGrid:'≥32A / ≥400V',pe:'4–6 mm²'},
-          {model:'GW15K-ET-20',batDis:'N/A (HV)',acOnGrid:'≥40A / ≥400V',pe:'4–6 mm²'},
-        ],
+      {id:'ETG2',name:'ET-G2',tag:'tag-tri',tl:'Tri',sub:'Inversor Híbrido Trifásico HV · 6–15 kW',
+        highlights:[{val:'6–15 kW',lbl:'Potencia nominal'},{val:'Hasta 3 MPPT',lbl:'Seguidores MPP'},{val:'1000 V',lbl:'Vdc máx entrada'},{val:'IP66',lbl:'Protección'}],
+        specs:{'DC — Entrada FV':[['Tensión máx.','1000 V'],['Rango MPPT','120–850 V'],['Arranque','150 V'],['Corriente máx. MPPT','16 A'],['MPPTs','2 (6–10kW) / 3 (12–15kW)']],'Batería HV':[['Tipo','Ion de litio HV'],['Tensión nominal','500 V'],['Rango','150–720 V'],['Corriente máx.','30A (6-8kW) / 40A (10-15kW)']],'CA — Salida':[['Tensión nominal','400/380 V · 3L/N/PE'],['Frecuencia','50/60 Hz'],['Salida desbalanceada','100% soportado']],'General':[['Temperatura','-35°C a +60°C'],['Altitud máx.','4000 m'],['Eficiencia máx.','98.0–98.2%']]},
+        batteries:[{name:'GoodWe Lynx Home F',spec:'HV · 6.9–27.6 kWh'},{name:'GoodWe Lynx Home H',spec:'HV · 5–30 kWh'},{name:'BYD Battery-Box Premium HVS/HVM',spec:'HV'}],
+        accessories:[{name:'Smart Meter GM3000',desc:'Trifásico · RS485'},{name:'CT trifásico',desc:'3x CT · CT1→L1, CT2→L2, CT3→L3'}],
+        boxContents:[{qty:'1',name:'Inversor ET-G2'},{qty:'N',name:'Conectores MC4'},{qty:'1',name:'Smart Meter GM3000'},{qty:'1',name:'Documentación'}],
+        protections:[{name:'Anti-isla',val:'Integrado'},{name:'Aislamiento FV',val:'Integrado'},{name:'AFCI 3.0',val:'Integrado'},{name:'DPS CC',val:'Tipo II'},{name:'Peak shaving',val:'Integrado'}],
+        comms:[{icon:'🔋',name:'BMS HV',desc:'RS485 + CAN · Puerto BMS'},{icon:'📊',name:'Smart Meter tri',desc:'RS485 · CT1→L1, CT2→L2, CT3→L3'},{icon:'📱',name:'SEMS+',desc:'WiFi + LAN + Bluetooth 5.1'}],
+        breakers:[{model:'GW6000-ET-20',batDis:'N/A (HV)',acOnGrid:'≥20A / ≥400V',pe:'4–6 mm²'},{model:'GW15K-ET-20',batDis:'N/A (HV)',acOnGrid:'≥40A / ≥400V',pe:'4–6 mm²'}]
       },
-      {
-        id:'ET1530', name:'ET 15–30 kW', tag:'tag-tri', tl:'Tri', sub:'Inversor Híbrido Trifásico HV · 15–30 kW',
-        highlights:[
-          {val:'15–30 kW', lbl:'Potencia nominal'},
-          {val:'2–3 MPPT', lbl:'Seguidores MPP'},
-          {val:'1000 V', lbl:'Vdc máx entrada'},
-          {val:'IP66', lbl:'Protección'},
-        ],
-        specs: {
-          'DC — Entrada FV': [
-            ['Potencia máx. entrada','22.5–45.0 kW según modelo'],
-            ['Tensión máx. entrada','1000 V'],
-            ['Rango tensión MPPT','200–850 V'],
-            ['Tensión de arranque','200 V'],
-            ['Corriente máx. por MPPT','30 A'],
-            ['Corriente cortocircuito por MPPT','38 A'],
-            ['Número de MPPTs','2 (15-20kW) / 3 (25-30kW)'],
-            ['Strings por MPPT','2'],
-          ],
-          'Batería — Entrada': [
-            ['Tipo de batería','Ion de litio (HV)'],
-            ['Tensión nominal batería','500 V'],
-            ['Rango tensión batería','200–800 V'],
-            ['Tensión de arranque','200 V'],
-            ['Entradas de batería','1 (15-20kW) / 2 (25-30kW)'],
-            ['Corriente máx. carga/descarga','50 A por entrada'],
-            ['Potencia máx. carga','15–30 kW según modelo'],
-          ],
-          'CA — Salida (Red)': [
-            ['Potencia nominal','15–30 kW'],
-            ['Tensión nominal salida','380/400 V · 3L/N/PE'],
-            ['Frecuencia nominal','50/60 Hz'],
-            ['Rango frecuencia','45–65 Hz'],
-            ['Corriente máx. salida a red (380V)','25.0–50.0 A según modelo'],
-            ['Factor de potencia','~1 (ajustable 0.8 cap/ind)'],
-            ['THD máx.','≤ 3.05%'],
-          ],
-          'CA — Back-Up': [
-            ['Potencia nominal back-up','15–30 kW'],
-            ['Potencia máx. sin red (60s)','18–36 kVA'],
-            ['Potencia máx. sin red (3s)','24–36 kVA'],
-            ['Conmutación a modo back-up','< 10 ms (nivel UPS)'],
-          ],
-          'General': [
-            ['Temperatura operación','-35°C a +60°C'],
-            ['Humedad relativa','0–95%'],
-            ['Altitud máx. operación','4000 m'],
-            ['Refrigeración','Ventilador inteligente'],
-            ['Ruido','< 45 dB (15-20kW) / < 60 dB (25-30kW)'],
-            ['Topología','No aislado'],
-            ['Consumo nocturno','< 15 W'],
-            ['Dimensiones (An×Al×P)','520 × 660 × 220 mm'],
-            ['Peso','48–54 kg según modelo'],
-          ],
-          'Eficiencia': [
-            ['Eficiencia máx.','98.0%'],
-            ['Eficiencia europea','97.5%'],
-            ['Eficiencia máx. batería → CA','97.5%'],
-            ['Eficiencia MPPT','99.9%'],
-          ],
-        },
-        batteries: [
-          {name:'GoodWe Lynx Home F', spec:'HV · 6.9–27.6 kWh · 100–430V'},
-          {name:'GoodWe Lynx C (C&I)', spec:'HV · Para ET 40-50kW'},
-          {name:'BYD Battery-Box Premium HVM/HVS', spec:'HV · 200–900V'},
-          {name:'Huawei LUNA2000', spec:'HV · 200–900V'},
-          {name:'Múltiples marcas HV', spec:'Verificar lista aprobada en goodwe.com'},
-        ],
-        accessories: [
-          {name:'Smart Meter GM3000', desc:'Trifásico · RS485 · Para medición y limitación'},
-          {name:'CT trifásico (x3)', desc:'Incluido · CT1→L1, CT2→L2, CT3→L3'},
-          {name:'Módulo WiFi+LAN+BT', desc:'Incluido · WiFi 2.4GHz + Ethernet'},
-          {name:'Módulo 4G (opcional)', desc:'Para sitios sin WiFi'},
-        ],
-        boxContents: [
-          {qty:'1', name:'Inversor ET 15-30kW'},
-          {qty:'1', name:'Placa de montaje'},
-          {qty:'N', name:'Conectores MC4 (PV)'},
-          {qty:'1', name:'Conector de batería HV'},
-          {qty:'2', name:'Conectores CA'},
-          {qty:'2', name:'Cables COM'},
-          {qty:'1', name:'Smart Meter GM3000'},
-          {qty:'1', name:'Documentación'},
-        ],
-        protections: [
-          {name:'Anti-isla',val:'Integrado'},{name:'Polaridad inversa DC',val:'Integrado'},
-          {name:'Polaridad inversa batería',val:'Integrado'},{name:'Aislamiento FV',val:'Integrado'},
-          {name:'Corriente residual',val:'Integrado'},{name:'Sobrecorriente CA',val:'Integrado'},
-          {name:'Sobretensión CA',val:'Integrado'},{name:'Interruptor CC',val:'Integrado'},
-          {name:'DPS CC',val:'Tipo II'},{name:'DPS CA',val:'Tipo III'},
-          {name:'AFCI',val:'Opcional'},{name:'Apagado rápido',val:'Opcional'},
-          {name:'Apagado remoto',val:'Integrado'},{name:'Peak shaving',val:'Integrado'},
-        ],
-        comms: [
-          {icon:'🔋',name:'BMS (Batería HV)',desc:'RS485 + CAN · Puerto BMS · Compatible múltiples marcas HV'},
-          {icon:'📊',name:'Smart Meter trifásico',desc:'RS485 · CT1→L1, CT2→L2, CT3→L3\nCada inversor debe conectarse a un contador independiente'},
-          {icon:'📱',name:'SEMS+ / Portal',desc:'WiFi 2.4 GHz + LAN + Bluetooth\nConfiguración con SolarGo'},
-          {icon:'🔌',name:'Control de carga (DO)',desc:'Contacto seco · Para bomba de calor u otras cargas externas'},
-        ],
-        breakers: [
-          {model:'GW15K-ET',batDis:'N/A (HV)',acOnGrid:'≥40A / ≥400V',pe:'6–10 mm²'},
-          {model:'GW20K-ET',batDis:'N/A (HV)',acOnGrid:'≥50A / ≥400V',pe:'6–10 mm²'},
-          {model:'GW25K-ET',batDis:'N/A (HV)',acOnGrid:'≥63A / ≥400V',pe:'10–16 mm²'},
-          {model:'GW30K-ET',batDis:'N/A (HV)',acOnGrid:'≥63A / ≥400V',pe:'10–16 mm²'},
-        ],
+      {id:'ET1530',name:'ET 15–30 kW',tag:'tag-tri',tl:'Tri',sub:'Inversor Híbrido Trifásico HV · 15–30 kW',
+        highlights:[{val:'15–30 kW',lbl:'Potencia nominal'},{val:'2–3 MPPT',lbl:'Seguidores MPP'},{val:'1000 V',lbl:'Vdc máx entrada'},{val:'IP66',lbl:'Protección'}],
+        specs:{'DC':[['Tensión máx.','1000 V'],['Rango MPPT','200–850 V'],['Corriente máx. MPPT','30 A'],['Strings por MPPT','2']],'Batería HV':[['Rango tensión','200–800 V'],['Entradas batería','1 (15-20kW) / 2 (25-30kW)']],'CA':[['Tensión nominal','380/400 V · 3L/N/PE'],['Corriente máx. (380V)','25.0–50.0 A']],'General':[['Temperatura','-35°C a +60°C'],['Eficiencia máx.','98.0%'],['Peso','48–54 kg']]},
+        batteries:[{name:'GoodWe Lynx Home F',spec:'HV'},{name:'BYD Battery-Box Premium HVM/HVS',spec:'HV'}],
+        accessories:[{name:'Smart Meter GM3000',desc:'Trifásico · RS485'},{name:'CT trifásico',desc:'Incluido'}],
+        boxContents:[{qty:'1',name:'Inversor ET 15-30kW'},{qty:'1',name:'Smart Meter GM3000'},{qty:'1',name:'Documentación'}],
+        protections:[{name:'Anti-isla',val:'Integrado'},{name:'AFCI',val:'Opcional'},{name:'Peak shaving',val:'Integrado'}],
+        comms:[{icon:'🔋',name:'BMS HV',desc:'RS485 + CAN'},{icon:'📱',name:'SEMS+',desc:'WiFi + LAN + Bluetooth'}],
+        breakers:[{model:'GW15K-ET',batDis:'N/A (HV)',acOnGrid:'≥40A / ≥400V',pe:'6–10 mm²'},{model:'GW30K-ET',batDis:'N/A (HV)',acOnGrid:'≥63A / ≥400V',pe:'10–16 mm²'}]
       },
-      {
-        id:'ET4050', name:'ET 40–50 kW', tag:'tag-tri', tl:'Tri C&I', sub:'Inversor Híbrido Trifásico HV · 40–50 kW C&I',
-        highlights:[
-          {val:'40–50 kW', lbl:'Potencia nominal'},
-          {val:'3–4 MPPT', lbl:'Seguidores MPP'},
-          {val:'98.1%', lbl:'Eficiencia máx.'},
-          {val:'IP66', lbl:'Protección'},
-        ],
-        specs: {
-          'DC — Entrada FV': [
-            ['Potencia máx. entrada','60–75 kW según modelo'],
-            ['Tensión máx. entrada','1000 V (derating >980V)'],
-            ['Rango tensión MPPT','165–850 V'],
-            ['Tensión de arranque','200 V'],
-            ['Corriente máx. MPPT (GW40K)','42/32/42 A por MPPT'],
-            ['Corriente máx. MPPT (GW50K)','42/32/42/32 A por MPPT'],
-            ['Número de MPPTs','3 (GW40K) / 4 (GW50K)'],
-            ['Strings por MPPT','2'],
-          ],
-          'Batería — Entrada': [
-            ['Tipo de batería','Ion de litio (HV)'],
-            ['Tensión nominal batería','500 V'],
-            ['Rango tensión batería','200–800 V'],
-            ['Tensión de arranque','200 V'],
-            ['Corriente máx. carga/descarga','100 A'],
-            ['Potencia máx. carga','44 kW (40K) / 55 kW (50K)'],
-          ],
-          'CA — Salida (Red)': [
-            ['Potencia nominal','40–50 kW'],
-            ['Tensión nominal salida','380/400 V · 3L/N/PE'],
-            ['Frecuencia nominal','50/60 Hz'],
-            ['Rango frecuencia','45–55 / 55–65 Hz'],
-            ['Corriente máx. salida (380V)','60.6A (40K) / 75.8A (50K)'],
-            ['Salida desequilibrada','110% soportado'],
-          ],
-          'CA — Back-Up': [
-            ['Requiere STS Box externa','Sí (obligatorio para back-up)'],
-            ['Potencia nominal back-up','40–50 kW'],
-            ['Potencia máx. sin red (60s)','48/60 kVA'],
-            ['Potencia máx. sin red (10s)','60/75 kVA'],
-            ['Conmutación','Nivel UPS (con STS Box)'],
-          ],
-          'General': [
-            ['Temperatura operación','-35°C a +60°C'],
-            ['Altitud máx. operación','4000 m'],
-            ['Refrigeración','Ventilación inteligente'],
-            ['Topología','No aislado'],
-            ['Consumo nocturno','< 15 W'],
-            ['Dimensiones (An×Al×P)','520 × 660 × 260 mm'],
-            ['Peso','62 kg (40K) / 65 kg (50K)'],
-          ],
-          'Eficiencia': [
-            ['Eficiencia máx.','98.1%'],
-            ['Eficiencia europea','97.5%'],
-            ['Eficiencia máx. batería → CA','97.7%'],
-            ['Eficiencia MPPT','99.0%'],
-          ],
-        },
-        batteries: [
-          {name:'GoodWe Lynx C', spec:'HV C&I · 200–800V · Para ET 40-50kW'},
-          {name:'BYD Battery-Box Premium HVM', spec:'HV · 200–900V'},
-          {name:'Múltiples marcas HV C&I', spec:'Verificar lista aprobada en goodwe.com'},
-        ],
-        accessories: [
-          {name:'STS Box GoodWe', desc:'Obligatorio para función back-up · Conmutación estática UPS'},
-          {name:'Smart Meter GM3000', desc:'Trifásico · RS485 · Para limitación y medición'},
-          {name:'CT trifásico (x3)', desc:'Incluido · CT1→L1, CT2→L2, CT3→L3'},
-          {name:'Módulo 4G+BT (opcional)', desc:'Para comunicación celular en sitios remotos'},
-        ],
-        boxContents: [
-          {qty:'1', name:'Inversor ET 40/50kW'},
-          {qty:'1', name:'Kit de montaje en pared'},
-          {qty:'N', name:'Conectores MC4 (PV)'},
-          {qty:'1', name:'Conector de batería HV'},
-          {qty:'1', name:'Documentación'},
-        ],
-        protections: [
-          {name:'Anti-isla',val:'Integrado'},{name:'Polaridad inversa DC',val:'Integrado'},
-          {name:'Polaridad inversa batería',val:'Integrado'},{name:'Corriente residual',val:'Integrado'},
-          {name:'Sobrecorriente CA',val:'Integrado'},{name:'Sobretensión CA',val:'Integrado'},
-          {name:'Interruptor CC',val:'Integrado'},{name:'DPS CC',val:'Tipo II (Tipo I+II opcional)'},
-          {name:'DPS CA',val:'Tipo II'},{name:'AFCI',val:'Opcional'},
-          {name:'Apagado remoto',val:'Integrado'},{name:'Peak shaving',val:'Integrado'},
-        ],
-        comms: [
-          {icon:'🔋',name:'BMS (Batería HV)',desc:'CAN · Puerto dedicado'},
-          {icon:'📊',name:'Smart Meter',desc:'RS485 · CT1→L1, CT2→L2, CT3→L3'},
-          {icon:'📱',name:'SEMS+',desc:'RS485 + WiFi/LAN + Bluetooth + 4G opcional'},
-          {icon:'🔄',name:'Paralelo on/off-grid',desc:'Conexión paralela en red y back-up\nRequiere STS Box para paralelo back-up'},
-        ],
-        breakers: [
-          {model:'GW40K-ET-10',batDis:'N/A (HV)',acOnGrid:'≥125A / ≥400V',pe:'16–25 mm²'},
-          {model:'GW50K-ET-10',batDis:'N/A (HV)',acOnGrid:'≥160A / ≥400V',pe:'16–25 mm²'},
-        ],
+      {id:'ET4050',name:'ET 40–50 kW',tag:'tag-tri',tl:'Tri C&I',sub:'Inversor Híbrido Trifásico HV · 40–50 kW C&I',
+        highlights:[{val:'40–50 kW',lbl:'Potencia nominal'},{val:'3–4 MPPT',lbl:'Seguidores MPP'},{val:'98.1%',lbl:'Eficiencia máx.'},{val:'IP66',lbl:'Protección'}],
+        specs:{'DC':[['Tensión máx.','1000 V (derating >980V)'],['Rango MPPT','165–850 V'],['MPPTs','3 (GW40K) / 4 (GW50K)'],['Strings por MPPT','2']],'Batería HV':[['Rango','200–800 V'],['Corriente máx.','100 A']],'CA':[['Tensión','380/400 V · 3L/N/PE'],['Corriente máx.','60.6A (40K) / 75.8A (50K)']],'General':[['Temperatura','-35°C a +60°C'],['Eficiencia máx.','98.1%'],['Peso','62–65 kg']]},
+        batteries:[{name:'GoodWe Lynx C',spec:'HV C&I'},{name:'BYD Battery-Box Premium HVM',spec:'HV'}],
+        accessories:[{name:'STS Box GoodWe',desc:'Obligatorio para back-up'},{name:'Smart Meter GM3000',desc:'Trifásico · RS485'}],
+        boxContents:[{qty:'1',name:'Inversor ET 40/50kW'},{qty:'N',name:'Conectores MC4'},{qty:'1',name:'Documentación'}],
+        protections:[{name:'Anti-isla',val:'Integrado'},{name:'Peak shaving',val:'Integrado'},{name:'AFCI',val:'Opcional'}],
+        comms:[{icon:'🔋',name:'BMS HV',desc:'CAN'},{icon:'📱',name:'SEMS+',desc:'RS485 + WiFi/LAN + Bluetooth'}],
+        breakers:[{model:'GW40K-ET-10',batDis:'N/A (HV)',acOnGrid:'≥125A / ≥400V',pe:'16–25 mm²'},{model:'GW50K-ET-10',batDis:'N/A (HV)',acOnGrid:'≥160A / ≥400V',pe:'16–25 mm²'}]
+      },
+    ]
+  },
+  ongrid:{
+    label:'On-Grid',
+    models:[
+      {id:'XSPLUS',name:'XS Plus+',tag:'tag-og',tl:'Mono',sub:'Inversor On-Grid Monofásico · 0.7–3 kW · IP65',
+        highlights:[{val:'0.7–3 kW',lbl:'Potencia nominal'},{val:'1 MPPT',lbl:'Seguidor MPP'},{val:'600 V',lbl:'Vdc máx entrada'},{val:'5.8 kg',lbl:'Peso (tamaño A4)'}],
+        specs:{'DC — Entrada FV':[['Potencia máx. entrada','0.91–3.9 kW'],['Tensión máx. entrada','500–600 V'],['Rango MPPT','40–550 V'],['Arranque','40–50 V'],['Corriente máx. MPPT','15 A'],['Corriente cortocircuito','18.75 A'],['Número MPPTs','1'],['Strings por MPPT','1']],'CA — Salida':[['Potencia nominal','0.7–3.0 kW'],['Tensión nominal','220/230 V'],['Rango tensión','154–288 V'],['Frecuencia','50/60 Hz'],['Corriente máx. salida','3.5–14.3 A'],['THD máx.','< 3%']],'General':[['Temperatura','-25°C a +60°C'],['Altitud máx.','3000 m'],['Refrigeración','Convección natural'],['Ruido','< 25–30 dB'],['Eficiencia máx.','97.2–97.6%'],['Eficiencia europea','96.0–97.2%'],['IP','IP65'],['Peso','5.8 kg'],['Dimensiones','295 × 230 × 113 mm']]},
+        accessories:[{name:'Smart Meter (opcional)',desc:'Para monitoreo de consumo'},{name:'Módulo WiFi/LAN',desc:'WiFi 2.4 GHz o LAN · Para SEMS+'}],
+        boxContents:[{qty:'1',name:'Inversor XS Plus+'},{qty:'1',name:'Conector CA Plug & Play'},{qty:'N',name:'Conectores MC4 (2.5–4 mm²)'},{qty:'1',name:'Documentación'}],
+        protections:[{name:'Anti-isla',val:'Integrado'},{name:'Aislamiento FV',val:'Integrado'},{name:'Corriente residual',val:'Integrado'},{name:'Sobrecorriente CA',val:'Integrado'},{name:'DPS CC',val:'Tipo III'},{name:'DPS CA',val:'Tipo III'},{name:'AFCI',val:'Opcional'},{name:'Apagado remoto',val:'Opcional'}],
+        comms:[{icon:'📱',name:'SEMS+ / Portal',desc:'WiFi 2.4 GHz o LAN · Modbus-RTU'},{icon:'📊',name:'Monitoreo consumo',desc:'Compatible con Smart Meter externo'}],
+        breakers:[{model:'GW700–1500-XS',batDis:'N/A',acOnGrid:'≥10A / ≥230V',pe:'2.5 mm²'},{model:'GW2000–3000-XS',batDis:'N/A',acOnGrid:'≥16A / ≥230V',pe:'2.5–4 mm²'}]
+      },
+      {id:'DNSG3',name:'DNS G3',tag:'tag-og',tl:'Mono',sub:'Inversor On-Grid Monofásico · 3–6 kW · IP66',
+        highlights:[{val:'3–6 kW',lbl:'Potencia nominal'},{val:'2 MPPT',lbl:'Seguidores MPP'},{val:'600 V',lbl:'Vdc máx entrada'},{val:'IP66',lbl:'Protección'}],
+        specs:{'DC — Entrada FV':[['Potencia máx. entrada','4.5–9.0 kW (150% oversizing)'],['Tensión máx. entrada','600 V'],['Rango MPPT','40–560 V'],['Arranque','50 V'],['Voltaje nominal entrada','360 V'],['Corriente máx. MPPT','16 A'],['Corriente cortocircuito MPPT','23 A'],['Número MPPTs','2'],['Strings por MPPT','1']],'CA — Salida':[['Potencia nominal (Chile)','3.0–6.0 kW (sin sobrecarga)'],['Potencia nominal aparente','3.0–6.0 kVA'],['Tensión nominal','220/230/240 V'],['Rango tensión','196–311 V'],['Frecuencia','50/60 Hz'],['Corriente máx. salida','14.4–28.8 A'],['Factor de potencia','~1 (ajustable 0.8 cap/ind)'],['THD máx.','< 3%']],'General':[['Temperatura','-25°C a +60°C'],['Humedad','0–100%'],['Altitud máx.','4000 m'],['Refrigeración','Convección natural (sin ventilador)'],['Ruido','< 25 dB'],['Eficiencia máx.','97.9%'],['Eficiencia europea','97.0–97.4%'],['Eficiencia CEC','97.2–97.4%'],['IP','IP66'],['Peso','12.8–13.4 kg'],['Dimensiones','350 × 410 × 143 mm'],['Consumo nocturno','< 1 W']]},
+        accessories:[{name:'Smart Meter GM1000',desc:'Monofásico · RS485 · Monitoreo consumo'},{name:'Módulo WiFi',desc:'Incluido · WLAN + APP'},{name:'Módulo LAN / 4G',desc:'Opcional · Para instalaciones sin WiFi'}],
+        boxContents:[{qty:'1',name:'Inversor DNS G3'},{qty:'1',name:'Conector CA Plug & Play (máx. 6mm²)'},{qty:'N',name:'Conectores MC4 (4–6 mm²)'},{qty:'1',name:'Documentación'}],
+        protections:[{name:'Anti-isla',val:'Integrado'},{name:'Polaridad inversa DC',val:'Integrado'},{name:'Aislamiento FV',val:'Integrado'},{name:'Corriente residual',val:'Integrado'},{name:'Sobrecorriente CA',val:'Integrado'},{name:'Cortocircuito CA',val:'Integrado'},{name:'Interruptor CC',val:'Integrado'},{name:'DPS CC',val:'Tipo III (Tipo II Opcional)'},{name:'DPS CA',val:'Tipo III (Tipo II Opcional)'},{name:'AFCI',val:'Opcional'},{name:'Apagado remoto',val:'Opcional'}],
+        comms:[{icon:'📱',name:'SEMS+ / Portal',desc:'WiFi + RS485 o LAN o 4G (opcional)\nModbus-RTU conforme Sunspec'},{icon:'📊',name:'Monitoreo consumo',desc:'Compatible Smart Meter GM1000 · 24/7'}],
+        breakers:[{model:'GW3000-DNS-30',batDis:'N/A',acOnGrid:'≥20A / ≥230V',pe:'2.5–4 mm²'},{model:'GW4200-DNS-30',batDis:'N/A',acOnGrid:'≥25A / ≥230V',pe:'4 mm²'},{model:'GW6000-DNS-30',batDis:'N/A',acOnGrid:'≥32A / ≥230V',pe:'4–6 mm²'}]
+      },
+      {id:'MSG3',name:'MS G3',tag:'tag-og',tl:'Mono',sub:'Inversor On-Grid Monofásico · 5–10 kW · IP66 · 3 MPPT',
+        highlights:[{val:'5–10 kW',lbl:'Potencia nominal'},{val:'3 MPPT',lbl:'Seguidores MPP'},{val:'600 V',lbl:'Vdc máx entrada'},{val:'IP66',lbl:'Protección'}],
+        specs:{'DC — Entrada FV':[['Potencia máx. entrada','7.75–15.5 kW (155% oversizing)'],['Tensión máx. entrada','600 V'],['Rango MPPT','40–560 V'],['Arranque','50 V'],['Voltaje nominal entrada','360 V'],['Corriente máx. MPPT','20 A'],['Corriente cortocircuito MPPT','25 A'],['Número MPPTs','3'],['Strings por MPPT','1']],'CA — Salida':[['Potencia nominal (Chile)','5.0–10.0 kW'],['Tensión nominal','220/230/240 V'],['Rango tensión','160–270 V'],['Frecuencia','50/60 Hz'],['Corriente máx. salida','24.0–43.5 A'],['Factor de potencia','~1 (ajustable 0.8 cap/ind)'],['THD máx.','< 3%']],'General':[['Temperatura','-25°C a +60°C'],['Altitud máx.','4000 m'],['Refrigeración','Convección natural (sin ventilador)'],['Ruido','< 30 dB'],['Eficiencia máx.','97.7–97.9%'],['Eficiencia europea','97.1–97.3%'],['IP','IP66'],['Peso','19.0 kg'],['Dimensiones','441 × 507 × 210 mm'],['Consumo nocturno','< 1 W']]},
+        accessories:[{name:'Smart Meter GM1000',desc:'Monofásico · RS485'},{name:'Módulo WiFi + LAN + BT',desc:'Incluido · WiFi 2.4 GHz + LAN + Bluetooth'},{name:'Módulo 4G',desc:'Opcional'},{name:'Control de carga DO',desc:'Contactos secos integrados'}],
+        boxContents:[{qty:'1',name:'Inversor MS G3'},{qty:'1',name:'Conector CA Plug & Play (máx. 16mm²)'},{qty:'N',name:'Conectores MC4 (2.5–4 mm²)'},{qty:'1',name:'Documentación'}],
+        protections:[{name:'Anti-isla',val:'Integrado'},{name:'Polaridad inversa DC',val:'Integrado'},{name:'Aislamiento FV',val:'Integrado'},{name:'Corriente residual',val:'Integrado'},{name:'Interruptor CC',val:'Integrado'},{name:'DPS CC',val:'Tipo III (Tipo II Opcional)'},{name:'DPS CA',val:'Tipo III (Tipo II Opcional)'},{name:'AFCI',val:'Opcional'},{name:'Apagado rápido',val:'Opcional'},{name:'Recuperación PID',val:'Opcional'}],
+        comms:[{icon:'📱',name:'SEMS+ / Portal',desc:'RS485 + WiFi + LAN + Bluetooth\nModbus-RTU conforme Sunspec'},{icon:'🔌',name:'Control carga DO',desc:'Contactos secos · Activar cargas externas'},{icon:'📊',name:'Monitoreo consumo',desc:'Compatible Smart Meter GM1000 · 24/7'}],
+        breakers:[{model:'GW5000-MS-30',batDis:'N/A',acOnGrid:'≥32A / ≥230V',pe:'4 mm²'},{model:'GW7000-MS-30',batDis:'N/A',acOnGrid:'≥40A / ≥230V',pe:'4–6 mm²'},{model:'GW10K-MS-30',batDis:'N/A',acOnGrid:'≥50A / ≥230V',pe:'6 mm²'}]
+      },
+      {id:'SDTG3',name:'SDT G3',tag:'tag-og',tl:'Tri',sub:'Inversor On-Grid Trifásico · 8–30 kW · IP66 · 2 MPPT',
+        highlights:[{val:'8–30 kW',lbl:'Potencia nominal'},{val:'2 MPPT',lbl:'Seguidores MPP'},{val:'1100 V',lbl:'Vdc máx entrada'},{val:'IP66',lbl:'Protección'}],
+        specs:{'DC — Entrada FV':[['Potencia máx. entrada','12–45 kW según modelo (150% oversizing)'],['Tensión máx. entrada','1100 V (modelos estándar)'],['Rango MPPT','140–1000 V'],['Arranque','160 V'],['Corriente máx. MPPT','22–42 A según modelo'],['Número MPPTs','2'],['Strings por MPPT','1–2 según modelo']],'CA — Salida':[['Potencia nominal (Chile)','8–30 kW'],['Tensión nominal','220/380 V · 3L/N/PE'],['Rango tensión (fase)','180–280 V'],['Frecuencia','50/60 Hz'],['Corriente máx. salida','13.4–50.0 A según modelo'],['THD máx.','< 3%']],'General':[['Temperatura','-30°C a +60°C'],['Altitud máx.','4000 m'],['Refrigeración','Convección natural (8-15kW) / Ventilador (17-30kW)'],['Ruido','< 30 dB (8-15kW) / < 45 dB (17-30kW)'],['Eficiencia máx.','98.2–98.6%'],['Eficiencia europea','96.9–98.3%'],['IP','IP66'],['Peso','14.7–20.5 kg'],['Consumo nocturno','< 1 W']]},
+        accessories:[{name:'Smart Meter GM3000',desc:'Trifásico · RS485 · Para límite de exportación'},{name:'CT trifásico',desc:'3x CT · CT1→L1, CT2→L2, CT3→L3'},{name:'Módulo WiFi + LAN + BT',desc:'Incluido'}],
+        boxContents:[{qty:'1',name:'Inversor SDT G3'},{qty:'3',name:'CT de corriente'},{qty:'N',name:'Conectores MC4 (4–6 mm²)'},{qty:'1',name:'Documentación'}],
+        protections:[{name:'Anti-isla',val:'Integrado'},{name:'Polaridad inversa DC',val:'Integrado'},{name:'Aislamiento FV',val:'Integrado'},{name:'Corriente residual',val:'Integrado'},{name:'Interruptor CC',val:'Integrado'},{name:'DPS CC',val:'Tipo III (Tipo II Opcional)'},{name:'DPS CA',val:'Tipo III (Tipo II Opcional)'},{name:'AFCI',val:'Opcional'},{name:'Recuperación PID',val:'Opcional'}],
+        comms:[{icon:'📱',name:'SEMS+ / Portal',desc:'RS485 + WiFi + LAN o 4G o Bluetooth\nModbus-RTU conforme Sunspec'},{icon:'📊',name:'Smart Meter trifásico',desc:'RS485 · CT1→L1, CT2→L2, CT3→L3'}],
+        breakers:[{model:'GW8000-SDT-30',batDis:'N/A',acOnGrid:'≥20A / ≥380V',pe:'4 mm²'},{model:'GW15K-SDT-30',batDis:'N/A',acOnGrid:'≥32A / ≥380V',pe:'4–6 mm²'},{model:'GW30K-SDT-C30',batDis:'N/A',acOnGrid:'≥63A / ≥380V',pe:'10–16 mm²'}]
+      },
+      {id:'SMT2536',name:'SMT 25-36kW',tag:'tag-og',tl:'Tri C&I',sub:'Inversor On-Grid Trifásico C&I · 25–36 kW · IP65 · 3 MPPT',
+        highlights:[{val:'25–36 kW',lbl:'Potencia nominal'},{val:'3 MPPT',lbl:'Seguidores MPP'},{val:'1100 V',lbl:'Vdc máx entrada'},{val:'98.8%',lbl:'Eficiencia máx.'}],
+        specs:{'DC — Entrada FV':[['Potencia máx. entrada','32.5–42.9 kW (130% oversizing)'],['Tensión máx. entrada','1100 V'],['Rango MPPT','200–950 V'],['Arranque','180 V'],['Voltaje nominal entrada','600 V'],['Corriente máx. MPPT','30 A'],['Corriente cortocircuito MPPT','37.5 A'],['Número MPPTs','3'],['Strings por MPPT','2']],'CA — Salida':[['Potencia nominal (Chile)','25–36 kW'],['Tensión nominal','400 V · 3L/N/PE'],['Rango tensión','320–460 V'],['Frecuencia','50/60 Hz'],['Corriente máx. salida','40.0–53.3 A'],['THD máx.','< 3%']],'General':[['Temperatura','-30°C a +60°C'],['Altitud máx.','3000 m'],['Refrigeración','Ventilador inteligente'],['Eficiencia máx.','98.7–98.8%'],['Eficiencia europea','98.4–98.5%'],['IP','IP65'],['Peso','40 kg'],['Dimensiones','480 × 590 × 200 mm'],['Consumo nocturno','< 1 W']]},
+        accessories:[{name:'Smart Meter GM3000',desc:'Trifásico · RS485 · Límite de exportación dinámica'},{name:'CT trifásico',desc:'3x CT · Monitoreo nivel string'},{name:'Módulo WiFi',desc:'Incluido · WiFi + WLAN + APP'},{name:'Módulo PLC',desc:'Opcional · Comunicación por línea eléctrica'},{name:'Módulo 4G',desc:'Opcional'}],
+        boxContents:[{qty:'1',name:'Inversor SMT 25-36kW'},{qty:'N',name:'Conectores MC4 (4–6 mm²)'},{qty:'1',name:'Terminal OT/DT CA (máx. 25mm²)'},{qty:'1',name:'Documentación'}],
+        protections:[{name:'Anti-isla',val:'Integrado'},{name:'Polaridad inversa DC',val:'Integrado'},{name:'Aislamiento FV',val:'Integrado'},{name:'Corriente residual',val:'Integrado'},{name:'Interruptor CC',val:'Integrado'},{name:'DPS CC',val:'Tipo III (Tipo II Opcional)'},{name:'DPS CA',val:'Tipo III (Tipo II Opcional)'},{name:'AFCI',val:'Opcional'},{name:'Recuperación PID',val:'Opcional'},{name:'Diseño sin fusibles',val:'Integrado'}],
+        comms:[{icon:'📱',name:'SEMS+ / Portal',desc:'RS485 + WiFi o 4G o PLC (opcional)\nModbus-RTU conforme Sunspec'},{icon:'📊',name:'Monitoreo nivel string',desc:'Medición de producción por string'}],
+        breakers:[{model:'GW25K-MT',batDis:'N/A',acOnGrid:'≥63A / ≥400V',pe:'10 mm²'},{model:'GW30K-MT',batDis:'N/A',acOnGrid:'≥80A / ≥400V',pe:'10–16 mm²'},{model:'GW36K-MT',batDis:'N/A',acOnGrid:'≥100A / ≥400V',pe:'16 mm²'}]
+      },
+      {id:'SMT5060',name:'SMT 50-60kW',tag:'tag-og',tl:'Tri C&I',sub:'Inversor On-Grid Trifásico C&I · 50–60 kW · IP65 · 5-6 MPPT',
+        highlights:[{val:'50–60 kW',lbl:'Potencia nominal'},{val:'5–6 MPPT',lbl:'Seguidores MPP'},{val:'1100 V',lbl:'Vdc máx entrada'},{val:'98.6%',lbl:'Eficiencia máx.'}],
+        specs:{'DC — Entrada FV':[['Potencia máx. entrada','75–90 kW (150% oversizing)'],['Tensión máx. entrada','1100 V'],['Rango MPPT','200–950 V'],['Arranque','180 V'],['Voltaje nominal entrada','600 V'],['Corriente máx. MPPT','30 A'],['Corriente cortocircuito MPPT','37.5 A'],['Número MPPTs','5 (50kW) / 6 (60kW)'],['Strings por MPPT','2']],'CA — Salida':[['Potencia nominal (Chile)','50–60 kW'],['Tensión nominal','230/400 V · 3L/N/PE'],['Rango tensión','320–460 V'],['Frecuencia','50/60 Hz'],['Corriente máx. salida','80.0–96.0 A'],['THD máx.','< 3%']],'General':[['Temperatura','-30°C a +60°C'],['Altitud máx.','3000 m'],['Refrigeración','Ventilador inteligente'],['Eficiencia máx.','98.6%'],['Eficiencia europea','98.1%'],['IP','IP65'],['Peso','55 kg'],['Dimensiones','520 × 660 × 220 mm'],['Consumo nocturno','< 1 W']]},
+        accessories:[{name:'Smart Meter GM3000',desc:'Trifásico · RS485'},{name:'CT trifásico',desc:'3x CT'},{name:'Módulo WiFi',desc:'WLAN + APP'},{name:'Módulo 4G / PLC',desc:'Opcional'}],
+        boxContents:[{qty:'1',name:'Inversor SMT 50-60kW'},{qty:'N',name:'Conectores MC4 (4–6 mm²)'},{qty:'1',name:'Terminal OT/DT CA (máx. 50mm²)'},{qty:'1',name:'Documentación'}],
+        protections:[{name:'Anti-isla',val:'Integrado'},{name:'Polaridad inversa DC',val:'Integrado'},{name:'Aislamiento FV',val:'Integrado'},{name:'Corriente residual',val:'Integrado'},{name:'Interruptor CC',val:'Integrado'},{name:'DPS CC',val:'Tipo II (Tipo I+II Opcional)'},{name:'DPS CA',val:'Tipo II'},{name:'AFCI',val:'Opcional'},{name:'Diseño sin fusibles',val:'Integrado'}],
+        comms:[{icon:'📱',name:'SEMS+ / Portal',desc:'RS485 + WiFi o 4G o PLC\nModbus-RTU conforme Sunspec'},{icon:'📊',name:'Monitoreo',desc:'Compatible con monitoreo de nivel de string'}],
+        breakers:[{model:'GW50KS-MT',batDis:'N/A',acOnGrid:'≥125A / ≥400V',pe:'25 mm²'},{model:'GW60KS-MT',batDis:'N/A',acOnGrid:'≥160A / ≥400V',pe:'25–35 mm²'}]
+      },
+      {id:'GT',name:'GT 75-125kW',tag:'tag-og',tl:'Tri C&I',sub:'Inversor On-Grid Trifásico C&I · 75–125 kW · IP66 · 8-10 MPPT',
+        highlights:[{val:'75–125 kW',lbl:'Potencia nominal'},{val:'8–10 MPPT',lbl:'Seguidores MPP'},{val:'1100 V',lbl:'Vdc máx entrada'},{val:'99.0%',lbl:'Eficiencia máx.'}],
+        specs:{'DC — Entrada FV':[['Potencia máx. entrada','150–187.5 kW (150–200% oversizing)'],['Tensión máx. entrada','800 V (GW75K) / 1100 V (resto)'],['Rango MPPT','180–800/1000 V'],['Arranque','200 V'],['Corriente máx. MPPT','42 A'],['Corriente cortocircuito MPPT','52.5 A'],['Número MPPTs','8 (75K, 100K) / 10 (110K, 125K)'],['Strings por MPPT','2']],'CA — Salida':[['Potencia nominal (Chile)','75–125 kW'],['Tensión nominal GW75K','127/220 V · 3L/N/PE'],['Tensión nominal resto','220/380 o 230/400 V · 3L/N/PE'],['Frecuencia','50/60 Hz'],['Corriente máx. salida','167.1–199.4 A'],['THD máx.','< 3%']],'General':[['Temperatura','-30°C a +60°C'],['Altitud máx.','4000 m'],['Refrigeración','Ventilador inteligente'],['Eficiencia máx.','98.8–99.0%'],['Eficiencia europea','98.3–98.5%'],['IP','IP66'],['Peso','85–88 kg'],['Dimensiones','930 × 650 × 300 mm'],['Consumo nocturno','< 1–2 W']]},
+        accessories:[{name:'Smart Meter GM3000',desc:'Trifásico · RS485'},{name:'CT trifásico',desc:'3x CT'},{name:'Módulo WiFi + LAN',desc:'Incluido'},{name:'Módulo 4G / PLC',desc:'Opcional'},{name:'Anti-PID',desc:'Integrado en GW75K-GT-LV-G10'}],
+        boxContents:[{qty:'1',name:'Inversor GT 75-125kW'},{qty:'N',name:'Conectores MC4 (4–6 mm²)'},{qty:'1',name:'Terminal OT/DT CA (máx. 240mm²)'},{qty:'1',name:'Documentación'}],
+        protections:[{name:'Anti-isla',val:'Integrado'},{name:'Polaridad inversa DC',val:'Integrado'},{name:'Aislamiento FV',val:'Integrado'},{name:'Corriente residual',val:'Integrado'},{name:'Interruptor CC',val:'Integrado'},{name:'DPS CC',val:'Tipo II'},{name:'DPS CA',val:'Tipo II'},{name:'AFCI',val:'Opcional (Integrado en GW75K)'},{name:'Anti-PID',val:'Integrado (GW75K)'},{name:'Apagado remoto',val:'Integrado (GW75K)'},{name:'Diseño sin fusibles',val:'Integrado'}],
+        comms:[{icon:'📱',name:'SEMS+ / Portal',desc:'RS485 + WiFi + LAN o 4G o PLC\nModbus-RTU conforme Sunspec'},{icon:'📊',name:'Monitoreo nivel string',desc:'Monitoreo de producción por string individual'}],
+        breakers:[{model:'GW75K-GT',batDis:'N/A',acOnGrid:'≥250A / ≥220V',pe:'50–70 mm²'},{model:'GW100K-GT',batDis:'N/A',acOnGrid:'≥250A / ≥400V',pe:'70–95 mm²'},{model:'GW125K-GT',batDis:'N/A',acOnGrid:'≥315A / ≥400V',pe:'95–120 mm²'}]
       },
     ]
   }
 };
+
+// ─── HELPER: is Tri model? ────────────────────────────────────────────────────
+const TRI_MODELS=['ET','ETG2','ET4050','ET1530','SDTG3','SMT2536','SMT5060','GT'];
+function isTri(){return TRI_MODELS.includes(S.model);}
 
 // ─── STATE ───────────────────────────────────────────────────────────────────
 let S={country:null,category:'',model:'',modelObj:null,mppt:2,stringsPerMppt:[1,1],batEnabled:true,checks:{},measures:{},photos:{},phasesDone:{}};
@@ -1063,13 +608,11 @@ function renderCountryList(list){
   const rm={};
   list.forEach(c=>{if(!rm[c.region])rm[c.region]=[];rm[c.region].push(c);});
   Object.entries(rm).forEach(([region,items])=>{
-    const sec=document.createElement('div');
-    sec.className='cr';
+    const sec=document.createElement('div');sec.className='cr';
     sec.innerHTML=`<div class="crt">${region}</div><div class="cg"></div>`;
     const g=sec.querySelector('.cg');
     items.forEach(c=>{
-      const b=document.createElement('button');
-      b.className='cb';
+      const b=document.createElement('button');b.className='cb';
       b.innerHTML=`<span class="cf">${c.flag}</span><div><div class="cn">${c.name}</div><div class="cs2">${c.v1}V · ${c.hz}Hz</div></div>`;
       b.onclick=()=>selectCountry(c);
       g.appendChild(b);
@@ -1095,13 +638,11 @@ function renderModels(cat){
   const container=document.getElementById('model-groups');
   container.innerHTML='';
   data.groups.forEach(group=>{
-    const grp=document.createElement('div');
-    grp.className='mg';
+    const grp=document.createElement('div');grp.className='mg';
     grp.innerHTML=`<div class="mgt">${group.title}</div><div class="mgrid"></div>`;
     const grid=grp.querySelector('.mgrid');
     group.items.forEach(m=>{
-      const card=document.createElement('div');
-      card.className='mcard';
+      const card=document.createElement('div');card.className='mcard';
       card.innerHTML=`<div class="mn">${m.name}</div><div class="mt ${m.tag}">${m.tl}</div><div class="md2">${m.desc}</div>`;
       card.onclick=()=>selectModel(m);
       grid.appendChild(card);
@@ -1114,7 +655,7 @@ function selectModel(m){
   S.mppt=m.defMppt; S.stringsPerMppt=[...m.defStr];
   S.checks={}; S.measures={}; S.photos={}; S.phasesDone={}; S.batEnabled=true;
   startTime=Date.now();
-  document.getElementById('mppt-info').innerHTML=`<strong>${m.name}</strong> — Config por defecto: ${m.defMppt} MPPT(s) · ${m.defStr.join('+')} string(s). Ajusta si es diferente.`;
+  document.getElementById('mppt-info').innerHTML=`<strong>${m.name}</strong> — Config por defecto: ${m.defMppt} MPPT(s) · ${m.defStr.join('+')} string(s). Ajusta si tu instalación es diferente.`;
   document.getElementById('mppt-val').textContent=S.mppt;
   renderStringsConfig();
   go('screen-mppt');
@@ -1122,7 +663,7 @@ function selectModel(m){
 
 // ─── MPPT ─────────────────────────────────────────────────────────────────────
 function adjustMppt(d){
-  const n=Math.max(1,Math.min(4,S.mppt+d));
+  const n=Math.max(1,Math.min(10,S.mppt+d));
   if(n>S.mppt)S.stringsPerMppt.push(1);
   else if(n<S.mppt)S.stringsPerMppt.pop();
   S.mppt=n;
@@ -1130,11 +671,9 @@ function adjustMppt(d){
   renderStringsConfig();
 }
 function renderStringsConfig(){
-  const el=document.getElementById('strings-config');
-  el.innerHTML='';
+  const el=document.getElementById('strings-config');el.innerHTML='';
   for(let i=0;i<S.mppt;i++){
-    const row=document.createElement('div');
-    row.className='mppt-row';
+    const row=document.createElement('div');row.className='mppt-row';
     row.innerHTML=`<div><div class="mppt-label">Strings en MPPT ${i+1}</div><div class="mppt-sub">Número de strings conectados</div></div>
     <div class="mppt-ctrl">
       <button class="mppt-btn" onclick="adjustStrings(${i},-1)">−</button>
@@ -1149,25 +688,26 @@ function adjustStrings(mpptIdx,d){
   document.getElementById(`sv-${mpptIdx}`).textContent=S.stringsPerMppt[mpptIdx];
 }
 function confirmMpptConfig(){
-  const isTri=['ET','ETG2','ET4050','ET1530','SDT','MS'].includes(S.model);
-  const vNet=isTri?S.country.v3:S.country.v1;
+  const tri=isTri();
+  const vNet=tri?S.country.v3:S.country.v1;
   document.getElementById('bc-c').textContent=S.country.flag+' '+S.country.name;
   document.getElementById('bc-cat').textContent=MODELS[S.category].label;
   document.getElementById('bc-m').textContent=S.modelObj.name;
-  document.getElementById('gpill').textContent=`⚡ ${vNet}V · ${S.country.hz}Hz · ${isTri?'Trifásico':'Monofásico'}`;
+  document.getElementById('gpill').textContent=`⚡ ${vNet}V · ${S.country.hz}Hz · ${tri?'Trifásico':'Monofásico'}`;
   go('screen-phase');
 }
 
 // ─── PHASES ──────────────────────────────────────────────────────────────────
 function buildPhases(){
   const isH=S.category==='hybrid';
-  const isTri=['ET','ETG2','ET4050','ET1530','SDT','MS'].includes(S.model);
+  const tri=isTri();
   const c=S.country;
-  const vNet=isTri?c.v3:c.v1;
-  const vLo=isTri?Math.round(c.vR[0]*c.v3/c.v1):c.vR[0];
-  const vHi=isTri?Math.round(c.vR[1]*c.v3/c.v1):c.vR[1];
+  const vNet=tri?c.v3:c.v1;
+  const vLo=tri?Math.round(c.vR[0]*c.v3/c.v1):c.vR[0];
+  const vHi=tri?Math.round(c.vR[1]*c.v3/c.v1):c.vR[1];
   const hzLo=c.hzR[0],hzHi=c.hzR[1];
 
+  // Build dynamic DC pre items per MPPT/string
   let dcPreItems=[];
   for(let m=0;m<S.mppt;m++){
     const ns=S.stringsPerMppt[m]||1;
@@ -1220,7 +760,7 @@ function buildPhases(){
         {id:'c7',text:'Estructura y cajas de paso aterrizadas',type:'check'},
       ]},
       {title:'LADO AC',items:[
-        ...(isTri
+        ...(tri
           ?[{id:'c9',text:'Secuencia de fases trifásica correcta (L1-L2-L3)',type:'check'}]
           :[{id:'c9',text:'Verificar Fase (L) y Neutro (N) no están intercambiados',type:'check'}]
         ),
@@ -1310,7 +850,7 @@ function renderPhases(){
     el.innerHTML=`<div class="pn">${isDone?'✓':String(i+1).padStart(2,'0')}</div>
       <div class="pc"><div class="pname">${phase.name}</div><div class="pmeta">${phase.desc}${locked?' · 🔒 Completa la fase anterior':''}</div></div>
       <div class="parr">${isDone?'✓':'›'}</div>`;
-    if(!locked) el.onclick=()=>openPhase(phase);
+    if(!locked)el.onclick=()=>openPhase(phase);
     list.appendChild(el);
   });
   const pct=Math.round(done/phases.length*100);
@@ -1333,16 +873,13 @@ function renderChecklist(phase){
   const body=document.getElementById('checklist-body');
   body.innerHTML='';
   phase.sections.forEach(sec=>{
-    const grp=document.createElement('div');
-    grp.className='sg';
+    const grp=document.createElement('div');grp.className='sg';
     if(sec.battery){
-      const header=document.createElement('div');
-      header.className='bat-section-header';
+      const header=document.createElement('div');header.className='bat-section-header';
       header.onclick=()=>toggleBatSection();
       const isOn=S.batEnabled;
       header.innerHTML=`<div class="bat-section-title">🔋 ${sec.title}</div>
-        <div class="bat-toggle">
-          <span>${isOn?'Incluida':'Excluida'}</span>
+        <div class="bat-toggle"><span>${isOn?'Incluida':'Excluida'}</span>
           <div class="toggle-sw ${isOn?'on':''}"><div class="toggle-knob"></div></div>
         </div>`;
       grp.appendChild(header);
@@ -1351,7 +888,7 @@ function renderChecklist(phase){
       wrap.id='bat-items-wrap';
       sec.items.forEach(item=>wrap.appendChild(buildItem(item)));
       grp.appendChild(wrap);
-    } else {
+    }else{
       grp.innerHTML=`<div class="sgt">${sec.title}</div>`;
       sec.items.forEach(item=>grp.appendChild(buildItem(item)));
     }
@@ -1374,19 +911,19 @@ function buildItem(item){
   let inner=`<div class="ctx">${item.text}${item.optional?' <span class="opt">(opcional)</span>':''}</div>`;
   if(hasMeasure&&!isDone){
     const val=S.measures[item.id]||'';
-    inner+=`<div class="mi2"><input type="number" step="any" placeholder="${item.placeholder||''}" value="${val}" oninput="S.measures['${item.id}']=this.value;chkRange('${item.id}')"><div class="munit">${item.unit}</div><button class="mok" onclick="confirmMeasure('${item.id}')">✓</button></div>`;
-    if(item.rangeHint) inner+=`<div class="rh" id="rh-${item.id}">${item.rangeHint}</div>`;
+    inner+=`<div class="mi2"><input type="number" step="any" inputmode="decimal" placeholder="${item.placeholder||''}" value="${val}" oninput="S.measures['${item.id}']=this.value;chkRange('${item.id}')"><div class="munit">${item.unit}</div><button class="mok" onclick="confirmMeasure('${item.id}')">✓</button></div>`;
+    if(item.rangeHint)inner+=`<div class="rh" id="rh-${item.id}">${item.rangeHint}</div>`;
   }
-  if(hasMeasure&&isDone&&S.measures[item.id]) inner+=`<div class="msaved">✓ ${S.measures[item.id]} ${item.unit}</div>`;
+  if(hasMeasure&&isDone&&S.measures[item.id])inner+=`<div class="msaved">✓ ${S.measures[item.id]} ${item.unit}</div>`;
   if(hasPhoto&&!isDone){
     const cnt=S.photos[item.id]||0;
     inner+=`<div class="pa" onclick="addPhoto('${item.id}')"><div class="pa-t">📷 Agregar foto${cnt>0?` · <span class="pc2">${cnt} foto(s)</span>`:''}</div></div>`;
-    if(cnt>0) inner+=`<div class="ca"><button class="cbtn ok" onclick="confirmPhoto('${item.id}')">✓ Confirmar foto(s)</button></div>`;
+    if(cnt>0)inner+=`<div class="ca"><button class="cbtn ok" onclick="confirmPhoto('${item.id}')">✓ Confirmar foto(s)</button></div>`;
   }
   if(!hasMeasure&&!hasPhoto&&!isDone&&!isNA){
     inner+=`<div class="ca"><button class="cbtn ok" onclick="tCheck('${item.id}')">✓ Verificado</button>${item.optional?`<button class="cbtn" onclick="markNA('${item.id}')">N/A</button>`:''}</div>`;
   }
-  if(isDone||isNA) inner+=`<div class="ca"><button class="cbtn" onclick="undoCheck('${item.id}')">↩ Desmarcar</button></div>`;
+  if(isDone||isNA)inner+=`<div class="ca"><button class="cbtn" onclick="undoCheck('${item.id}')">↩ Desmarcar</button></div>`;
   wrap.innerHTML=box+`<div class="cc">${inner}</div>`;
   if(!hasMeasure&&!hasPhoto){wrap.style.cursor='pointer';wrap.onclick=e=>{if(e.target.tagName==='BUTTON')return;tCheck(item.id);};}
   return wrap;
@@ -1395,13 +932,13 @@ function buildItem(item){
 function chkRange(id){
   const c=S.country;const val=parseFloat(S.measures[id]);if(isNaN(val))return;
   const el=document.getElementById('rh-'+id);if(!el)return;
-  const isTri=['ET','ETG2','ET4050','ET1530','SDT','MS'].includes(S.model);
+  const tri=isTri();
   let item=null;
   for(const sec of curPhase.sections){item=sec.items?.find(i=>i.id===id);if(item)break;}
   if(!item||!item.rKey)return;
   if(item.rKey==='v'){
-    const lo=isTri?Math.round(c.vR[0]*c.v3/c.v1):c.vR[0];
-    const hi=isTri?Math.round(c.vR[1]*c.v3/c.v1):c.vR[1];
+    const lo=tri?Math.round(c.vR[0]*c.v3/c.v1):c.vR[0];
+    const hi=tri?Math.round(c.vR[1]*c.v3/c.v1):c.vR[1];
     el.className=(val>=lo&&val<=hi)?'rh ok':'rh warn';
     el.textContent=(val>=lo&&val<=hi)?`✓ En rango (${lo}–${hi} V)`:`⚠ Fuera de rango (${lo}–${hi} V)`;
   }else if(item.rKey==='hz'){
@@ -1485,11 +1022,11 @@ function launchConfetti(){
 function downloadPDF(){
   const phases=buildPhases();
   const c=S.country;
-  const isTri=['ET','ETG2','ET4050','ET1530','SDT','MS'].includes(S.model);
+  const tri=isTri();
   const date=new Date().toLocaleDateString('es-CL',{day:'2-digit',month:'2-digit',year:'numeric'});
   const time=new Date().toLocaleTimeString('es-CL',{hour:'2-digit',minute:'2-digit'});
   let html=`<!DOCTYPE html><html><head><meta charset="UTF-8"><style>body{font-family:Arial,sans-serif;max-width:800px;margin:0 auto;padding:30px;color:#111;font-size:13px;}.header{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:3px solid #E8002D;padding-bottom:16px;margin-bottom:24px;}.brand{font-size:22px;font-weight:900;}.brand span{color:#E8002D;}.meta{text-align:right;font-size:11px;color:#666;line-height:1.8;}.info-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:24px;}.info-box{background:#f8f8f8;border:1px solid #e0e0e0;border-radius:6px;padding:10px 12px;}.info-label{font-size:10px;color:#888;text-transform:uppercase;margin-bottom:3px;}.info-val{font-size:14px;font-weight:700;}.phase-title{background:#E8002D;color:white;padding:8px 14px;border-radius:6px;font-weight:700;font-size:13px;margin:20px 0 10px;}.sec-title{font-size:10px;text-transform:uppercase;color:#888;margin:12px 0 6px;padding-bottom:4px;border-bottom:1px solid #eee;}.item{display:flex;align-items:flex-start;gap:10px;padding:6px 0;border-bottom:1px solid #f5f5f5;}.check{width:16px;height:16px;border-radius:3px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px;}.check.ok{background:#22C55E;color:white;}.check.na{background:#999;color:white;}.check.pending{border:1.5px solid #ddd;}.item-text{flex:1;font-size:12px;}.item-val{font-size:11px;font-weight:700;color:#E8002D;font-family:monospace;}.sign-row{display:flex;gap:30px;margin-top:30px;}.sign-box{flex:1;border-top:1px solid #333;padding-top:8px;font-size:11px;color:#555;}.footer{margin-top:40px;border-top:1px solid #eee;padding-top:14px;display:flex;justify-content:space-between;font-size:10px;color:#aaa;}@media print{body{padding:15px;}}</style></head><body>
-  <div class="header"><div><div class="brand">Good<span>We</span></div><div style="font-size:13px;font-weight:600;margin-top:4px;">Informe de Comisionamiento</div></div><div class="meta"><div>${date} · ${time}</div><div>${c.flag} ${c.name} · ${isTri?c.v3:c.v1}V · ${c.hz}Hz</div></div></div>
+  <div class="header"><div><div class="brand">Good<span>We</span></div><div style="font-size:13px;font-weight:600;margin-top:4px;">Informe de Comisionamiento</div></div><div class="meta"><div>${date} · ${time}</div><div>${c.flag} ${c.name} · ${tri?c.v3:c.v1}V · ${c.hz}Hz</div></div></div>
   <div class="info-grid"><div class="info-box"><div class="info-label">Modelo</div><div class="info-val">${S.modelObj.name}</div></div><div class="info-box"><div class="info-label">Categoría</div><div class="info-val">${MODELS[S.category].label}</div></div><div class="info-box"><div class="info-label">Configuración</div><div class="info-val">${S.mppt} MPPT · ${S.stringsPerMppt.join('+')} strings</div></div></div>`;
   phases.forEach(phase=>{
     html+=`<div class="phase-title">${phase.name}</div>`;
@@ -1508,11 +1045,11 @@ function downloadPDF(){
     });
   });
   html+=`<div class="sign-row"><div class="sign-box">Instalador · Firma y Nombre</div><div class="sign-box">Cliente · Firma y Nombre</div><div class="sign-box">Fecha y Lugar</div></div>
-  <div class="footer"><div>GoodWe Comisionamiento App v2.0</div><div>Documento generado automáticamente</div></div></body></html>`;
+  <div class="footer"><div>GoodWe Comisionamiento App v2.4</div><div>Documento generado automáticamente</div></div></body></html>`;
   const blob=new Blob([html],{type:'text/html'});
   const url=URL.createObjectURL(blob);
   const a=document.createElement('a');
-  a.href=url;a.download=`GoodWe_Comisionamiento_${S.modelObj.name}_${date.replace(/\//g,'-')}.html`;
+  a.href=url;a.download=`GoodWe_Comisionamiento_${S.modelObj.name.replace(/\s/g,'_')}_${date.replace(/\//g,'-')}.html`;
   a.click();URL.revokeObjectURL(url);
   showToast('Informe descargado. Ábrelo y usa Imprimir → Guardar como PDF.');
 }
@@ -1522,13 +1059,11 @@ function renderManuals(){
   const el=document.getElementById('manual-list');
   el.innerHTML='';
   Object.entries(FICHAS).forEach(([catKey,cat])=>{
-    const sec=document.createElement('div');
-    sec.className='manual-category';
+    const sec=document.createElement('div');sec.className='manual-category';
     sec.innerHTML=`<div class="manual-cat-title">${cat.label}</div><div class="manual-grid"></div>`;
     const grid=sec.querySelector('.manual-grid');
     cat.models.forEach(m=>{
-      const card=document.createElement('div');
-      card.className='manual-card';
+      const card=document.createElement('div');card.className='manual-card';
       card.innerHTML=`<div class="manual-model-name">${m.name}</div><div class="manual-model-tag ${m.tag}">${m.tl}</div><div class="manual-model-desc">${m.sub}</div>`;
       card.onclick=()=>openModelDetail(m);
       grid.appendChild(card);
@@ -1544,31 +1079,24 @@ function openModelDetail(m){
   body.innerHTML='';
 
   // Highlights
-  const hlSec=document.createElement('div');
-  hlSec.className='md-section';
+  const hlSec=document.createElement('div');hlSec.className='md-section';
   hlSec.innerHTML=`<div class="md-section-title">⚡ DATOS CLAVE</div><div class="spec-highlights"></div>`;
   const hlGrid=hlSec.querySelector('.spec-highlights');
-  m.highlights.forEach(h=>{
-    hlGrid.innerHTML+=`<div class="spec-hl"><div class="spec-hl-val">${h.val}</div><div class="spec-hl-lbl">${h.lbl}</div></div>`;
-  });
+  m.highlights.forEach(h=>{hlGrid.innerHTML+=`<div class="spec-hl"><div class="spec-hl-val">${h.val}</div><div class="spec-hl-lbl">${h.lbl}</div></div>`;});
   body.appendChild(hlSec);
 
   // Specs
   Object.entries(m.specs).forEach(([groupName,rows])=>{
-    const sec=document.createElement('div');
-    sec.className='md-section';
+    const sec=document.createElement('div');sec.className='md-section';
     sec.innerHTML=`<div class="md-section-title">📐 ${groupName.toUpperCase()}</div><table class="spec-table"></table>`;
     const table=sec.querySelector('table');
-    rows.forEach(([label,val])=>{
-      table.innerHTML+=`<tr><td>${label}</td><td>${val}</td></tr>`;
-    });
+    rows.forEach(([label,val])=>{table.innerHTML+=`<tr><td>${label}</td><td>${val}</td></tr>`;});
     body.appendChild(sec);
   });
 
-  // Battery compat
+  // Batteries (solo híbridos)
   if(m.batteries?.length){
-    const sec=document.createElement('div');
-    sec.className='md-section';
+    const sec=document.createElement('div');sec.className='md-section';
     sec.innerHTML=`<div class="md-section-title">🔋 COMPATIBILIDAD DE BATERÍAS</div><div class="bat-compat-list"></div>`;
     const list=sec.querySelector('.bat-compat-list');
     m.batteries.forEach(b=>{list.innerHTML+=`<div class="bat-compat-item"><span class="bat-compat-name">${b.name}</span><span class="bat-compat-tag">${b.spec}</span></div>`;});
@@ -1577,9 +1105,8 @@ function openModelDetail(m){
 
   // Accessories
   if(m.accessories?.length){
-    const sec=document.createElement('div');
-    sec.className='md-section';
-    sec.innerHTML=`<div class="md-section-title">🔌 ACCESORIOS Y DONGLES</div><div class="acc-list"></div>`;
+    const sec=document.createElement('div');sec.className='md-section';
+    sec.innerHTML=`<div class="md-section-title">🔌 ACCESORIOS</div><div class="acc-list"></div>`;
     const list=sec.querySelector('.acc-list');
     m.accessories.forEach(a=>{list.innerHTML+=`<div class="acc-item"><div class="acc-name">${a.name}</div><div class="acc-desc">${a.desc}</div></div>`;});
     body.appendChild(sec);
@@ -1587,8 +1114,7 @@ function openModelDetail(m){
 
   // Box contents
   if(m.boxContents?.length){
-    const sec=document.createElement('div');
-    sec.className='md-section';
+    const sec=document.createElement('div');sec.className='md-section';
     sec.innerHTML=`<div class="md-section-title">📦 CONTENIDO DE LA CAJA</div><div class="box-list"></div>`;
     const list=sec.querySelector('.box-list');
     m.boxContents.forEach(b=>{list.innerHTML+=`<div class="box-item"><span class="box-qty">×${b.qty}</span><span>${b.name}</span></div>`;});
@@ -1597,8 +1123,7 @@ function openModelDetail(m){
 
   // Protections
   if(m.protections?.length){
-    const sec=document.createElement('div');
-    sec.className='md-section';
+    const sec=document.createElement('div');sec.className='md-section';
     sec.innerHTML=`<div class="md-section-title">🛡️ PROTECCIONES</div><div class="prot-grid"></div>`;
     const grid=sec.querySelector('.prot-grid');
     m.protections.forEach(p=>{grid.innerHTML+=`<div class="prot-item"><div class="prot-name">${p.name}</div><div class="prot-val ${p.val==='Opcional'?'opt':''}">${p.val}</div></div>`;});
@@ -1607,9 +1132,8 @@ function openModelDetail(m){
 
   // Communications
   if(m.comms?.length){
-    const sec=document.createElement('div');
-    sec.className='md-section';
-    sec.innerHTML=`<div class="md-section-title">📡 PUERTOS DE COMUNICACIÓN</div><div class="comm-list"></div>`;
+    const sec=document.createElement('div');sec.className='md-section';
+    sec.innerHTML=`<div class="md-section-title">📡 COMUNICACIÓN</div><div class="comm-list"></div>`;
     const list=sec.querySelector('.comm-list');
     m.comms.forEach(c=>{list.innerHTML+=`<div class="comm-item"><div class="comm-icon">${c.icon}</div><div><div class="comm-name">${c.name}</div><div class="comm-desc">${c.desc.replace(/\n/g,'<br>')}</div></div></div>`;});
     body.appendChild(sec);
@@ -1617,9 +1141,8 @@ function openModelDetail(m){
 
   // Breakers
   if(m.breakers?.length){
-    const sec=document.createElement('div');
-    sec.className='md-section';
-    sec.innerHTML=`<div class="md-section-title">⚡ DISYUNTORES Y PUESTA A TIERRA RECOMENDADOS</div>
+    const sec=document.createElement('div');sec.className='md-section';
+    sec.innerHTML=`<div class="md-section-title">⚡ DISYUNTORES RECOMENDADOS</div>
     <table class="breaker-table">
       <tr><th>Modelo</th><th>Interruptor batería</th><th>Disyuntor CA</th><th>PE (tierra)</th></tr>
       ${m.breakers.map(b=>`<tr><td>${b.model}</td><td>${b.batDis}</td><td>${b.acOnGrid}</td><td>${b.pe}</td></tr>`).join('')}
@@ -1640,16 +1163,6 @@ function showToast(msg){
   tTimer=setTimeout(()=>t.classList.remove('show'),4000);
 }
 
-
-// Ripple effect
-document.querySelectorAll('.btn-p, .btn-s').forEach(btn=>{
-  btn.addEventListener('click',function(e){
-    this.classList.remove('rippling');
-    void this.offsetWidth;
-    this.classList.add('rippling');
-    setTimeout(()=>this.classList.remove('rippling'),500);
-  });
-});
 window.addEventListener('load',()=>document.getElementById('toast').classList.remove('show'));
 if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));}
 </script>
