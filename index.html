@@ -246,6 +246,10 @@ body{font-family:'Inter',sans-serif;background:var(--d);color:var(--t);min-heigh
 .toast{position:fixed;bottom:84px;left:14px;right:14px;background:var(--d3);border:1px solid rgba(232,0,45,.3);border-radius:10px;padding:11px 13px;font-size:13px;z-index:100;display:none;gap:9px;align-items:flex-start;}
 .toast.show{display:flex;}
 .tt{color:var(--m2);line-height:1.5;}
+.doc-links{display:flex;gap:8px;flex-wrap:wrap;}
+.doc-btn{flex:1;display:flex;align-items:center;justify-content:center;gap:7px;background:var(--d3);border:1px solid var(--b);border-radius:9px;padding:11px 12px;font-size:12px;font-family:'Syne',sans-serif;font-weight:600;color:var(--t);text-decoration:none;transition:border-color .15s,background .15s;}
+.doc-btn:active{border-color:var(--r);background:var(--d4);}
+.doc-btn.primary{background:rgba(232,0,45,.08);border-color:rgba(232,0,45,.25);color:#FF8099;}
 ::-webkit-scrollbar{width:3px;}
 ::-webkit-scrollbar-track{background:transparent;}
 ::-webkit-scrollbar-thumb{background:var(--d4);border-radius:2px;}
@@ -289,7 +293,7 @@ body{font-family:'Inter',sans-serif;background:var(--d);color:var(--t);min-heigh
     <div class="tcard" onclick="selectCategory('ongrid')">
       <div class="tcard-badge">Sin batería</div><div class="tcard-icon">⚡</div>
       <div class="tcard-title">On-Grid</div>
-      <div class="tcard-desc">Inyección a red · Sin almacenamiento<br><span style="font-family:'DM Mono',monospace;font-size:11px;">XS · DNS · MS · SDT · SMT · GT</span></div>
+      <div class="tcard-desc">Inyección a red · Sin almacenamiento<br><span style="font-family:'DM Mono',monospace;font-size:11px;">XS G3 · DNS · MS · SDT · SMT · GT</span></div>
     </div>
   </div>
 </div>
@@ -441,7 +445,7 @@ const MODELS={
   ]},
   ongrid:{label:'On-Grid',groups:[
     {title:'Monofásico Residencial',items:[
-      {id:'XSPLUS',name:'XS Plus+', tag:'tag-og',tl:'Mono',    desc:'0.7–3 kW · 1 MPPT · IP65',     defMppt:1,defStr:[1]},
+      {id:'XSPLUS',name:'XS G3',   tag:'tag-og',tl:'Mono',    desc:'0.7–3.3 kW · 1 MPPT · IP66 · 4.6kg',     defMppt:1,defStr:[1]},
       {id:'DNSG3', name:'DNS G3',   tag:'tag-og',tl:'Mono',    desc:'3–6 kW · 2 MPPT · IP66',       defMppt:2,defStr:[1,1]},
       {id:'MSG3',  name:'MS G3',    tag:'tag-og',tl:'Mono',    desc:'5–10 kW · 3 MPPT · IP66',      defMppt:3,defStr:[1,1,1]},
     ]},
@@ -469,7 +473,8 @@ const FICHAS={
         boxContents:[{qty:'1',name:'Inversor ESG2'},{qty:'1',name:'Placa de montaje'},{qty:'N',name:'Conectores MC4'},{qty:'1',name:'Smart Meter GM1000'},{qty:'1',name:'Documentación'}],
         protections:[{name:'Anti-isla',val:'Integrado'},{name:'Polaridad inversa DC',val:'Integrado'},{name:'Aislamiento FV',val:'Integrado'},{name:'DPS CC',val:'Tipo II'},{name:'DPS CA',val:'Tipo III'},{name:'AFCI',val:'Opcional'}],
         comms:[{icon:'🔋',name:'BMS',desc:'CAN · Puerto RJ45 · Baterías litio'},{icon:'📊',name:'Smart Meter',desc:'RS485 · Puerto METER'},{icon:'📱',name:'SEMS+',desc:'WiFi 2.4 GHz + LAN + Bluetooth 5.1'}],
-        breakers:[{model:'GW3000-ES-20',batDis:'≥75A / ≥60V',acOnGrid:'≥40A',pe:'4–6 mm²'},{model:'GW6000-ES-20',batDis:'≥150A / ≥60V',acOnGrid:'≥63A',pe:'4–6 mm²'}]
+        breakers:[{model:'GW3000-ES-20',batDis:'≥75A / ≥60V',acOnGrid:'≥40A',pe:'4–6 mm²'},{model:'GW6000-ES-20',batDis:'≥150A / ≥60V',acOnGrid:'≥63A',pe:'4–6 mm²'}],
+        docs:{datasheet:'https://es.goodwe.com/Ftp/Downloads/Datasheet/ES/GW_ES%20G2_Datasheet_EMEA-ES.pdf',manual:'https://es.goodwe.com/Ftp/Downloads/User%20Manual/GW_Residential-Smart-Inverter-Solutions_User-Manual-ES-G2-ES.pdf'}
       },
       {id:'ESUNIQ',name:'ES UNIQ',tag:'tag-mono',tl:'Mono',sub:'Inversor Híbrido Monofásico LV · 3–12 kW · IP66',
         highlights:[{val:'3–12 kW',lbl:'Potencia nominal'},{val:'1–2 MPPT',lbl:'Seguidores MPP'},{val:'600 V',lbl:'Vdc máx entrada'},{val:'IP66',lbl:'Protección'}],
@@ -479,7 +484,8 @@ const FICHAS={
         boxContents:[{qty:'1',name:'Inversor ES UNIQ'},{qty:'N',name:'Conectores MC4'},{qty:'1',name:'Smart Meter GM1000'},{qty:'1',name:'Documentación'}],
         protections:[{name:'Anti-isla',val:'Integrado'},{name:'Aislamiento FV',val:'Integrado'},{name:'Back-up <4ms',val:'Integrado'},{name:'DPS CC',val:'Tipo III'},{name:'DPS CA',val:'Tipo III'},{name:'AFCI',val:'Opcional'}],
         comms:[{icon:'🔋',name:'BMS',desc:'CAN · Compatible Lynx A, Lynx U'},{icon:'📱',name:'SEMS+',desc:'WiFi + LAN + Bluetooth'},{icon:'⚡',name:'Puerto 3-en-1',desc:'Generador · Cargas inteligentes · Inversor on-grid'}],
-        breakers:[{model:'GW3000/3600-ES-C10',batDis:'≥75A / ≥60V',acOnGrid:'≥20A',pe:'4–6 mm²'},{model:'GW10K/12K-ES-C10',batDis:'≥200-240A / ≥60V',acOnGrid:'≥63A',pe:'6–10 mm²'}]
+        breakers:[{model:'GW3000/3600-ES-C10',batDis:'≥75A / ≥60V',acOnGrid:'≥20A',pe:'4–6 mm²'},{model:'GW10K/12K-ES-C10',batDis:'≥200-240A / ≥60V',acOnGrid:'≥63A',pe:'6–10 mm²'}],
+        docs:{datasheet:'https://latam.goodwe.com/Ftp/Downloads/Datasheet/LATAM/GW_ES-Uniq-3-12kW_Datasheet_LATAM-ES.pdf',manual:'https://latam.goodwe.com/Ftp/Downloads/User%20Manual/GW_Residential-Smart-Inverter-Solutions_User-Manual-ES-Uniq8-12kW-ES.pdf'}
       },
       {id:'ETG2',name:'ET-G2',tag:'tag-tri',tl:'Tri',sub:'Inversor Híbrido Trifásico HV · 6–15 kW',
         highlights:[{val:'6–15 kW',lbl:'Potencia nominal'},{val:'Hasta 3 MPPT',lbl:'Seguidores MPP'},{val:'1000 V',lbl:'Vdc máx entrada'},{val:'IP66',lbl:'Protección'}],
@@ -489,7 +495,8 @@ const FICHAS={
         boxContents:[{qty:'1',name:'Inversor ET-G2'},{qty:'N',name:'Conectores MC4'},{qty:'1',name:'Smart Meter GM3000'},{qty:'1',name:'Documentación'}],
         protections:[{name:'Anti-isla',val:'Integrado'},{name:'Aislamiento FV',val:'Integrado'},{name:'AFCI 3.0',val:'Integrado'},{name:'DPS CC',val:'Tipo II'},{name:'Peak shaving',val:'Integrado'}],
         comms:[{icon:'🔋',name:'BMS HV',desc:'RS485 + CAN · Puerto BMS'},{icon:'📊',name:'Smart Meter tri',desc:'RS485 · CT1→L1, CT2→L2, CT3→L3'},{icon:'📱',name:'SEMS+',desc:'WiFi + LAN + Bluetooth 5.1'}],
-        breakers:[{model:'GW6000-ET-20',batDis:'N/A (HV)',acOnGrid:'≥20A / ≥400V',pe:'4–6 mm²'},{model:'GW15K-ET-20',batDis:'N/A (HV)',acOnGrid:'≥40A / ≥400V',pe:'4–6 mm²'}]
+        breakers:[{model:'GW6000-ET-20',batDis:'N/A (HV)',acOnGrid:'≥20A / ≥400V',pe:'4–6 mm²'},{model:'GW15K-ET-20',batDis:'N/A (HV)',acOnGrid:'≥40A / ≥400V',pe:'4–6 mm²'}],
+        docs:{datasheet:'https://es.goodwe.com/Ftp/Downloads/Datasheet/ES/GW_ET-G2_Datasheet_EMEA-ES.pdf',manual:'https://es.goodwe.com/Ftp/Downloads/User%20Manual/GW_Residential-Smart-Inverter-Solutions_User-Manual-ET-G2-ES.pdf'}
       },
       {id:'ET1530',name:'ET 15–30 kW',tag:'tag-tri',tl:'Tri',sub:'Inversor Híbrido Trifásico HV · 15–30 kW',
         highlights:[{val:'15–30 kW',lbl:'Potencia nominal'},{val:'2–3 MPPT',lbl:'Seguidores MPP'},{val:'1000 V',lbl:'Vdc máx entrada'},{val:'IP66',lbl:'Protección'}],
@@ -499,7 +506,8 @@ const FICHAS={
         boxContents:[{qty:'1',name:'Inversor ET 15-30kW'},{qty:'1',name:'Smart Meter GM3000'},{qty:'1',name:'Documentación'}],
         protections:[{name:'Anti-isla',val:'Integrado'},{name:'AFCI',val:'Opcional'},{name:'Peak shaving',val:'Integrado'}],
         comms:[{icon:'🔋',name:'BMS HV',desc:'RS485 + CAN'},{icon:'📱',name:'SEMS+',desc:'WiFi + LAN + Bluetooth'}],
-        breakers:[{model:'GW15K-ET',batDis:'N/A (HV)',acOnGrid:'≥40A / ≥400V',pe:'6–10 mm²'},{model:'GW30K-ET',batDis:'N/A (HV)',acOnGrid:'≥63A / ≥400V',pe:'10–16 mm²'}]
+        breakers:[{model:'GW15K-ET',batDis:'N/A (HV)',acOnGrid:'≥40A / ≥400V',pe:'6–10 mm²'},{model:'GW30K-ET',batDis:'N/A (HV)',acOnGrid:'≥63A / ≥400V',pe:'10–16 mm²'}],
+        docs:{datasheet:'https://latam.goodwe.com/Ftp/Downloads/Datasheet/LATAM/GW_ET%2012-30kW_Datasheet-LATAM_ES.pdf',manual:'https://latam.goodwe.com/Ftp/Downloads/User%20Manual/GW_Commercial-Smart-Inverter-Solutions_User-Manual-ET30-ES.pdf'}
       },
       {id:'ET4050',name:'ET 40–50 kW',tag:'tag-tri',tl:'Tri C&I',sub:'Inversor Híbrido Trifásico HV · 40–50 kW C&I',
         highlights:[{val:'40–50 kW',lbl:'Potencia nominal'},{val:'3–4 MPPT',lbl:'Seguidores MPP'},{val:'98.1%',lbl:'Eficiencia máx.'},{val:'IP66',lbl:'Protección'}],
@@ -509,21 +517,23 @@ const FICHAS={
         boxContents:[{qty:'1',name:'Inversor ET 40/50kW'},{qty:'N',name:'Conectores MC4'},{qty:'1',name:'Documentación'}],
         protections:[{name:'Anti-isla',val:'Integrado'},{name:'Peak shaving',val:'Integrado'},{name:'AFCI',val:'Opcional'}],
         comms:[{icon:'🔋',name:'BMS HV',desc:'CAN'},{icon:'📱',name:'SEMS+',desc:'RS485 + WiFi/LAN + Bluetooth'}],
-        breakers:[{model:'GW40K-ET-10',batDis:'N/A (HV)',acOnGrid:'≥125A / ≥400V',pe:'16–25 mm²'},{model:'GW50K-ET-10',batDis:'N/A (HV)',acOnGrid:'≥160A / ≥400V',pe:'16–25 mm²'}]
+        breakers:[{model:'GW40K-ET-10',batDis:'N/A (HV)',acOnGrid:'≥125A / ≥400V',pe:'16–25 mm²'},{model:'GW50K-ET-10',batDis:'N/A (HV)',acOnGrid:'≥160A / ≥400V',pe:'16–25 mm²'}],
+        docs:{datasheet:'https://latam.goodwe.com/Ftp/Downloads/Datasheet/LATAM/GW_ET40-50kW_Datasheet_LATAM-ES.pdf',manual:'https://latam.goodwe.com/Ftp/EN/Downloads/User%20Manual/GW_Commercial-Smart-Inverter-Solutions_User-Manual-ET25-50kW-EN.pdf'}
       },
     ]
   },
   ongrid:{
     label:'On-Grid',
     models:[
-      {id:'XSPLUS',name:'XS Plus+',tag:'tag-og',tl:'Mono',sub:'Inversor On-Grid Monofásico · 0.7–3 kW · IP65',
-        highlights:[{val:'0.7–3 kW',lbl:'Potencia nominal'},{val:'1 MPPT',lbl:'Seguidor MPP'},{val:'600 V',lbl:'Vdc máx entrada'},{val:'5.8 kg',lbl:'Peso (tamaño A4)'}],
-        specs:{'DC — Entrada FV':[['Potencia máx. entrada','0.91–3.9 kW'],['Tensión máx. entrada','500–600 V'],['Rango MPPT','40–550 V'],['Arranque','40–50 V'],['Corriente máx. MPPT','15 A'],['Corriente cortocircuito','18.75 A'],['Número MPPTs','1'],['Strings por MPPT','1']],'CA — Salida':[['Potencia nominal','0.7–3.0 kW'],['Tensión nominal','220/230 V'],['Rango tensión','154–288 V'],['Frecuencia','50/60 Hz'],['Corriente máx. salida','3.5–14.3 A'],['THD máx.','< 3%']],'General':[['Temperatura','-25°C a +60°C'],['Altitud máx.','3000 m'],['Refrigeración','Convección natural'],['Ruido','< 25–30 dB'],['Eficiencia máx.','97.2–97.6%'],['Eficiencia europea','96.0–97.2%'],['IP','IP65'],['Peso','5.8 kg'],['Dimensiones','295 × 230 × 113 mm']]},
-        accessories:[{name:'Smart Meter (opcional)',desc:'Para monitoreo de consumo'},{name:'Módulo WiFi/LAN',desc:'WiFi 2.4 GHz o LAN · Para SEMS+'}],
-        boxContents:[{qty:'1',name:'Inversor XS Plus+'},{qty:'1',name:'Conector CA Plug & Play'},{qty:'N',name:'Conectores MC4 (2.5–4 mm²)'},{qty:'1',name:'Documentación'}],
-        protections:[{name:'Anti-isla',val:'Integrado'},{name:'Aislamiento FV',val:'Integrado'},{name:'Corriente residual',val:'Integrado'},{name:'Sobrecorriente CA',val:'Integrado'},{name:'DPS CC',val:'Tipo III'},{name:'DPS CA',val:'Tipo III'},{name:'AFCI',val:'Opcional'},{name:'Apagado remoto',val:'Opcional'}],
-        comms:[{icon:'📱',name:'SEMS+ / Portal',desc:'WiFi 2.4 GHz o LAN · Modbus-RTU'},{icon:'📊',name:'Monitoreo consumo',desc:'Compatible con Smart Meter externo'}],
-        breakers:[{model:'GW700–1500-XS',batDis:'N/A',acOnGrid:'≥10A / ≥230V',pe:'2.5 mm²'},{model:'GW2000–3000-XS',batDis:'N/A',acOnGrid:'≥16A / ≥230V',pe:'2.5–4 mm²'}]
+      {id:'XSPLUS',name:'XS G3',tag:'tag-og',tl:'Mono',sub:'Inversor On-Grid Monofásico · 0.7–3.3 kW · IP66 · Tamaño A4',
+        highlights:[{val:'0.7–3.3 kW',lbl:'Potencia nominal'},{val:'1 MPPT',lbl:'Seguidor MPP'},{val:'600 V',lbl:'Vdc máx entrada'},{val:'4.6 kg',lbl:'Peso (tamaño A4)'}],
+        specs:{'DC — Entrada FV':[['Potencia máx. entrada','200% oversizing (hasta 6.6 kW en GW3300)'],['Tensión máx. entrada','600 V'],['Rango MPPT','40–450 V (0.7–2kW) / 40–550 V (2.5–3.3kW)'],['Tensión de arranque','50 V'],['Tensión nominal entrada','360 V'],['Corriente máx. MPPT','16 A'],['Corriente cortocircuito MPPT','25 A'],['Número MPPTs','1'],['Strings por MPPT','1']],'CA — Salida':[['Potencia nominal','700 W / 1000 W / 1500 W / 2000 W / 2500 W / 3000 W / 3300 W'],['Tensión nominal','220/230/240 V · L/N/PE'],['Rango tensión salida','154–288 V'],['Frecuencia nominal','50/60 Hz'],['Rango frecuencia','45–55 / 57–63 Hz'],['Corriente máx. salida','3.2–15.0 A según modelo'],['Factor de potencia','~1 (ajustable 0.8 cap/ind)'],['THD máx.','< 3%']],'General':[['Temperatura','-25°C a +60°C'],['Humedad','0–100%'],['Altitud máx.','4000 m'],['Refrigeración','Convección natural (sin ventilador)'],['Ruido','< 20 dB'],['Eficiencia máx.','97.0–97.6% según modelo'],['Eficiencia europea','93.2–97.1% según modelo'],['IP','IP66'],['Peso','4.6 kg'],['Dimensiones','306 × 218 × 119 mm'],['Autoconsumo nocturno','< 3 W'],['Topología','Sin transformador']]},
+        accessories:[{name:'Smart Meter',desc:'Para monitoreo de consumo 24/7 y límite exportación'},{name:'Módulo WiFi',desc:'Incluido · 2.4 GHz · WLAN + APP'},{name:'Módulo LAN',desc:'Opcional'},{name:'Módulo 4G',desc:'Opcional'},{name:'Módulo Bluetooth',desc:'Opcional'}],
+        boxContents:[{qty:'1',name:'Inversor XS G3'},{qty:'1',name:'Conector CA Plug & Play'},{qty:'N',name:'Conectores DC MC4 (4–6 mm²)'},{qty:'1',name:'Documentación'}],
+        protections:[{name:'Anti-isla',val:'Integrado'},{name:'Monitoreo corriente string',val:'Integrado'},{name:'Detección aislamiento FV',val:'Integrado'},{name:'Corriente residual',val:'Integrado'},{name:'Polaridad inversa DC',val:'Integrado'},{name:'Sobrecorriente CA',val:'Integrado'},{name:'Cortocircuito CA',val:'Integrado'},{name:'Sobretensión CA',val:'Integrado'},{name:'Interruptor DC',val:'Integrado'},{name:'DPS CC',val:'Tipo III (Tipo II opcional)'},{name:'DPS CA',val:'Tipo III (Tipo II opcional)'},{name:'AFCI',val:'Opcional'},{name:'Apagado remoto',val:'Opcional'},{name:'Alimentación nocturna',val:'Opcional'}],
+        comms:[{icon:'📱',name:'SEMS+ / Portal',desc:'WiFi + LAN + 4G + Bluetooth (opcionales)\nModbus RTU y Modbus TCP'},{icon:'📊',name:'Monitoreo consumo',desc:'24/7 · Compatible Smart Meter · Límite exportación integrado'}],
+        breakers:[{model:'GW700–1500-XS-30',batDis:'N/A',acOnGrid:'≥10A / ≥230V',pe:'2.5 mm²'},{model:'GW2000–3300-XS-30',batDis:'N/A',acOnGrid:'≥16A / ≥230V',pe:'2.5–4 mm²'}],
+        docs:{datasheet:'https://latam.goodwe.com/Ftp/Downloads/Datasheet/LATAM/GW_XS-G3_Datasheet_LATAM-ES.pdf',manual:'https://latam.goodwe.com/Ftp/Downloads/User%20Manual/GW_XS-G3_User-Manual-ES.pdf'}
       },
       {id:'DNSG3',name:'DNS G3',tag:'tag-og',tl:'Mono',sub:'Inversor On-Grid Monofásico · 3–6 kW · IP66',
         highlights:[{val:'3–6 kW',lbl:'Potencia nominal'},{val:'2 MPPT',lbl:'Seguidores MPP'},{val:'600 V',lbl:'Vdc máx entrada'},{val:'IP66',lbl:'Protección'}],
@@ -532,7 +542,8 @@ const FICHAS={
         boxContents:[{qty:'1',name:'Inversor DNS G3'},{qty:'1',name:'Conector CA Plug & Play (máx. 6mm²)'},{qty:'N',name:'Conectores MC4 (4–6 mm²)'},{qty:'1',name:'Documentación'}],
         protections:[{name:'Anti-isla',val:'Integrado'},{name:'Polaridad inversa DC',val:'Integrado'},{name:'Aislamiento FV',val:'Integrado'},{name:'Corriente residual',val:'Integrado'},{name:'Sobrecorriente CA',val:'Integrado'},{name:'Cortocircuito CA',val:'Integrado'},{name:'Interruptor CC',val:'Integrado'},{name:'DPS CC',val:'Tipo III (Tipo II Opcional)'},{name:'DPS CA',val:'Tipo III (Tipo II Opcional)'},{name:'AFCI',val:'Opcional'},{name:'Apagado remoto',val:'Opcional'}],
         comms:[{icon:'📱',name:'SEMS+ / Portal',desc:'WiFi + RS485 o LAN o 4G (opcional)\nModbus-RTU conforme Sunspec'},{icon:'📊',name:'Monitoreo consumo',desc:'Compatible Smart Meter GM1000 · 24/7'}],
-        breakers:[{model:'GW3000-DNS-30',batDis:'N/A',acOnGrid:'≥20A / ≥230V',pe:'2.5–4 mm²'},{model:'GW4200-DNS-30',batDis:'N/A',acOnGrid:'≥25A / ≥230V',pe:'4 mm²'},{model:'GW6000-DNS-30',batDis:'N/A',acOnGrid:'≥32A / ≥230V',pe:'4–6 mm²'}]
+        breakers:[{model:'GW3000-DNS-30',batDis:'N/A',acOnGrid:'≥20A / ≥230V',pe:'2.5–4 mm²'},{model:'GW4200-DNS-30',batDis:'N/A',acOnGrid:'≥25A / ≥230V',pe:'4 mm²'},{model:'GW6000-DNS-30',batDis:'N/A',acOnGrid:'≥32A / ≥230V',pe:'4–6 mm²'}],
+        docs:{datasheet:'https://latam.goodwe.com/Ftp/Downloads/Datasheet/LATAM/GW_DNS%20G3_Datasheet-LATAM_ES.pdf',manual:'https://latam.goodwe.com/Ftp/Downloads/User%20Manual/GW_DNS%20G3_User%20Manual-ES.pdf'}
       },
       {id:'MSG3',name:'MS G3',tag:'tag-og',tl:'Mono',sub:'Inversor On-Grid Monofásico · 5–10 kW · IP66 · 3 MPPT',
         highlights:[{val:'5–10 kW',lbl:'Potencia nominal'},{val:'3 MPPT',lbl:'Seguidores MPP'},{val:'600 V',lbl:'Vdc máx entrada'},{val:'IP66',lbl:'Protección'}],
@@ -541,7 +552,8 @@ const FICHAS={
         boxContents:[{qty:'1',name:'Inversor MS G3'},{qty:'1',name:'Conector CA Plug & Play (máx. 16mm²)'},{qty:'N',name:'Conectores MC4 (2.5–4 mm²)'},{qty:'1',name:'Documentación'}],
         protections:[{name:'Anti-isla',val:'Integrado'},{name:'Polaridad inversa DC',val:'Integrado'},{name:'Aislamiento FV',val:'Integrado'},{name:'Corriente residual',val:'Integrado'},{name:'Interruptor CC',val:'Integrado'},{name:'DPS CC',val:'Tipo III (Tipo II Opcional)'},{name:'DPS CA',val:'Tipo III (Tipo II Opcional)'},{name:'AFCI',val:'Opcional'},{name:'Apagado rápido',val:'Opcional'},{name:'Recuperación PID',val:'Opcional'}],
         comms:[{icon:'📱',name:'SEMS+ / Portal',desc:'RS485 + WiFi + LAN + Bluetooth\nModbus-RTU conforme Sunspec'},{icon:'🔌',name:'Control carga DO',desc:'Contactos secos · Activar cargas externas'},{icon:'📊',name:'Monitoreo consumo',desc:'Compatible Smart Meter GM1000 · 24/7'}],
-        breakers:[{model:'GW5000-MS-30',batDis:'N/A',acOnGrid:'≥32A / ≥230V',pe:'4 mm²'},{model:'GW7000-MS-30',batDis:'N/A',acOnGrid:'≥40A / ≥230V',pe:'4–6 mm²'},{model:'GW10K-MS-30',batDis:'N/A',acOnGrid:'≥50A / ≥230V',pe:'6 mm²'}]
+        breakers:[{model:'GW5000-MS-30',batDis:'N/A',acOnGrid:'≥32A / ≥230V',pe:'4 mm²'},{model:'GW7000-MS-30',batDis:'N/A',acOnGrid:'≥40A / ≥230V',pe:'4–6 mm²'},{model:'GW10K-MS-30',batDis:'N/A',acOnGrid:'≥50A / ≥230V',pe:'6 mm²'}],
+        docs:{datasheet:'https://es.goodwe.com/Ftp/Downloads/Datasheet/ES/GW_MS%20G3_Datasheet_EMEA-ES.pdf',manual:'https://es.goodwe.com/Ftp/Downloads/User%20Manual/GW_MS%20G3%20Series%205-10kW_User%20Manual-ES.pdf'}
       },
       {id:'SDTG3',name:'SDT G3',tag:'tag-og',tl:'Tri',sub:'Inversor On-Grid Trifásico · 8–30 kW · IP66 · 2 MPPT',
         highlights:[{val:'8–30 kW',lbl:'Potencia nominal'},{val:'2 MPPT',lbl:'Seguidores MPP'},{val:'1100 V',lbl:'Vdc máx entrada'},{val:'IP66',lbl:'Protección'}],
@@ -550,7 +562,8 @@ const FICHAS={
         boxContents:[{qty:'1',name:'Inversor SDT G3'},{qty:'3',name:'CT de corriente'},{qty:'N',name:'Conectores MC4 (4–6 mm²)'},{qty:'1',name:'Documentación'}],
         protections:[{name:'Anti-isla',val:'Integrado'},{name:'Polaridad inversa DC',val:'Integrado'},{name:'Aislamiento FV',val:'Integrado'},{name:'Corriente residual',val:'Integrado'},{name:'Interruptor CC',val:'Integrado'},{name:'DPS CC',val:'Tipo III (Tipo II Opcional)'},{name:'DPS CA',val:'Tipo III (Tipo II Opcional)'},{name:'AFCI',val:'Opcional'},{name:'Recuperación PID',val:'Opcional'}],
         comms:[{icon:'📱',name:'SEMS+ / Portal',desc:'RS485 + WiFi + LAN o 4G o Bluetooth\nModbus-RTU conforme Sunspec'},{icon:'📊',name:'Smart Meter trifásico',desc:'RS485 · CT1→L1, CT2→L2, CT3→L3'}],
-        breakers:[{model:'GW8000-SDT-30',batDis:'N/A',acOnGrid:'≥20A / ≥380V',pe:'4 mm²'},{model:'GW15K-SDT-30',batDis:'N/A',acOnGrid:'≥32A / ≥380V',pe:'4–6 mm²'},{model:'GW30K-SDT-C30',batDis:'N/A',acOnGrid:'≥63A / ≥380V',pe:'10–16 mm²'}]
+        breakers:[{model:'GW8000-SDT-30',batDis:'N/A',acOnGrid:'≥20A / ≥380V',pe:'4 mm²'},{model:'GW15K-SDT-30',batDis:'N/A',acOnGrid:'≥32A / ≥380V',pe:'4–6 mm²'},{model:'GW30K-SDT-C30',batDis:'N/A',acOnGrid:'≥63A / ≥380V',pe:'10–16 mm²'}],
+        docs:{datasheet:'https://es.goodwe.com/Ftp/Downloads/Datasheet/ES/GW_SDT-G3_Datasheet_EMEA-ES.pdf',manual:'https://es.goodwe.com/Ftp/Downloads/User%20Manual/GW_SDT-G3_User-Manual-ES.pdf'}
       },
       {id:'SMT2536',name:'SMT 25-36kW',tag:'tag-og',tl:'Tri C&I',sub:'Inversor On-Grid Trifásico C&I · 25–36 kW · IP65 · 3 MPPT',
         highlights:[{val:'25–36 kW',lbl:'Potencia nominal'},{val:'3 MPPT',lbl:'Seguidores MPP'},{val:'1100 V',lbl:'Vdc máx entrada'},{val:'98.8%',lbl:'Eficiencia máx.'}],
@@ -559,7 +572,8 @@ const FICHAS={
         boxContents:[{qty:'1',name:'Inversor SMT 25-36kW'},{qty:'N',name:'Conectores MC4 (4–6 mm²)'},{qty:'1',name:'Terminal OT/DT CA (máx. 25mm²)'},{qty:'1',name:'Documentación'}],
         protections:[{name:'Anti-isla',val:'Integrado'},{name:'Polaridad inversa DC',val:'Integrado'},{name:'Aislamiento FV',val:'Integrado'},{name:'Corriente residual',val:'Integrado'},{name:'Interruptor CC',val:'Integrado'},{name:'DPS CC',val:'Tipo III (Tipo II Opcional)'},{name:'DPS CA',val:'Tipo III (Tipo II Opcional)'},{name:'AFCI',val:'Opcional'},{name:'Recuperación PID',val:'Opcional'},{name:'Diseño sin fusibles',val:'Integrado'}],
         comms:[{icon:'📱',name:'SEMS+ / Portal',desc:'RS485 + WiFi o 4G o PLC (opcional)\nModbus-RTU conforme Sunspec'},{icon:'📊',name:'Monitoreo nivel string',desc:'Medición de producción por string'}],
-        breakers:[{model:'GW25K-MT',batDis:'N/A',acOnGrid:'≥63A / ≥400V',pe:'10 mm²'},{model:'GW30K-MT',batDis:'N/A',acOnGrid:'≥80A / ≥400V',pe:'10–16 mm²'},{model:'GW36K-MT',batDis:'N/A',acOnGrid:'≥100A / ≥400V',pe:'16 mm²'}]
+        breakers:[{model:'GW25K-MT',batDis:'N/A',acOnGrid:'≥63A / ≥400V',pe:'10 mm²'},{model:'GW30K-MT',batDis:'N/A',acOnGrid:'≥80A / ≥400V',pe:'10–16 mm²'},{model:'GW36K-MT',batDis:'N/A',acOnGrid:'≥100A / ≥400V',pe:'16 mm²'}],
+        docs:{datasheet:'https://latam.goodwe.com/Ftp/Downloads/Datasheet/LATAM/GW_SMT%2025-36kW%2015A_Datasheet-LATAM_ES.pdf',manual:'https://latam.goodwe.com/Ftp/Downloads/User%20Manual/GW_SMT%2012-60kW_User%20Manual-ES.pdf'}
       },
       {id:'SMT5060',name:'SMT 50-60kW',tag:'tag-og',tl:'Tri C&I',sub:'Inversor On-Grid Trifásico C&I · 50–60 kW · IP65 · 5-6 MPPT',
         highlights:[{val:'50–60 kW',lbl:'Potencia nominal'},{val:'5–6 MPPT',lbl:'Seguidores MPP'},{val:'1100 V',lbl:'Vdc máx entrada'},{val:'98.6%',lbl:'Eficiencia máx.'}],
@@ -568,7 +582,8 @@ const FICHAS={
         boxContents:[{qty:'1',name:'Inversor SMT 50-60kW'},{qty:'N',name:'Conectores MC4 (4–6 mm²)'},{qty:'1',name:'Terminal OT/DT CA (máx. 50mm²)'},{qty:'1',name:'Documentación'}],
         protections:[{name:'Anti-isla',val:'Integrado'},{name:'Polaridad inversa DC',val:'Integrado'},{name:'Aislamiento FV',val:'Integrado'},{name:'Corriente residual',val:'Integrado'},{name:'Interruptor CC',val:'Integrado'},{name:'DPS CC',val:'Tipo II (Tipo I+II Opcional)'},{name:'DPS CA',val:'Tipo II'},{name:'AFCI',val:'Opcional'},{name:'Diseño sin fusibles',val:'Integrado'}],
         comms:[{icon:'📱',name:'SEMS+ / Portal',desc:'RS485 + WiFi o 4G o PLC\nModbus-RTU conforme Sunspec'},{icon:'📊',name:'Monitoreo',desc:'Compatible con monitoreo de nivel de string'}],
-        breakers:[{model:'GW50KS-MT',batDis:'N/A',acOnGrid:'≥125A / ≥400V',pe:'25 mm²'},{model:'GW60KS-MT',batDis:'N/A',acOnGrid:'≥160A / ≥400V',pe:'25–35 mm²'}]
+        breakers:[{model:'GW50KS-MT',batDis:'N/A',acOnGrid:'≥125A / ≥400V',pe:'25 mm²'},{model:'GW60KS-MT',batDis:'N/A',acOnGrid:'≥160A / ≥400V',pe:'25–35 mm²'}],
+        docs:{datasheet:'https://latam.goodwe.com/Ftp/Downloads/Datasheet/LATAM/GW_SMT%2050-60kW_Datasheet-LATAM_ES.pdf',manual:'https://latam.goodwe.com/Ftp/Downloads/User%20Manual/GW_SMT%2012-60kW_User%20Manual-ES.pdf'}
       },
       {id:'GT',name:'GT 100-125kW',tag:'tag-og',tl:'Tri C&I',sub:'Inversor On-Grid Trifásico C&I · 100–125 kW · IP66 · 8-10 MPPT',
         highlights:[{val:'100–125 kW',lbl:'Potencia nominal'},{val:'8–10 MPPT',lbl:'Seguidores MPP'},{val:'1100 V',lbl:'Vdc máx entrada'},{val:'99.0%',lbl:'Eficiencia máx.'}],
@@ -577,7 +592,8 @@ const FICHAS={
         boxContents:[{qty:'1',name:'Inversor GT 100/110/125kW'},{qty:'1',name:'Placa de montaje'},{qty:'N',name:'Conectores fotovoltaicos MC4 (4–6 mm²)'},{qty:'1',name:'Conector de comunicación'},{qty:'N',name:'Módulo de comunicación interna (WiFi/LAN/4G)'},{qty:'1',name:'Dongle inteligente'},{qty:'2',name:'Asas de elevación'},{qty:'2',name:'Herramientas de desbloqueo'},{qty:'1',name:'Documentación'}],
         protections:[{name:'Anti-isla',val:'Integrado (AFDPF+AQDPF)'},{name:'Supervisión corriente string',val:'Integrado'},{name:'Detección aislamiento FV',val:'Integrado'},{name:'Corriente residual (RCMU)',val:'Integrado'},{name:'Polaridad inversa DC',val:'Integrado'},{name:'Sobrecorriente CA',val:'Integrado'},{name:'Cortocircuito CA',val:'Integrado'},{name:'Sobretensión CA',val:'Integrado'},{name:'Interruptor CC',val:'Integrado (x2)'},{name:'DPS CC',val:'Tipo II (Tipo I+II opcional)'},{name:'DPS CA',val:'Tipo II'},{name:'AFCI',val:'Opcional'},{name:'Apagado rápido (RSD)',val:'Opcional'},{name:'Apagado remoto',val:'Opcional'},{name:'Recuperación PID',val:'Opcional'},{name:'SVG nocturno',val:'Opcional'}],
         comms:[{icon:'📱',name:'SEMS+ / SolarGo',desc:'WiFi 2.4 GHz + LAN + 4G + PLC (opcionales)\nModbus-RTU conforme SunSpec\nBluetooth 5.1 (opcional)'},{icon:'🔌',name:'RS485',desc:'Puerto COM integrado · Hasta 1000 m total\nMáx. 20 inversores por EzLogger3000C'},{icon:'📊',name:'Límite de potencia',desc:'GM330 o EzLogger3000C + GM330\nControl dinámico exportación a red'}],
-        breakers:[{model:'GW100K-GT',batDis:'N/A',acOnGrid:'200 A',pe:'70–95 mm²'},{model:'GW110K-GT',batDis:'N/A',acOnGrid:'225 A',pe:'95 mm²'},{model:'GW125K-GT',batDis:'N/A',acOnGrid:'250 A',pe:'95–120 mm²'}]
+        breakers:[{model:'GW100K-GT',batDis:'N/A',acOnGrid:'200 A',pe:'70–95 mm²'},{model:'GW110K-GT',batDis:'N/A',acOnGrid:'225 A',pe:'95 mm²'},{model:'GW125K-GT',batDis:'N/A',acOnGrid:'250 A',pe:'95–120 mm²'}],
+        docs:{datasheet:'https://latam.goodwe.com/Ftp/Downloads/Datasheet/LATAM/GW_GT_Datasheet_LATAM-ES.pdf',manual:'https://latam.goodwe.com/Ftp/Downloads/User%20Manual/GW_GT_User-Manual-ES.pdf'}
       },
     ]
   }
@@ -1147,6 +1163,16 @@ function openModelDetail(m){
       <tr><th>Modelo</th><th>Interruptor batería</th><th>Disyuntor CA</th><th>PE (tierra)</th></tr>
       ${m.breakers.map(b=>`<tr><td>${b.model}</td><td>${b.batDis}</td><td>${b.acOnGrid}</td><td>${b.pe}</td></tr>`).join('')}
     </table>`;
+    body.appendChild(sec);
+  }
+
+  // Documentación oficial
+  if(m.docs){
+    const sec=document.createElement('div');sec.className='md-section';
+    sec.innerHTML=`<div class="md-section-title">📄 DOCUMENTACIÓN OFICIAL</div><div class="doc-links">
+      <a class="doc-btn primary" href="${m.docs.datasheet}" target="_blank" rel="noopener">📊 Datasheet</a>
+      <a class="doc-btn" href="${m.docs.manual}" target="_blank" rel="noopener">📖 Manual de Usuario</a>
+    </div>`;
     body.appendChild(sec);
   }
 
