@@ -246,6 +246,26 @@ body{font-family:'Inter',sans-serif;background:var(--d);color:var(--t);min-heigh
 .toast{position:fixed;bottom:84px;left:14px;right:14px;background:var(--d3);border:1px solid rgba(232,0,45,.3);border-radius:10px;padding:11px 13px;font-size:13px;z-index:100;display:none;gap:9px;align-items:flex-start;}
 .toast.show{display:flex;}
 .tt{color:var(--m2);line-height:1.5;}
+.md-tabs{display:flex;gap:6px;padding:12px 20px 0;border-bottom:1px solid var(--b);background:var(--d2);}
+.md-tab{font-family:'Syne',sans-serif;font-size:12px;font-weight:600;color:var(--m2);padding:8px 14px;border-radius:8px 8px 0 0;cursor:pointer;transition:color .15s,background .15s;border:1px solid transparent;border-bottom:none;margin-bottom:-1px;}
+.md-tab.active{color:var(--t);background:var(--d);border-color:var(--b);border-bottom-color:var(--d);}
+.md-tab:not(.active):active{background:var(--d3);}
+.md-panel{display:none;}
+.md-panel.active{display:block;}
+.err-list{display:flex;flex-direction:column;gap:8px;}
+.err-item{background:var(--d2);border:1px solid var(--b);border-radius:10px;overflow:hidden;}
+.err-header{display:flex;align-items:center;gap:10px;padding:11px 13px;cursor:pointer;}
+.err-header:active{background:var(--d3);}
+.err-code{font-family:'DM Mono',monospace;font-size:11px;background:rgba(239,68,68,.1);color:#FCA5A5;border:1px solid rgba(239,68,68,.2);padding:3px 8px;border-radius:5px;flex-shrink:0;}
+.err-name{font-size:12px;font-weight:600;flex:1;}
+.err-arr{color:var(--m);font-size:13px;transition:transform .2s;}
+.err-item.open .err-arr{transform:rotate(90deg);}
+.err-body{display:none;padding:0 13px 12px;border-top:1px solid var(--b);}
+.err-item.open .err-body{display:block;}
+.err-row{margin-top:9px;}
+.err-row-label{font-size:10px;font-family:'DM Mono',monospace;color:var(--m);text-transform:uppercase;letter-spacing:.07em;margin-bottom:3px;}
+.err-row-val{font-size:12px;color:var(--t);line-height:1.5;}
+.err-sol{color:var(--g);}
 .doc-links{display:flex;gap:8px;flex-wrap:wrap;}
 .doc-btn{flex:1;display:flex;align-items:center;justify-content:center;gap:7px;background:var(--d3);border:1px solid var(--b);border-radius:9px;padding:11px 12px;font-size:12px;font-family:'Syne',sans-serif;font-weight:600;color:var(--t);text-decoration:none;transition:border-color .15s,background .15s;}
 .doc-btn:active{border-color:var(--r);background:var(--d4);}
@@ -379,7 +399,7 @@ body{font-family:'Inter',sans-serif;background:var(--d);color:var(--t);min-heigh
 
 <!-- MODEL DETAIL -->
 <div id="screen-model-detail" class="screen">
-  <div class="md-header">
+  <div class="md-header" id="md-header">
     <div class="md-header-top">
       <button class="back" onclick="go('screen-manuals')">←</button>
       <div>
@@ -593,7 +613,61 @@ const FICHAS={
         protections:[{name:'Anti-isla',val:'Integrado (AFDPF+AQDPF)'},{name:'Supervisión corriente string',val:'Integrado'},{name:'Detección aislamiento FV',val:'Integrado'},{name:'Corriente residual (RCMU)',val:'Integrado'},{name:'Polaridad inversa DC',val:'Integrado'},{name:'Sobrecorriente CA',val:'Integrado'},{name:'Cortocircuito CA',val:'Integrado'},{name:'Sobretensión CA',val:'Integrado'},{name:'Interruptor CC',val:'Integrado (x2)'},{name:'DPS CC',val:'Tipo II (Tipo I+II opcional)'},{name:'DPS CA',val:'Tipo II'},{name:'AFCI',val:'Opcional'},{name:'Apagado rápido (RSD)',val:'Opcional'},{name:'Apagado remoto',val:'Opcional'},{name:'Recuperación PID',val:'Opcional'},{name:'SVG nocturno',val:'Opcional'}],
         comms:[{icon:'📱',name:'SEMS+ / SolarGo',desc:'WiFi 2.4 GHz + LAN + 4G + PLC (opcionales)\nModbus-RTU conforme SunSpec\nBluetooth 5.1 (opcional)'},{icon:'🔌',name:'RS485',desc:'Puerto COM integrado · Hasta 1000 m total\nMáx. 20 inversores por EzLogger3000C'},{icon:'📊',name:'Límite de potencia',desc:'GM330 o EzLogger3000C + GM330\nControl dinámico exportación a red'}],
         breakers:[{model:'GW100K-GT',batDis:'N/A',acOnGrid:'200 A',pe:'70–95 mm²'},{model:'GW110K-GT',batDis:'N/A',acOnGrid:'225 A',pe:'95 mm²'},{model:'GW125K-GT',batDis:'N/A',acOnGrid:'250 A',pe:'95–120 mm²'}],
-        docs:{datasheet:'https://latam.goodwe.com/Ftp/Downloads/Datasheet/LATAM/GW_GT_Datasheet_LATAM-ES.pdf',manual:'https://latam.goodwe.com/Ftp/Downloads/User%20Manual/GW_GT_User-Manual-ES.pdf'}
+        docs:{datasheet:'https://latam.goodwe.com/Ftp/Downloads/Datasheet/LATAM/GW_GT_Datasheet_LATAM-ES.pdf',manual:'https://latam.goodwe.com/Ftp/Downloads/User%20Manual/GW_GT_User-Manual-ES.pdf'},
+        errors:[
+          {code:'E01',name:'Utility Loss',causa:'Fallo de red eléctrica o disyuntor CA desconectado',sol:'La alarma desaparece al restablecer la red. Verificar cable CA y disyuntor encendido.'},
+          {code:'E02',name:'Grid Overvoltage',causa:'Tensión de red supera el intervalo permitido o duración supera HVRT',sol:'Si es ocasional, el inversor se recupera solo. Si es frecuente, verificar tensión de red y contactar operador local si está fuera de rango.'},
+          {code:'E03',name:'Grid Rapid Overvoltage',causa:'Tensión de red anómala o tensión ultraelevada activa el fallo',sol:'Verificar tensión de red. Si persiste contactar distribuidor.'},
+          {code:'E04',name:'Grid Undervoltage',causa:'Tensión de red no alcanza el intervalo permitido o supera duración LVRT',sol:'Si es ocasional, el inversor se recupera solo. Si es frecuente, verificar tensión y disyuntor CA.'},
+          {code:'E05',name:'Grid 10min Overvoltage',causa:'Valor medio de tensión en 10 min supera el intervalo de seguridad',sol:'Si es ocasional se recupera solo. Si es frecuente, contactar operador de red local.'},
+          {code:'E06',name:'Grid Overfrequency',causa:'Frecuencia de red supera el intervalo estándar local',sol:'Si es ocasional se recupera solo. Si es frecuente, verificar frecuencia y contactar operador local.'},
+          {code:'E07',name:'Grid Underfrequency',causa:'Frecuencia de red no alcanza el intervalo estándar local',sol:'Si es ocasional se recupera solo. Si es frecuente, verificar frecuencia y contactar operador local.'},
+          {code:'E08',name:'Anti-islanding',causa:'Red desconectada con tensión mantenida por cargas',sol:'El inversor se reconecta automáticamente cuando la red recupera la normalidad.'},
+          {code:'E09',name:'LVRT Undervoltage',causa:'Red anómala y duración supera valor de norma local de seguridad',sol:'Si es ocasional se recupera solo. Si es frecuente, contactar centro de servicio local.'},
+          {code:'E10',name:'HVRT Overvoltage',causa:'Red anómala y duración supera valor de norma local de seguridad',sol:'Si es ocasional se recupera solo. Si es frecuente, contactar centro de servicio local.'},
+          {code:'E11',name:'Abnormal GFCI 30mA',causa:'Impedancia de aislamiento de cadena FV a tierra disminuye durante operación',sol:'Si es ocasional se recupera solo. Si es frecuente, verificar impedancia de aislamiento de la cadena FV a tierra.'},
+          {code:'E12',name:'Abnormal GFCI 60mA',causa:'Impedancia de aislamiento de cadena FV a tierra disminuye durante operación',sol:'Si es ocasional se recupera solo. Si es frecuente, verificar impedancia de aislamiento.'},
+          {code:'E13',name:'Abnormal GFCI 150mA',causa:'Impedancia de aislamiento de cadena FV a tierra disminuye durante operación',sol:'Si es ocasional se recupera solo. Si es frecuente, verificar impedancia de aislamiento.'},
+          {code:'E14',name:'Abnormal GFCI',causa:'Impedancia de aislamiento de cadena FV a tierra disminuye durante operación',sol:'Si es ocasional se recupera solo. Si es frecuente, verificar impedancia de aislamiento.'},
+          {code:'E15',name:'Large DC of AC current L1',causa:'Componente CC de corriente de salida supera intervalo permitido',sol:'Si es fallo externo, se recupera solo. Si es frecuente, contactar distribuidor o posventa.'},
+          {code:'E16',name:'Large DC of AC current L2',causa:'Componente CC de corriente de salida supera intervalo permitido',sol:'Si es fallo externo, se recupera solo. Si es frecuente, contactar distribuidor o posventa.'},
+          {code:'E17',name:'Low Insulation Resistance',causa:'Cortocircuito cadena FV a tierra, o entorno húmedo prolongado con cable PE deficiente',sol:'Verificar impedancia cadena FV a tierra. Revisar conexión cable PE. Si es lluvia/nublado, restablecer valor de protección de impedancia.'},
+          {code:'E18',name:'Abnormal Ground',causa:'Cable PE no conectado, o cables L/N invertidos cuando cadena FV está a tierra',sol:'Confirmar conexión cable PE. Verificar que cables L y N no estén invertidos.'},
+          {code:'E19',name:'L-PE Short Circuit',causa:'Conexión del cable de corriente en terminal de salida anómala',sol:'Revisar cableado lado red. Si persiste, contactar posventa.'},
+          {code:'E20',name:'Anti Reverse Power Failure',causa:'Conexión de carga anómala',sol:'Si es fallo externo, se recupera solo. Si es frecuente, contactar distribuidor o posventa.'},
+          {code:'E21',name:'Internal Comm Loss',causa:'Chip no encendido o error de versión de programa del chip',sol:'Desconectar CA y CC, esperar 5 min, volver a conectar. Si persiste, contactar posventa.'},
+          {code:'E22',name:'AC HCT Check Abnormal',causa:'Muestreo anómalo de HCT de CA',sol:'Desconectar CA y CC, esperar 5 min, reconectar. Si persiste, contactar posventa.'},
+          {code:'E23',name:'GFCI HCT Check Abnormal',causa:'Muestreo anómalo de HCT de GFCI',sol:'Desconectar CA y CC, esperar 5 min, reconectar. Si persiste, contactar posventa.'},
+          {code:'E24',name:'Relay Check Abnormal',causa:'Relé anómalo o en cortocircuito, circuito de control anómalo, o conexión CA deficiente',sol:'Desconectar CA y CC, esperar 5 min, reconectar. Si persiste, contactar posventa.'},
+          {code:'E25',name:'Internal Fan Abnormal',causa:'Fuente de alimentación del ventilador anómala, excepción mecánica, o ventilador dañado',sol:'Desconectar CA y CC, esperar 5 min, reconectar. Si persiste, contactar posventa.'},
+          {code:'E26',name:'External Fan Abnormal',causa:'Fuente de alimentación del ventilador anómala, excepción mecánica, o ventilador dañado',sol:'Desconectar CA y CC, esperar 5 min, reconectar. Si persiste, contactar posventa.'},
+          {code:'E27',name:'Flash Fault',causa:'Excepción de unidad flash de almacenamiento interno',sol:'Desconectar CA y CC, esperar 5 min, reconectar. Si persiste, contactar posventa.'},
+          {code:'E28',name:'DC Arc Fault',causa:'Terminal de cadena FV no conectado firmemente, o cable CC dañado',sol:'Verificar cableado CC según manual. Revisar conectores y estado del cable.'},
+          {code:'E29',name:'AFCI Self-test Fault',causa:'Dispositivo de detección de arco anómalo',sol:'Desconectar CA y CC, esperar 5 min, reconectar. Si persiste, contactar posventa.'},
+          {code:'E30',name:'Inv Module Overtemperature',causa:'Ventilación insuficiente, temperatura ambiente >60°C, o fallo en ventilador interno',sol:'Verificar ventilación y temperatura ambiente. Mejorar disipación de calor. Si todo es adecuado, contactar posventa.'},
+          {code:'E31',name:'1.5V Ref Abnormal',causa:'Circuito de referencia anómalo',sol:'Desconectar CA y CC, esperar 5 min, reconectar. Si persiste, contactar posventa.'},
+          {code:'E32',name:'0.3V Ref Abnormal',causa:'Circuito de referencia anómalo',sol:'Desconectar CA y CC, esperar 5 min, reconectar. Si persiste, contactar posventa.'},
+          {code:'E33',name:'BUS Overvoltage',causa:'Voltaje FV demasiado alto, muestreo BUS anómalo, o aislamiento deficiente entre inversores',sol:'Desconectar CA y CC, esperar 5 min, reconectar. Si persiste, contactar posventa.'},
+          {code:'E34',name:'P-BUS Overvoltage',causa:'Voltaje FV demasiado alto o muestreo de tensión BUS anómalo',sol:'Desconectar CA y CC, esperar 5 min, reconectar. Si persiste, contactar posventa.'},
+          {code:'E35',name:'N-BUS Overvoltage',causa:'Voltaje FV demasiado alto o muestreo de tensión BUS anómalo',sol:'Desconectar CA y CC, esperar 5 min, reconectar. Si persiste, contactar posventa.'},
+          {code:'E39',name:'PV Input Overvoltage',causa:'Exceso de módulos FV en serie — Voc supera tensión de funcionamiento',sol:'Verificar que Voc de la cadena FV cumpla la tensión máxima de entrada del inversor.'},
+          {code:'E40',name:'PV Continuous Hardware Overcurrent',causa:'Configuración incorrecta de paneles FV o componentes internos dañados',sol:'Desconectar CA y CC, esperar 5 min, reconectar. Si persiste, contactar posventa.'},
+          {code:'E41',name:'PV Continuous Software Overcurrent',causa:'Configuración incorrecta de paneles FV o componentes internos dañados',sol:'Desconectar CA y CC, esperar 5 min, reconectar. Si persiste, contactar posventa.'},
+          {code:'E42',name:'PV String Reversed',causa:'Cadena fotovoltaica conectada a la inversa (polaridad invertida)',sol:'Verificar que la polaridad de la cadena FV sea correcta (+/-).'},
+          {code:'E43',name:'PV Voltage Low',causa:'Luz solar débil o cambio anómalo de irradiancia',sol:'Si es ocasional, el inversor se recupera solo. Si es frecuente, contactar posventa.'},
+          {code:'E44',name:'BUS Voltage Low',causa:'Luz solar débil o cambio anómalo de irradiancia',sol:'Si es ocasional, el inversor se recupera solo. Si es frecuente, contactar posventa.'},
+          {code:'E45',name:'BUS Soft Start Failure',causa:'Circuito impulsado por impulsos anómalo',sol:'Desconectar CA y CC, esperar 5 min, reconectar. Si persiste, contactar posventa.'},
+          {code:'E46',name:'BUS Voltage Imbalance',causa:'Circuito de muestreo anómalo o hardware anómalo',sol:'Desconectar CA y CC, esperar 5 min, reconectar. Si persiste, contactar posventa.'},
+          {code:'E47',name:'Grid Phase Lock Failure',causa:'Frecuencia de red inestable',sol:'Desconectar CA y CC, esperar 5 min, reconectar. Si persiste, contactar posventa.'},
+          {code:'E48',name:'Inverter Continuous Overcurrent',causa:'Cambios repentinos en red o carga provocan sobrecorriente de control',sol:'Si es ocasional, ignorar. Si es frecuente, contactar distribuidor o posventa.'},
+          {code:'E50',name:'R Phase Hardware Overcurrent',causa:'Cambios repentinos en red o carga provocan sobrecorriente',sol:'Si es ocasional, ignorar. Si es frecuente, contactar distribuidor o posventa.'},
+          {code:'E51',name:'S Phase Hardware Overcurrent',causa:'Cambios repentinos en red o carga provocan sobrecorriente',sol:'Si es ocasional, ignorar. Si es frecuente, contactar distribuidor o posventa.'},
+          {code:'E52',name:'T Phase Hardware Overcurrent',causa:'Cambios repentinos en red o carga provocan sobrecorriente',sol:'Si es ocasional, ignorar. Si es frecuente, contactar distribuidor o posventa.'},
+          {code:'E53',name:'PV Hardware Overcurrent',causa:'Luz solar débil o cambio anómalo de irradiancia',sol:'Desconectar CA y CC, esperar 5 min, reconectar. Si persiste, contactar posventa.'},
+          {code:'E54',name:'PV Software Overcurrent',causa:'Luz solar débil o cambio anómalo de irradiancia',sol:'Desconectar CA y CC, esperar 5 min, reconectar. Si persiste, contactar posventa.'},
+          {code:'E55',name:'PV HCT Failure',causa:'Sensor de corriente de impulsos anómalo',sol:'Desconectar CA y CC, esperar 5 min, reconectar. Si persiste, contactar posventa.'},
+          {code:'E56',name:'Cavity Overtemperature',causa:'Ventilación insuficiente, temperatura ambiente >60°C, o fallo en ventilador',sol:'Verificar ventilación y temperatura. Mejorar disipación de calor. Si todo es adecuado, contactar posventa.'},
+        ]
       },
     ]
   }
@@ -762,13 +836,23 @@ function buildPhases(){
         ...(isH?[{id:'pre10',text:'Batería ubicada con ventilación adecuada',type:'check'}]:[]),
       ]},
       {title:`AISLAMIENTO DC — PRE ENERGIZACIÓN (${S.mppt} MPPT · ${S.stringsPerMppt.join('+')} strings)`,items:dcPreItems},
+      {title:'POLARIDAD Y AISLAMIENTO AC — PRE ENERGIZACIÓN',items:[
+        {id:'pre_pol',text:'Polaridad DC verificada (+/−) en todos los strings con multímetro',type:'check'},
+        {id:'pre_ac_iso',text:'Resistencia de aislamiento conductores AC (≥ 1 MΩ)',type:'measure',unit:'MΩ',placeholder:'Ej: 1.5',rangeHint:'Mínimo: 1 MΩ'},
+      ]},
       {title:'FOTO INICIAL',items:[
         {id:'pre_f1',text:'Foto general del sistema antes de energizar',type:'photo'},
-      ]}
+      ]},
+      ...(isH?[{title:'BATERÍA — PRE CONEXIÓN',battery:true,items:[
+        {id:'pre_bat1',text:'Batería sin daño físico aparente (golpes, deformaciones, humedad)',type:'check'},
+        {id:'pre_bat2',text:'Calibre de cable batería–inversor correcto según manual',type:'check'},
+        {id:'pre_bat3',text:'Polaridad batería–inversor verificada (+/−) con multímetro',type:'check'},
+        {id:'pre_bat4',text:'Terminal resistor instalado (si aplica según modelo de batería)',type:'check',optional:true},
+        {id:'pre_bat5',text:'Voltaje de batería medido',type:'measure',unit:'V',placeholder:'Ej: 51.2',rangeHint:'LV: 40–60 V · HV: verificar datasheet'},
+      ]}]:[]),
     ]},
     {id:'cold',name:'Cold Commissioning',tag:'cold',desc:'Inspección completa antes de energizar',sections:[
       {title:'LADO DC',items:[
-        {id:'c2',text:'Polaridad DC verificada (+/−) en todos los strings',type:'check'},
         {id:'c3',text:'Conectores MC4 crimpados y strings rotulados',type:'check'},
         {id:'c4',text:'Cable DC sin tocar cubierta de techumbre',type:'check'},
         {id:'c5',text:'Protecciones CC íntegras y correctamente dimensionadas',type:'check'},
@@ -782,17 +866,18 @@ function buildPhases(){
         ),
         {id:'c10',text:'Voltaje de red',type:'measure',unit:'V',placeholder:String(vNet),rangeHint:`Rango esperado: ${vLo}–${vHi} V`,rKey:'v'},
         {id:'c11',text:'Frecuencia de red',type:'measure',unit:'Hz',placeholder:String(c.hz),rangeHint:`Rango esperado: ${hzLo}–${hzHi} Hz`,rKey:'hz'},
-        {id:'c12',text:'Resistencia de aislamiento conductores AC (≥ 1 MΩ)',type:'measure',unit:'MΩ',placeholder:'Ej: 1.5',rangeHint:'Mínimo: 1 MΩ'},
         {id:'c13',text:'Conductores AC identificados y rotulados',type:'check'},
         {id:'c14',text:'Protecciones AC adecuadas según manual GoodWe',type:'check'},
         {id:'c15',text:'Sin fuga en circuitos del inmueble',type:'check'},
         {id:'c16',text:'Cargas debidamente aterrizadas',type:'check'},
       ]},
       ...(isH?[{title:'BATERÍA',battery:true,items:[
-        {id:'c17',text:'Aprietes de bornera correctos',type:'check'},
+        {id:'c17',text:'Aprietes de bornera correctos (torque según manual)',type:'check'},
         {id:'c18',text:'Ventilación adecuada en zona de batería',type:'check'},
-        {id:'c19',text:'Protecciones de batería íntegras',type:'check'},
+        {id:'c19',text:'Protecciones de batería íntegras y correctamente dimensionadas',type:'check'},
         {id:'c20',text:'Compatibilidad batería–inversor verificada en manual',type:'check'},
+        {id:'c21',text:'Terminales bien realizados (crimpado correcto, sin cobre expuesto)',type:'check'},
+        {id:'c22',text:'Encendido y apagado normal de batería sin carga conectada',type:'check'},
       ]}]:[]),
       {title:'EVIDENCIA FOTOGRÁFICA',items:[
         {id:'cf1',text:'Foto tablero AC con protecciones',type:'photo'},
@@ -817,6 +902,7 @@ function buildPhases(){
       ]},
       ...(isH?[{title:'BATERÍA — POST ENERGIZACIÓN',battery:true,items:[
         {id:'h12',text:'SOC inicial visible y carga/descarga operando correctamente',type:'check'},
+        {id:'h12b',text:'Voltaje de batería medido post energización',type:'measure',unit:'V',placeholder:'Ej: 52.4',rangeHint:'LV: 40–60 V · HV: verificar datasheet'},
         {id:'h13',text:'Modo de operación configurado (Backup / TOU / Peakshaving)',type:'check'},
         {id:'h14',text:'Sin alarmas activas de batería en SEMS+',type:'check'},
       ]}]:[]),
@@ -1094,12 +1180,26 @@ function openModelDetail(m){
   const body=document.getElementById('md-body');
   body.innerHTML='';
 
+  // Pestañas
+  const hasErrors=m.errors&&m.errors.length>0;
+  const tabsHTML=`
+    <div class="md-tabs" id="md-tabs">
+      <div class="md-tab active" onclick="switchTab('specs')">📐 Especificaciones</div>
+      ${hasErrors?`<div class="md-tab" onclick="switchTab('errors')">⚠️ Códigos de Error</div>`:''}
+    </div>`;
+  
+  // Panel SPECS
+  const specsPanel=document.createElement('div');
+  specsPanel.className='md-panel active';
+  specsPanel.id='panel-specs';
+  specsPanel.style.padding='14px 20px 40px';
+
   // Highlights
   const hlSec=document.createElement('div');hlSec.className='md-section';
   hlSec.innerHTML=`<div class="md-section-title">⚡ DATOS CLAVE</div><div class="spec-highlights"></div>`;
   const hlGrid=hlSec.querySelector('.spec-highlights');
   m.highlights.forEach(h=>{hlGrid.innerHTML+=`<div class="spec-hl"><div class="spec-hl-val">${h.val}</div><div class="spec-hl-lbl">${h.lbl}</div></div>`;});
-  body.appendChild(hlSec);
+  specsPanel.appendChild(hlSec);
 
   // Specs
   Object.entries(m.specs).forEach(([groupName,rows])=>{
@@ -1107,16 +1207,16 @@ function openModelDetail(m){
     sec.innerHTML=`<div class="md-section-title">📐 ${groupName.toUpperCase()}</div><table class="spec-table"></table>`;
     const table=sec.querySelector('table');
     rows.forEach(([label,val])=>{table.innerHTML+=`<tr><td>${label}</td><td>${val}</td></tr>`;});
-    body.appendChild(sec);
+    specsPanel.appendChild(sec);
   });
 
-  // Batteries (solo híbridos)
+  // Batteries
   if(m.batteries?.length){
     const sec=document.createElement('div');sec.className='md-section';
     sec.innerHTML=`<div class="md-section-title">🔋 COMPATIBILIDAD DE BATERÍAS</div><div class="bat-compat-list"></div>`;
     const list=sec.querySelector('.bat-compat-list');
     m.batteries.forEach(b=>{list.innerHTML+=`<div class="bat-compat-item"><span class="bat-compat-name">${b.name}</span><span class="bat-compat-tag">${b.spec}</span></div>`;});
-    body.appendChild(sec);
+    specsPanel.appendChild(sec);
   }
 
   // Accessories
@@ -1125,7 +1225,7 @@ function openModelDetail(m){
     sec.innerHTML=`<div class="md-section-title">🔌 ACCESORIOS</div><div class="acc-list"></div>`;
     const list=sec.querySelector('.acc-list');
     m.accessories.forEach(a=>{list.innerHTML+=`<div class="acc-item"><div class="acc-name">${a.name}</div><div class="acc-desc">${a.desc}</div></div>`;});
-    body.appendChild(sec);
+    specsPanel.appendChild(sec);
   }
 
   // Box contents
@@ -1134,7 +1234,7 @@ function openModelDetail(m){
     sec.innerHTML=`<div class="md-section-title">📦 CONTENIDO DE LA CAJA</div><div class="box-list"></div>`;
     const list=sec.querySelector('.box-list');
     m.boxContents.forEach(b=>{list.innerHTML+=`<div class="box-item"><span class="box-qty">×${b.qty}</span><span>${b.name}</span></div>`;});
-    body.appendChild(sec);
+    specsPanel.appendChild(sec);
   }
 
   // Protections
@@ -1143,7 +1243,7 @@ function openModelDetail(m){
     sec.innerHTML=`<div class="md-section-title">🛡️ PROTECCIONES</div><div class="prot-grid"></div>`;
     const grid=sec.querySelector('.prot-grid');
     m.protections.forEach(p=>{grid.innerHTML+=`<div class="prot-item"><div class="prot-name">${p.name}</div><div class="prot-val ${p.val==='Opcional'?'opt':''}">${p.val}</div></div>`;});
-    body.appendChild(sec);
+    specsPanel.appendChild(sec);
   }
 
   // Communications
@@ -1152,7 +1252,7 @@ function openModelDetail(m){
     sec.innerHTML=`<div class="md-section-title">📡 COMUNICACIÓN</div><div class="comm-list"></div>`;
     const list=sec.querySelector('.comm-list');
     m.comms.forEach(c=>{list.innerHTML+=`<div class="comm-item"><div class="comm-icon">${c.icon}</div><div><div class="comm-name">${c.name}</div><div class="comm-desc">${c.desc.replace(/\n/g,'<br>')}</div></div></div>`;});
-    body.appendChild(sec);
+    specsPanel.appendChild(sec);
   }
 
   // Breakers
@@ -1163,20 +1263,70 @@ function openModelDetail(m){
       <tr><th>Modelo</th><th>Interruptor batería</th><th>Disyuntor CA</th><th>PE (tierra)</th></tr>
       ${m.breakers.map(b=>`<tr><td>${b.model}</td><td>${b.batDis}</td><td>${b.acOnGrid}</td><td>${b.pe}</td></tr>`).join('')}
     </table>`;
-    body.appendChild(sec);
+    specsPanel.appendChild(sec);
   }
 
-  // Documentación oficial
+  // Docs
   if(m.docs){
     const sec=document.createElement('div');sec.className='md-section';
     sec.innerHTML=`<div class="md-section-title">📄 DOCUMENTACIÓN OFICIAL</div><div class="doc-links">
       <a class="doc-btn primary" href="${m.docs.datasheet}" target="_blank" rel="noopener">📊 Datasheet</a>
       <a class="doc-btn" href="${m.docs.manual}" target="_blank" rel="noopener">📖 Manual de Usuario</a>
     </div>`;
-    body.appendChild(sec);
+    specsPanel.appendChild(sec);
   }
 
+  // Panel ERRORES
+  let errorsPanel=null;
+  if(hasErrors){
+    errorsPanel=document.createElement('div');
+    errorsPanel.className='md-panel';
+    errorsPanel.id='panel-errors';
+    errorsPanel.style.padding='14px 20px 40px';
+    const errSec=document.createElement('div');errSec.className='md-section';
+    errSec.innerHTML=`<div class="md-section-title">⚠️ CÓDIGOS DE ERROR — ${m.name}</div><div class="err-list" id="err-list"></div>`;
+    const errList=errSec.querySelector('.err-list');
+    m.errors.forEach(e=>{
+      const item=document.createElement('div');item.className='err-item';
+      item.innerHTML=`<div class="err-header" onclick="toggleErr(this)">
+        <span class="err-code">${e.code}</span>
+        <span class="err-name">${e.name}</span>
+        <span class="err-arr">›</span>
+      </div>
+      <div class="err-body">
+        <div class="err-row"><div class="err-row-label">Causa</div><div class="err-row-val">${e.causa}</div></div>
+        <div class="err-row"><div class="err-row-label">Solución</div><div class="err-row-val err-sol">${e.sol}</div></div>
+      </div>`;
+      errList.appendChild(item);
+    });
+    errorsPanel.appendChild(errSec);
+  }
+
+  // Insertar todo
+  const header=document.getElementById('md-header');
+  // Eliminar tabs anteriores si existen
+  const oldTabs=document.getElementById('md-tabs');
+  if(oldTabs)oldTabs.remove();
+  header.insertAdjacentHTML('afterend',tabsHTML);
+  body.appendChild(specsPanel);
+  if(errorsPanel)body.appendChild(errorsPanel);
+
   go('screen-model-detail');
+}
+
+function switchTab(tab){
+  document.querySelectorAll('.md-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.md-panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('panel-'+tab).classList.add('active');
+  document.querySelectorAll('.md-tab').forEach(t=>{
+    if(t.textContent.includes(tab==='specs'?'Especif':'Error'))t.classList.add('active');
+  });
+  window.scrollTo(0,0);
+}
+
+function toggleErr(header){
+  const item=header.parentElement;
+  item.classList.toggle('open');
 }
 
 // ─── TOAST ───────────────────────────────────────────────────────────────────
