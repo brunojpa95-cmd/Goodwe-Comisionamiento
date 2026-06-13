@@ -753,6 +753,16 @@ function go(id){
   if(id==='screen-phase') renderPhases();
   if(id==='screen-manuals') renderManuals();
   if(id==='screen-saved') renderSavedProjects();
+  if(id==='screen-project'){
+    // Precargar instalador guardado, limpiar cliente
+    try{
+      const saved=JSON.parse(localStorage.getItem('gw_installer')||'{}');
+      document.getElementById('proj-installer').value=saved.installer||'';
+      document.getElementById('proj-company').value=saved.company||'';
+    }catch(e){}
+    document.getElementById('proj-client').value='';
+    document.getElementById('proj-address').value='';
+  }
   window.scrollTo(0,0);
 }
 
@@ -792,6 +802,8 @@ function confirmProject(){
   S.project.company=document.getElementById('proj-company').value.trim();
   S.project.client=document.getElementById('proj-client').value.trim();
   S.project.address=document.getElementById('proj-address').value.trim();
+  // Recordar instalador y empresa para próxima vez
+  localStorage.setItem('gw_installer',JSON.stringify({installer:S.project.installer,company:S.project.company}));
   go('screen-type');
 }
 
@@ -912,7 +924,15 @@ function buildPhases(){
       {title:`AISLAMIENTO DC — PRE ENERGIZACIÓN (${S.mppt} MPPT · ${S.stringsPerMppt.join('+')} strings)`,items:dcPreItems},
       {title:'POLARIDAD Y AISLAMIENTO AC — PRE ENERGIZACIÓN',items:[
         {id:'pre_pol',text:'Polaridad DC verificada (+/−) en todos los strings con multímetro',type:'check'},
-        {id:'pre_ac_iso',text:'Resistencia de aislamiento conductores AC (≥ 1 MΩ)',type:'measure',unit:'MΩ',placeholder:'Ej: 1.5',rangeHint:'Mínimo: 1 MΩ'},
+        ...(tri?[
+          {id:'pre_ac_iso_l1',text:'Aislamiento L1 – Tierra (≥ 1 MΩ)',type:'measure',unit:'MΩ',placeholder:'Ej: 1.5',rangeHint:'Mínimo: 1 MΩ'},
+          {id:'pre_ac_iso_l2',text:'Aislamiento L2 – Tierra (≥ 1 MΩ)',type:'measure',unit:'MΩ',placeholder:'Ej: 1.5',rangeHint:'Mínimo: 1 MΩ'},
+          {id:'pre_ac_iso_l3',text:'Aislamiento L3 – Tierra (≥ 1 MΩ)',type:'measure',unit:'MΩ',placeholder:'Ej: 1.5',rangeHint:'Mínimo: 1 MΩ'},
+          {id:'pre_ac_iso_n',text:'Aislamiento N – Tierra (≥ 1 MΩ) — N/A en sistema Delta',type:'measure',unit:'MΩ',placeholder:'Ej: 1.5',rangeHint:'Mínimo: 1 MΩ · N/A si sistema Delta',optional:true},
+        ]:[
+          {id:'pre_ac_iso_l',text:'Aislamiento Fase (L) – Tierra (≥ 1 MΩ)',type:'measure',unit:'MΩ',placeholder:'Ej: 1.5',rangeHint:'Mínimo: 1 MΩ'},
+          {id:'pre_ac_iso_n',text:'Aislamiento Neutro (N) – Tierra (≥ 1 MΩ)',type:'measure',unit:'MΩ',placeholder:'Ej: 1.5',rangeHint:'Mínimo: 1 MΩ'},
+        ]),
       ]},
       {title:'FOTO INICIAL',items:[
         {id:'pre_f1',text:'Foto general del sistema antes de energizar',type:'photo'},
