@@ -361,7 +361,7 @@ body{font-family:'Inter',sans-serif;background:var(--d);color:var(--t);min-heigh
     <div class="proj-divider">🔧 Equipo</div>
     <div class="proj-field">
       <label class="proj-label">N° de Serie (S/N) del inversor</label>
-      <input class="proj-input" id="proj-serial" type="text" placeholder="Ej: 5050KXXXXXXXXXXX" autocomplete="off" style="font-family:'DM Mono',monospace;letter-spacing:.05em;">
+      <input class="proj-input" id="proj-serial" type="text" placeholder="Ej: 90NXXXXXXXX" autocomplete="off" style="font-family:'DM Mono',monospace;letter-spacing:.05em;">
     </div>
     <button class="btn-p" onclick="confirmProject()" style="margin-top:8px;">Continuar →</button>
   </div>
@@ -444,8 +444,6 @@ body{font-family:'Inter',sans-serif;background:var(--d);color:var(--t);min-heigh
   <p class="ssub" id="smsg">Todos los puntos verificados.</p>
   <div class="sact">
     <button class="btn-p" onclick="go('screen-phase')">Continuar con siguiente fase</button>
-    <button class="btn-s" onclick="go('screen-type')">Nuevo proyecto</button>
-    <button onclick="go('screen-phase');setTimeout(()=>{const phases=buildPhases();const next=phases.find(p=>!S.phasesDone[p.id]);if(next)openPhase(next);},100);" style="margin-top:2px;width:100%;max-width:320px;background:transparent;border:1px dashed var(--b);color:var(--m);padding:7px;border-radius:8px;font-size:11px;font-family:'DM Mono',monospace;cursor:pointer;">⚡ DEV: Ir a siguiente fase</button>
   </div>
 </div>
 
@@ -459,6 +457,7 @@ body{font-family:'Inter',sans-serif;background:var(--d);color:var(--t);min-heigh
   <div class="cel-act">
     <button class="btn-p" onclick="downloadPDF()">📄 Descargar Informe PDF</button>
     <button class="btn-s" onclick="go('screen-splash')">Inicio</button>
+    <button class="btn-s" onclick="go('screen-country')">⚡ Nuevo proyecto</button>
   </div>
 </div>
 
