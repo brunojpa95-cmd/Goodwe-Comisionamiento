@@ -426,7 +426,10 @@ body{font-family:'Inter',sans-serif;background:var(--d);color:var(--t);min-heigh
     <div class="pr"><div class="pt"><div class="pf" id="pf2" style="width:0%"></div></div><div class="pl2" id="pl2">0/0</div></div>
   </div>
   <div class="sb" id="checklist-body"></div>
-  <div class="bcta"><button class="bc2" id="complete-btn" onclick="completePhase()" disabled>Completar fase</button></div>
+  <div class="bcta">
+    <button class="bc2" id="complete-btn" onclick="completePhase()" disabled>Completar fase</button>
+    <button onclick="debugCompletePhase()" style="margin-top:6px;width:100%;background:transparent;border:1px dashed var(--b);color:var(--m);padding:7px;border-radius:8px;font-size:11px;font-family:'DM Mono',monospace;cursor:pointer;">⚡ DEV: Completar todo</button>
+  </div>
 </div>
 
 <!-- PHASE SUCCESS -->
@@ -1180,6 +1183,26 @@ function updateProgress(phase){
   btn.disabled=done<total;
   btn.textContent=done===total?'✓ Completar fase':`Completar fase (${total-done} pendiente${total-done!==1?'s':''})`;
 }
+function debugCompletePhase(){
+  curPhase.sections.forEach(sec=>{
+    if(sec.battery&&!S.batEnabled)return;
+    sec.items?.forEach(item=>{
+      if(item.type==='measure'){
+        S.measures[item.id]=item.placeholder||'1.0';
+        S.checks[item.id]=true;
+      }else if(item.type==='photo'){
+        S.photos[item.id]=1;
+        S.checks[item.id]=true;
+      }else{
+        S.checks[item.id]=true;
+      }
+    });
+  });
+  renderChecklist(curPhase);
+  updateProgress(curPhase);
+  autoSave();
+}
+
 function completePhase(){
   const{total,done}=countItems(curPhase);
   if(done<total){showToast('Completa todos los puntos antes de continuar.');return;}
