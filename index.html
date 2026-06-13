@@ -491,7 +491,7 @@ const ALL_C=COUNTRIES.flatMap(r=>r.items.map(c=>({...c,region:r.region})));
 const MODELS={
   hybrid:{label:'Híbrido',groups:[
     {title:'Monofásico',items:[
-      {id:'ESG2',  name:'ESG2',    tag:'tag-mono',tl:'Mono',   desc:'3–6 kW · 2 MPPT · LV',         defMppt:2,defStr:[1,1]},
+      {id:'ESG2',  name:'ES-G2',   tag:'tag-mono',tl:'Mono',   desc:'3–6 kW · 2 MPPT · LV',         defMppt:2,defStr:[1,1]},
       {id:'ESUNIQ',name:'ES UNIQ', tag:'tag-mono',tl:'Mono',   desc:'3–12 kW · 1-2 MPPT · LV · IP66',defMppt:2,defStr:[1,1]},
     ]},
     {title:'Trifásico',items:[
@@ -522,7 +522,7 @@ const FICHAS={
   hybrid:{
     label:'Híbridos',
     models:[
-      {id:'ESG2',name:'ESG2 / ES G2',tag:'tag-mono',tl:'Mono',sub:'Inversor Híbrido Monofásico LV · 3–6 kW',
+      {id:'ESG2',name:'ES-G2',tag:'tag-mono',tl:'Mono',sub:'Inversor Híbrido Monofásico LV · 3–6 kW',
         highlights:[{val:'3–6 kW',lbl:'Potencia nominal'},{val:'2 MPPT',lbl:'Seguidores MPP'},{val:'600 V',lbl:'Vdc máx entrada'},{val:'IP65',lbl:'Protección'}],
         specs:{'DC — Entrada FV':[['Potencia máx. entrada','4.5–9.0 kW según modelo'],['Tensión máx. entrada','600 V'],['Rango tensión MPPT','60–550 V'],['Tensión de arranque','58 V'],['Corriente máx. por MPPT','16 A'],['Corriente cortocircuito por MPPT','23 A'],['Número de MPPTs','1 (GW3000) / 2 (resto)'],['Strings por MPPT','1']],'Batería':[['Tipo','Ion de litio / Plomo-ácido'],['Tensión nominal','48 V'],['Rango tensión','40–60 V'],['Corriente máx. carga/descarga','60–120 A según modelo']],'CA — Salida':[['Potencia nominal','3.0–6.0 kW'],['Tensión nominal','220/230/240 V'],['Rango tensión','170–280 V'],['Frecuencia','50/60 Hz'],['Factor de potencia','~1 (ajustable 0.8 cap/ind)'],['THD máx.','< 3%']],'General':[['Temperatura operación','-25°C a +60°C'],['Altitud máx.','3000 m'],['Refrigeración','Convección natural'],['Ruido','< 30 dB'],['Eficiencia máx.','97.6%'],['Peso','19.6–21.5 kg']]},
         batteries:[{name:'GoodWe Lynx Home U',spec:'LV · 5.4–21.6 kWh · 48V'},{name:'Pylontech US2000/US3000',spec:'LV · 48V · CAN'},{name:'BYD Battery-Box Premium LVS',spec:'LV · 48V · CAN'}],
@@ -1419,10 +1419,18 @@ function openModelDetail(m){
     errorsPanel.id='panel-errors';
     errorsPanel.style.padding='14px 20px 40px';
     const errSec=document.createElement('div');errSec.className='md-section';
-    errSec.innerHTML=`<div class="md-section-title">⚠️ CÓDIGOS DE ERROR — ${m.name}</div><div class="err-list" id="err-list"></div>`;
+    errSec.innerHTML=`
+      <div class="md-section-title">⚠️ CÓDIGOS DE ERROR — ${m.name}</div>
+      <div style="margin-bottom:10px;">
+        <input class="csi" type="text" placeholder="🔍  Buscar código o nombre..." oninput="filterErrors(this.value)" id="err-search" style="width:100%;">
+      </div>
+      <div class="err-list" id="err-list"></div>`;
     const errList=errSec.querySelector('.err-list');
     m.errors.forEach(e=>{
       const item=document.createElement('div');item.className='err-item';
+      item.dataset.code=e.code.toLowerCase();
+      item.dataset.name=e.name.toLowerCase();
+      item.dataset.causa=e.causa.toLowerCase();
       item.innerHTML=`<div class="err-header" onclick="toggleErr(this)">
         <span class="err-code">${e.code}</span>
         <span class="err-name">${e.name}</span>
@@ -1457,6 +1465,25 @@ function switchTab(tab){
     if(t.textContent.includes(tab==='specs'?'Especif':'Error'))t.classList.add('active');
   });
   window.scrollTo(0,0);
+}
+
+function filterErrors(q){
+  const query=q.toLowerCase().trim();
+  document.querySelectorAll('#err-list .err-item').forEach(item=>{
+    const match=!query||item.dataset.code.includes(query)||item.dataset.name.includes(query)||item.dataset.causa.includes(query);
+    item.style.display=match?'':'none';
+    if(match&&query)item.classList.add('open');
+  });
+  const visible=document.querySelectorAll('#err-list .err-item:not([style*="none"])').length;
+  const noRes=document.getElementById('err-nores');
+  if(noRes)noRes.remove();
+  if(!visible&&query){
+    const msg=document.createElement('div');
+    msg.id='err-nores';
+    msg.style.cssText='text-align:center;padding:24px;color:var(--m2);font-size:12px;font-family:DM Mono,monospace;';
+    msg.textContent='Sin resultados para "'+q+'"';
+    document.getElementById('err-list').after(msg);
+  }
 }
 
 function toggleErr(header){
