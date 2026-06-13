@@ -275,6 +275,18 @@ body{font-family:'Inter',sans-serif;background:var(--d);color:var(--t);min-heigh
 .proj-input{background:var(--d3);border:1px solid var(--b);color:var(--t);padding:11px 14px;border-radius:9px;font-size:14px;outline:none;font-family:'Inter',sans-serif;transition:border-color .15s;width:100%;}
 .proj-input:focus{border-color:var(--r);}
 .proj-divider{font-size:10px;font-family:'DM Mono',monospace;color:var(--m);text-transform:uppercase;letter-spacing:.1em;padding:8px 0 4px;border-bottom:1px solid var(--b);}
+.saved-list{display:flex;flex-direction:column;gap:8px;padding:0 20px 20px;}
+.saved-card{background:var(--d2);border:1px solid var(--b);border-radius:11px;padding:14px;display:flex;align-items:center;gap:12px;transition:border-color .15s,transform .15s;}
+.saved-card:active{border-color:var(--r);transform:scale(0.98);}
+.saved-info{flex:1;cursor:pointer;}
+.saved-name{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;margin-bottom:3px;}
+.saved-meta{font-size:11px;color:var(--m2);font-family:'DM Mono',monospace;}
+.saved-prog{font-size:10px;color:var(--r);font-family:'DM Mono',monospace;margin-top:3px;}
+.saved-del{background:var(--d4);border:1px solid var(--b);color:var(--m2);width:32px;height:32px;border-radius:8px;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .15s,color .15s;}
+.saved-del:active{background:rgba(239,68,68,.15);color:#FCA5A5;}
+.saved-empty{text-align:center;padding:32px 20px;color:var(--m2);font-size:13px;line-height:1.8;}
+.autosave-dot{width:6px;height:6px;border-radius:50%;background:var(--g);display:inline-block;margin-right:5px;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.3;}}
 .doc-links{display:flex;gap:8px;flex-wrap:wrap;}
 .doc-btn{flex:1;display:flex;align-items:center;justify-content:center;gap:7px;background:var(--d3);border:1px solid var(--b);border-radius:9px;padding:11px 12px;font-size:12px;font-family:'Syne',sans-serif;font-weight:600;color:var(--t);text-decoration:none;transition:border-color .15s,background .15s;}
 .doc-btn:active{border-color:var(--r);background:var(--d4);}
@@ -296,9 +308,23 @@ body{font-family:'Inter',sans-serif;background:var(--d);color:var(--t);min-heigh
   <p class="splash-sub">Para instaladores certificados GoodWe</p>
   <div class="splash-actions">
     <button class="btn-p" onclick="go('screen-country')">⚡ Iniciar Comisionamiento</button>
+    <button class="btn-s" onclick="go('screen-saved')">📂 Proyectos Guardados</button>
     <button class="btn-s" onclick="go('screen-manuals')">📚 Fichas Técnicas</button>
   </div>
-  <div class="splash-ver">v2.4 · Smart Energy Innovator</div>
+  <div class="splash-ver">v2.5 · Smart Energy Innovator</div>
+</div>
+
+<!-- SAVED PROJECTS -->
+<div id="screen-saved" class="screen">
+  <div class="sh"><button class="back" onclick="go('screen-splash')">←</button><div class="st">Proyectos Guardados</div></div>
+  <p class="ss2">Retoma un comisionamiento donde lo dejaste o importa desde otro dispositivo.</p>
+  <div style="padding:0 20px 12px;display:flex;gap:8px;">
+    <button class="btn-s" onclick="exportProject()" style="flex:1;max-width:none;font-size:12px;padding:10px;">📤 Exportar</button>
+    <label class="btn-s" style="flex:1;max-width:none;font-size:12px;padding:10px;cursor:pointer;">
+      📥 Importar<input type="file" accept=".json" onchange="importProject(event)" style="display:none;">
+    </label>
+  </div>
+  <div id="saved-list"></div>
 </div>
 
 <!-- COUNTRY -->
@@ -395,6 +421,7 @@ body{font-family:'Inter',sans-serif;background:var(--d);color:var(--t);min-heigh
       <button class="back" onclick="go('screen-phase')">←</button>
       <div id="ptag" class="ptag cold">Cold</div>
       <div class="clt" id="clt">Cold Commissioning</div>
+      <div style="margin-left:auto;font-size:10px;color:var(--g);font-family:'DM Mono',monospace;display:flex;align-items:center;white-space:nowrap;"><span class="autosave-dot"></span>Auto</div>
     </div>
     <div class="pr"><div class="pt"><div class="pf" id="pf2" style="width:0%"></div></div><div class="pl2" id="pl2">0/0</div></div>
   </div>
@@ -725,6 +752,7 @@ function go(id){
   document.getElementById(id).classList.add('active');
   if(id==='screen-phase') renderPhases();
   if(id==='screen-manuals') renderManuals();
+  if(id==='screen-saved') renderSavedProjects();
   window.scrollTo(0,0);
 }
 
@@ -1095,18 +1123,18 @@ function chkRange(id){
   }
 }
 
-function tCheck(id){S.checks[id]=true;refresh(id);updateProgress(curPhase);}
-function markNA(id){S.checks[id]='na';refresh(id);updateProgress(curPhase);}
-function undoCheck(id){delete S.checks[id];refresh(id);updateProgress(curPhase);}
+function tCheck(id){S.checks[id]=true;refresh(id);updateProgress(curPhase);autoSave();}
+function markNA(id){S.checks[id]='na';refresh(id);updateProgress(curPhase);autoSave();}
+function undoCheck(id){delete S.checks[id];refresh(id);updateProgress(curPhase);autoSave();}
 function confirmMeasure(id){
   const val=S.measures[id]||document.querySelector(`#item-${id} input`)?.value;
   if(!val||isNaN(parseFloat(val))){showToast('Ingresa un valor numérico válido.');return;}
-  S.measures[id]=val;S.checks[id]=true;refresh(id);updateProgress(curPhase);
+  S.measures[id]=val;S.checks[id]=true;refresh(id);updateProgress(curPhase);autoSave();
 }
-function addPhoto(id){S.photos[id]=(S.photos[id]||0)+1;refresh(id);updateProgress(curPhase);}
+function addPhoto(id){S.photos[id]=(S.photos[id]||0)+1;refresh(id);updateProgress(curPhase);autoSave();}
 function confirmPhoto(id){
   if(!S.photos[id]){showToast('Agrega al menos una foto.');return;}
-  S.checks[id]=true;refresh(id);updateProgress(curPhase);
+  S.checks[id]=true;refresh(id);updateProgress(curPhase);autoSave();
 }
 function refresh(id){
   let item=null;
@@ -1499,6 +1527,106 @@ function showToast(msg){
   t.classList.add('show');
   clearTimeout(tTimer);
   tTimer=setTimeout(()=>t.classList.remove('show'),4000);
+}
+
+// ─── SAVED PROJECTS ──────────────────────────────────────────────────────────
+function getProjectId(){
+  return S.projectId||(S.projectId='proj_'+Date.now());
+}
+function autoSave(){
+  try{
+    const id=getProjectId();
+    const phases=buildPhases();
+    let total=0,done=0;
+    phases.forEach(p=>p.sections.forEach(sec=>{if(sec.battery&&!S.batEnabled)return;sec.items?.forEach(item=>{total++;if(S.checks[item.id]===true||S.checks[item.id]==='na')done++;});}));
+    const snapshot={
+      id,
+      savedAt:Date.now(),
+      modelName:S.modelObj?.name||'',
+      client:S.project?.client||'',
+      country:S.country?.name||'',
+      progress:total?Math.round(done/total*100):0,
+      done,total,
+      state:JSON.parse(JSON.stringify(S))
+    };
+    const all=getSavedProjects();
+    all[id]=snapshot;
+    localStorage.setItem('gw_projects',JSON.stringify(all));
+  }catch(e){}
+}
+function getSavedProjects(){
+  try{return JSON.parse(localStorage.getItem('gw_projects')||'{}');}catch(e){return {};}
+}
+function renderSavedProjects(){
+  const all=getSavedProjects();
+  const el=document.getElementById('saved-list');
+  const list=Object.values(all).sort((a,b)=>b.savedAt-a.savedAt);
+  if(!list.length){
+    el.innerHTML=`<div class="saved-empty">📭 No hay proyectos guardados<br><span style="font-size:11px;color:var(--m)">Los proyectos se guardan automáticamente<br>mientras comisionas</span></div>`;
+    return;
+  }
+  el.innerHTML='';
+  const container=document.createElement('div');container.className='saved-list';
+  list.forEach(p=>{
+    const date=new Date(p.savedAt).toLocaleDateString('es-CL',{day:'2-digit',month:'2-digit',year:'numeric'});
+    const time=new Date(p.savedAt).toLocaleTimeString('es-CL',{hour:'2-digit',minute:'2-digit'});
+    const card=document.createElement('div');card.className='saved-card';
+    card.innerHTML=`
+      <div class="saved-info" onclick="loadProject('${p.id}')">
+        <div class="saved-name">${p.modelName||'Proyecto'} ${p.client?'· '+p.client:''}</div>
+        <div class="saved-meta">${p.country||''} · ${date} ${time}</div>
+        <div class="saved-prog">⚡ ${p.progress}% completado · ${p.done}/${p.total} ítems</div>
+      </div>
+      <button class="saved-del" onclick="deleteProject('${p.id}')" title="Eliminar">🗑</button>`;
+    container.appendChild(card);
+  });
+  el.appendChild(container);
+}
+function loadProject(id){
+  const all=getSavedProjects();
+  const snap=all[id];
+  if(!snap)return;
+  Object.assign(S,snap.state);
+  curPhase=null;
+  startTime=Date.now();
+  showToast('Proyecto cargado — continuando donde lo dejaste.');
+  go('screen-phase');
+}
+function deleteProject(id){
+  const all=getSavedProjects();
+  delete all[id];
+  localStorage.setItem('gw_projects',JSON.stringify(all));
+  renderSavedProjects();
+}
+function exportProject(){
+  const all=getSavedProjects();
+  const list=Object.values(all);
+  if(!list.length){showToast('No hay proyectos guardados para exportar.');return;}
+  const blob=new Blob([JSON.stringify(all,null,2)],{type:'application/json'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;
+  a.download=`GoodWe_Proyectos_${new Date().toLocaleDateString('es-CL').replace(/\//g,'-')}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast('Proyectos exportados. Comparte el archivo para abrirlo en otro dispositivo.');
+}
+function importProject(event){
+  const file=event.target.files[0];
+  if(!file)return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    try{
+      const data=JSON.parse(e.target.result);
+      const current=getSavedProjects();
+      const merged={...current,...data};
+      localStorage.setItem('gw_projects',JSON.stringify(merged));
+      renderSavedProjects();
+      showToast(`✓ ${Object.keys(data).length} proyecto(s) importado(s).`);
+    }catch(err){showToast('Error al importar — archivo inválido.');}
+  };
+  reader.readAsText(file);
+  event.target.value='';
 }
 
 // ─── THEME ───────────────────────────────────────────────────────────────────
