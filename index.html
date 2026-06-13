@@ -358,6 +358,11 @@ body{font-family:'Inter',sans-serif;background:var(--d);color:var(--t);min-heigh
       <label class="proj-label">Dirección</label>
       <input class="proj-input" id="proj-address" type="text" placeholder="Ej: Av. Providencia 1234, Santiago" autocomplete="street-address">
     </div>
+    <div class="proj-divider">🔧 Equipo</div>
+    <div class="proj-field">
+      <label class="proj-label">N° de Serie (S/N) del inversor</label>
+      <input class="proj-input" id="proj-serial" type="text" placeholder="Ej: 90NXXXXXXXX" autocomplete="off" style="font-family:'DM Mono',monospace;letter-spacing:.05em;">
+    </div>
     <button class="btn-p" onclick="confirmProject()" style="margin-top:8px;">Continuar →</button>
   </div>
 </div>
@@ -440,6 +445,7 @@ body{font-family:'Inter',sans-serif;background:var(--d);color:var(--t);min-heigh
   <div class="sact">
     <button class="btn-p" onclick="go('screen-phase')">Continuar con siguiente fase</button>
     <button class="btn-s" onclick="go('screen-type')">Nuevo proyecto</button>
+    <button onclick="go('screen-phase');setTimeout(()=>{const phases=buildPhases();const next=phases.find(p=>!S.phasesDone[p.id]);if(next)openPhase(next);},100);" style="margin-top:2px;width:100%;max-width:320px;background:transparent;border:1px dashed var(--b);color:var(--m);padding:7px;border-radius:8px;font-size:11px;font-family:'DM Mono',monospace;cursor:pointer;">⚡ DEV: Ir a siguiente fase</button>
   </div>
 </div>
 
@@ -745,7 +751,7 @@ const TRI_MODELS=['ET','ETG2','ET4050','ET1530','SDTG3','SMT2536','SMT5060','GT'
 function isTri(){return TRI_MODELS.includes(S.model);}
 
 // ─── STATE ───────────────────────────────────────────────────────────────────
-let S={country:null,category:'',model:'',modelObj:null,mppt:2,stringsPerMppt:[1,1],batEnabled:true,checks:{},measures:{},photos:{},phasesDone:{},project:{installer:'',company:'',client:'',address:''}};
+let S={country:null,category:'',model:'',modelObj:null,mppt:2,stringsPerMppt:[1,1],batEnabled:true,checks:{},measures:{},photos:{},phasesDone:{},project:{installer:'',company:'',client:'',address:'',serial:''}};
 let curPhase=null;
 let startTime=Date.now();
 
@@ -765,6 +771,7 @@ function go(id){
     }catch(e){}
     document.getElementById('proj-client').value='';
     document.getElementById('proj-address').value='';
+    document.getElementById('proj-serial').value='';
   }
   window.scrollTo(0,0);
 }
@@ -805,6 +812,7 @@ function confirmProject(){
   S.project.company=document.getElementById('proj-company').value.trim();
   S.project.client=document.getElementById('proj-client').value.trim();
   S.project.address=document.getElementById('proj-address').value.trim();
+  S.project.serial=document.getElementById('proj-serial').value.trim();
   // Recordar instalador y empresa para próxima vez
   localStorage.setItem('gw_installer',JSON.stringify({installer:S.project.installer,company:S.project.company}));
   go('screen-type');
@@ -1313,6 +1321,7 @@ function downloadPDF(){
 
   <div class="config-bar">
     <div class="config-item"><div class="config-label">Modelo</div><div class="config-val">${S.modelObj.name}</div></div>
+    <div class="config-item"><div class="config-label">S/N</div><div class="config-val">${p.serial||'—'}</div></div>
     <div class="config-item"><div class="config-label">Categoría</div><div class="config-val">${MODELS[S.category].label}</div></div>
     <div class="config-item"><div class="config-label">MPPTs</div><div class="config-val">${S.mppt}</div></div>
     <div class="config-item"><div class="config-label">Strings</div><div class="config-val">${S.stringsPerMppt.join('+')}</div></div>
