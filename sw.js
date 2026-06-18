@@ -1,4 +1,4 @@
-const CACHE = 'goodwe-v1';
+const CACHE = 'goodwe-v2';
 const ASSETS = [
   './',
   './index.html',
