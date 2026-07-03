@@ -294,6 +294,30 @@ body{font-family:'Inter',sans-serif;background:var(--d);color:var(--t);min-heigh
 ::-webkit-scrollbar{width:3px;}
 ::-webkit-scrollbar-track{background:transparent;}
 ::-webkit-scrollbar-thumb{background:var(--d4);border-radius:2px;}
+/* WIZARD */
+#screen-wizard{padding:0;}
+.wiz-header{background:var(--d2);border-bottom:1px solid var(--b);padding:14px 20px 12px;position:sticky;top:0;z-index:10;}
+.wiz-phase-label{font-size:10px;font-family:'DM Mono',monospace;color:var(--r);text-transform:uppercase;letter-spacing:.12em;margin-bottom:7px;font-weight:500;}
+.wiz-progress-row{display:flex;align-items:center;gap:10px;}
+.wiz-bar{flex:1;height:4px;background:var(--d4);border-radius:2px;overflow:hidden;}
+.wiz-bar-fill{height:100%;background:var(--r);border-radius:2px;transition:width .35s ease;}
+.wiz-step-count{font-family:'DM Mono',monospace;font-size:11px;color:var(--m2);white-space:nowrap;}
+.wiz-body{padding:20px 20px 130px;}
+.wiz-step-num{font-family:'DM Mono',monospace;font-size:11px;color:var(--r);background:rgba(232,0,45,.08);border:1px solid rgba(232,0,45,.18);padding:3px 10px;border-radius:5px;display:inline-block;margin-bottom:14px;}
+.wiz-title{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;margin-bottom:16px;line-height:1.2;color:var(--t);}
+.wiz-img{background:var(--d3);border:2px dashed var(--b);border-radius:14px;height:190px;display:flex;align-items:center;justify-content:center;margin-bottom:18px;flex-direction:column;gap:8px;transition:border-color .15s;}
+.wiz-img-icon{font-size:36px;opacity:.5;}
+.wiz-img-label{font-size:11px;font-family:'DM Mono',monospace;color:var(--m);letter-spacing:.06em;}
+.wiz-instruction{font-size:13px;line-height:1.85;color:var(--t);white-space:pre-line;margin-bottom:16px;}
+.wiz-tip{background:rgba(250,204,21,.05);border:1px solid rgba(250,204,21,.22);border-radius:10px;padding:12px 14px;font-size:12px;color:#FDE047;line-height:1.65;margin-bottom:14px;}
+.wiz-tip::before{content:'⚠️  ';font-size:13px;}
+.wiz-footer{position:fixed;bottom:0;left:0;right:0;padding:12px 20px 20px;background:linear-gradient(to top,var(--d) 65%,transparent);display:flex;gap:10px;z-index:20;}
+.wiz-btn-back{background:var(--d3);border:1px solid var(--b);color:var(--t);padding:14px;border-radius:10px;font-family:'Syne',sans-serif;font-size:14px;font-weight:600;cursor:pointer;flex:1;transition:background .15s,transform .15s;}
+.wiz-btn-back:active{background:var(--d4);transform:scale(.96);}
+.wiz-btn-next{background:var(--r);color:#fff;border:none;padding:14px;border-radius:10px;font-family:'Syne',sans-serif;font-size:14px;font-weight:700;cursor:pointer;flex:2;transition:transform .15s,box-shadow .15s;}
+.wiz-btn-next:active{transform:scale(.96);box-shadow:0 0 20px rgba(232,0,45,.5);}
+.wiz-final-btn{background:var(--g);color:#fff;border:none;padding:14px;border-radius:10px;font-family:'Syne',sans-serif;font-size:14px;font-weight:700;cursor:pointer;flex:2;transition:transform .15s,box-shadow .15s;}
+.wiz-final-btn:active{transform:scale(.96);box-shadow:0 0 20px rgba(34,197,94,.5);}
 </style>
 </head>
 <body>
@@ -307,7 +331,7 @@ body{font-family:'Inter',sans-serif;background:var(--d);color:var(--t);min-heigh
   <div class="splash-title">Asistente de<br><span>Comisionamiento</span></div>
   <p class="splash-sub">Para instaladores certificados GoodWe</p>
   <div class="splash-actions">
-    <button class="btn-p" onclick="go('screen-country')">⚡ Iniciar Comisionamiento</button>
+    <button class="btn-p" onclick="go('screen-install-type')">⚡ Iniciar Comisionamiento</button>
     <button class="btn-s" onclick="go('screen-saved')">📂 Proyectos Guardados</button>
     <button class="btn-s" onclick="go('screen-manuals')">📚 Fichas Técnicas</button>
   </div>
@@ -329,7 +353,7 @@ body{font-family:'Inter',sans-serif;background:var(--d);color:var(--t);min-heigh
 
 <!-- COUNTRY -->
 <div id="screen-country" class="screen">
-  <div class="sh"><button class="back" onclick="go('screen-splash')">←</button><div class="st">País</div></div>
+  <div class="sh"><button class="back" onclick="go('screen-install-type')">←</button><div class="st">País</div></div>
   <p class="ss2">Selecciona el país para aplicar los parámetros de red correctos.</p>
   <div class="csw"><input class="csi" type="text" placeholder="🔍  Buscar país..." oninput="filterCountries(this.value)" id="csi"></div>
   <div id="country-list"></div>
@@ -457,7 +481,7 @@ body{font-family:'Inter',sans-serif;background:var(--d);color:var(--t);min-heigh
   <div class="cel-act">
     <button class="btn-p" onclick="downloadPDF()">📄 Descargar Informe PDF</button>
     <button class="btn-s" onclick="go('screen-splash')">Inicio</button>
-    <button class="btn-s" onclick="go('screen-country')">⚡ Nuevo proyecto</button>
+    <button class="btn-s" onclick="go('screen-install-type')">⚡ Nuevo proyecto</button>
   </div>
 </div>
 
@@ -480,6 +504,69 @@ body{font-family:'Inter',sans-serif;background:var(--d);color:var(--t);min-heigh
     </div>
   </div>
   <div class="md-body" id="md-body"></div>
+</div>
+
+<!-- INSTALL TYPE -->
+<div id="screen-install-type" class="screen">
+  <div class="sh"><button class="back" onclick="go('screen-splash')">←</button><div class="st">Tipo de Instalación</div></div>
+  <p class="ss2">¿Qué tipo de sistema vas a comisionar hoy?</p>
+  <div class="tc" style="padding-top:8px;">
+    <div class="tcard" onclick="selectInstallType('residential')">
+      <div class="tcard-badge">Wizard · Paso a paso</div>
+      <div class="tcard-icon">🏠</div>
+      <div class="tcard-title">Residencial</div>
+      <div class="tcard-desc">Guía completa de instalación · Inversor híbrido<br><span style="font-family:'DM Mono',monospace;font-size:11px;">ES-G2 · ET-G2</span></div>
+    </div>
+    <div class="tcard" onclick="selectInstallType('ci')">
+      <div class="tcard-badge">Checklist profesional</div>
+      <div class="tcard-icon">🏭</div>
+      <div class="tcard-title">C&I / Profesional</div>
+      <div class="tcard-desc">Checklist técnico completo · On-Grid e Híbrido<br><span style="font-family:'DM Mono',monospace;font-size:11px;">SDT · SMT · GT · ET 15-50kW</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- WIZARD TYPE (Híbrido / On-Grid) -->
+<div id="screen-wizard-type" class="screen">
+  <div class="sh"><button class="back" onclick="go('screen-country')">←</button><div class="st">Tipo de Inversor</div></div>
+  <p class="ss2">¿Qué tipo de inversor vas a instalar?</p>
+  <div class="tc" style="padding-top:8px;">
+    <div class="tcard" onclick="selectWizType('hybrid')">
+      <div class="tcard-badge">Con batería</div>
+      <div class="tcard-icon">🔋</div>
+      <div class="tcard-title">Híbrido</div>
+      <div class="tcard-desc">Inversor con almacenamiento en batería<br><span style="font-family:'DM Mono',monospace;font-size:11px;">ES-G2 · ET-G2</span></div>
+    </div>
+    <div class="tcard" onclick="selectWizType('ongrid')">
+      <div class="tcard-badge">Sin batería</div>
+      <div class="tcard-icon">☀️</div>
+      <div class="tcard-title">On-Grid</div>
+      <div class="tcard-desc">Inversor de inyección a red<br><span style="font-family:'DM Mono',monospace;font-size:11px;">DNS G3 · SMT 50-60kW</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- WIZARD MODEL (dinámico según tipo) -->
+<div id="screen-wizard-model" class="screen">
+  <div class="sh"><button class="back" onclick="go('screen-wizard-type')">←</button><div class="st" id="wiz-model-title">Modelo</div></div>
+  <p class="ss2" id="wiz-model-sub">Selecciona el inversor que vas a instalar.</p>
+  <div class="tc" style="padding-top:8px;" id="wiz-model-cards"></div>
+</div>
+
+<!-- WIZARD -->
+<div id="screen-wizard" class="screen">
+  <div class="wiz-header">
+    <div class="wiz-phase-label" id="wiz-phase-label">Físico</div>
+    <div class="wiz-progress-row">
+      <div class="wiz-bar"><div class="wiz-bar-fill" id="wiz-bar-fill" style="width:0%"></div></div>
+      <div class="wiz-step-count" id="wiz-step-count">1 / 27</div>
+    </div>
+  </div>
+  <div class="wiz-body" id="wiz-body"></div>
+  <div class="wiz-footer" id="wiz-footer">
+    <button class="wiz-btn-back" id="wiz-btn-back" onclick="wizNav(-1)">← Anterior</button>
+    <button class="wiz-btn-next" id="wiz-btn-next" onclick="wizNav(1)">Siguiente →</button>
+  </div>
 </div>
 
 <div class="toast" id="toast"><span>⚠️</span><span class="tt" id="tt"></span></div>
@@ -565,54 +652,8 @@ const FICHAS={
         boxContents:[{qty:'1',name:'Inversor ESG2'},{qty:'1',name:'Placa de montaje'},{qty:'N',name:'Conectores MC4'},{qty:'1',name:'Smart Meter GM1000'},{qty:'1',name:'Documentación'}],
         protections:[{name:'Anti-isla',val:'Integrado'},{name:'Polaridad inversa DC',val:'Integrado'},{name:'Aislamiento FV',val:'Integrado'},{name:'DPS CC',val:'Tipo II'},{name:'DPS CA',val:'Tipo III'},{name:'AFCI',val:'Opcional'}],
         comms:[{icon:'🔋',name:'BMS',desc:'CAN · Puerto RJ45 · Baterías litio'},{icon:'📊',name:'Smart Meter',desc:'RS485 · Puerto METER'},{icon:'📱',name:'SEMS+',desc:'WiFi 2.4 GHz + LAN + Bluetooth 5.1'}],
-        breakers:[
-          {model:'GW3600M-ES-20',batDis:'≥75A / ≥60V',acOnGrid:'≥20A / ≥230V · RCD ON-GRID 300mA / Respaldo 30mA · Tipo A',pe:'4–6 mm²'},
-          {model:'GW3000-ES-20 / GW5000M-ES-20 / GW6000M-ES-20',batDis:'≥75A / ≥60V',acOnGrid:'≥35A / ≥230V · RCD ON-GRID 300mA / Respaldo 30mA · Tipo A',pe:'4–6 mm²'},
-          {model:'GW3600-ES-20',batDis:'≥100A / ≥60V',acOnGrid:'≥40A / ≥230V · RCD ON-GRID 300mA / Respaldo 30mA · Tipo A',pe:'4–6 mm²'},
-          {model:'GW5000-ES-20 / GW6000-ES-20',batDis:'≥150A / ≥60V',acOnGrid:'≥63A / ≥230V · RCD ON-GRID 300mA / Respaldo 30mA · Tipo A',pe:'4–6 mm²'}
-        ],
-        docs:{datasheet:'https://es.goodwe.com/Ftp/Downloads/Datasheet/ES/GW_ES%20G2_Datasheet_EMEA-ES.pdf',manual:'https://es.goodwe.com/Ftp/Downloads/User%20Manual/GW_Residential-Smart-Inverter-Solutions_User-Manual-ES-G2-ES.pdf'},
-        errors:[
-          {code:'F01',name:'Pérdida de Utilidad',causa:'Suministro de energía FV fallido, cable de CA desconectado o disyuntor de CA apagado.',sol:'La alarma se borra automáticamente al restablecerse la red. Verificar que el cable de CA esté conectado y el disyuntor encendido.'},
-          {code:'F02',name:'Red de Sobretensión',causa:'La tensión de red supera el rango permisible o la duración del evento supera el requisito de HVRT.',sol:'Si es ocasional, el inversor se recupera solo. Si es frecuente, verificar tensión de red: contactar al operador si excede el rango, o ajustar la protección de sobretensión/HVRT con su autorización. Verificar disyuntor CA y cables de salida si persiste.'},
-          {code:'F03',name:'Red Rápida de Sobretensión',causa:'La tensión de red es anormal o ultra alta.',sol:'Si es ocasional, el inversor se recupera solo. Si es frecuente, verificar tensión de red: contactar al operador si excede el rango, o modificar el umbral de protección rápida con su autorización.'},
-          {code:'F04',name:'Red de Baja Tensión',causa:'La tensión de red es inferior al rango permisible o la duración supera el requisito de LVRT.',sol:'Si es ocasional, el inversor se recupera solo. Si es frecuente, verificar tensión de red: contactar al operador o ajustar/deshabilitar la protección de subtensión/LVRT con su autorización. Verificar disyuntor y cables si persiste.'},
-          {code:'F05',name:'Sobretensión de 10 minutos',causa:'El promedio móvil de tensión de red en 10 minutos supera el rango de los requisitos de seguridad.',sol:'Si es ocasional, el inversor se recupera solo. Si es frecuente, verificar tensión de red: contactar al operador si excede el rango, o modificar el umbral de protección con su autorización.'},
-          {code:'F06',name:'Sobrefrecuencia de Red',causa:'La frecuencia real de la red supera el requisito del estándar de red local.',sol:'Si es ocasional, el inversor se recupera solo. Si es frecuente, verificar frecuencia de red: contactar al operador si excede el rango, o modificar/desactivar la protección de sobrefrecuencia con su autorización.'},
-          {code:'F07',name:'Subfrecuencia de Red',causa:'La frecuencia real de la red es inferior al requerimiento del estándar de red local.',sol:'Si es ocasional, el inversor se recupera solo. Si es frecuente, verificar frecuencia de red: contactar al operador si excede el rango, o modificar/desactivar la protección de subfrecuencia con su autorización.'},
-          {code:'F08',name:'Inestabilidad de Frecuencia de Red',causa:'La tasa de cambio real de la frecuencia de red no cumple el requisito del estándar local.',sol:'Si es ocasional, el inversor se recupera solo. Si es frecuente, verificar frecuencia de red: contactar al operador si excede el rango, o al distribuidor/posventa si está dentro del rango.'},
-          {code:'F09',name:'Anti-islanding',causa:'La red está desconectada según normas de seguridad, pero la tensión se mantiene por las cargas conectadas.',sol:'Verificar si la red eléctrica está realmente desconectada. Contactar al distribuidor o al servicio posventa.'},
-          {code:'F10',name:'LVRT Bajotensión',causa:'La duración de la excepción de red supera el tiempo establecido de LVRT.',sol:'Si es ocasional, el inversor se recupera solo. Si es frecuente, verificar tensión de red: contactar al operador si no está dentro del rango, o al distribuidor/posventa si sí lo está.'},
-          {code:'F11',name:'HVRT Sobretensión',causa:'La duración de la excepción de red supera el tiempo establecido de HVRT.',sol:'Si es ocasional, el inversor se recupera solo. Si es frecuente, verificar tensión de red: contactar al operador si no está dentro del rango, o al distribuidor/posventa si sí lo está.'},
-          {code:'F12',name:'GFCI Anormal (30mA / 60mA / 150mA)',causa:'La impedancia de aislamiento de entrada a tierra disminuye mientras el inversor está funcionando.',sol:'Si es ocasional, puede deberse a una excepción pasajera del cableado y el inversor se recupera solo. Si es frecuente o persiste, verificar si la impedancia entre la cadena FV y PE es demasiado baja.'},
-          {code:'F13',name:'Gran CC de Corriente CA (L1 / L2)',causa:'El componente de CC de la corriente de salida supera el rango de seguridad o el rango predeterminado.',sol:'Si se debe a una falla externa (anomalía de red o frecuencia), el inversor se recupera solo. Si es frecuente y la planta no puede funcionar correctamente, contactar al distribuidor o posventa.'},
-          {code:'F14',name:'Baja Resistencia de Aislamiento / Tierra Anómala',causa:'Baja resistencia: cadena FV en cortocircuito con PE, o entorno húmedo con cable mal aislado. Tierra anómala: cable PE del inversor mal conectado, o cables L y N invertidos con la salida FV conectada a tierra.',sol:'Verificar que la resistencia cadena FV–PE supere 50 kΩ; si no, ubicar y corregir el punto de cortocircuito. Verificar conexión del cable PE. Si la resistencia baja en días de lluvia, reiniciar el valor de ISO. Para tierra anómala: verificar conexión PE y que L/N no estén invertidos.'},
-          {code:'F15',name:'Protección contra Inversión de Corriente',causa:'Fluctuación anormal de la carga.',sol:'Si se debe a una falla externa, el inversor se recupera solo. Si es frecuente y la planta no puede funcionar correctamente, contactar al distribuidor o posventa.'},
-          {code:'F16',name:'Pérdida de Comunicación Interna',causa:'Error de formato de trama, verificación de paridad, bus CAN fuera de línea, error CRC de hardware, o error en bits de control de envío/recepción.',sol:'Desconectar el interruptor de salida CA y el de entrada CC, esperar 5 minutos y reconectar. Si persiste, contactar al distribuidor o posventa.'},
-          {code:'F17',name:'Comprobación Anómala del HCT en CA',causa:'El muestreo del HCT de CA es anómalo.',sol:'Desconectar el interruptor de salida CA y el de entrada CC, esperar 5 minutos y reconectar. Si persiste, contactar al distribuidor o posventa.'},
-          {code:'F18',name:'GFCI HCT Comprobación Anormal',causa:'El muestreo del HCT del GFCI es anómalo.',sol:'Desconectar CA y CC, esperar 5 minutos y reconectar. Si persiste, contactar al distribuidor o posventa.'},
-          {code:'F19',name:'Relevador Verificación Anormal',causa:'Fallo del relé, circuito de control anómalo, o conexión del cable CA defectuosa (conexión virtual o cortocircuito).',sol:'Desconectar el interruptor de salida CA y el de entrada CC, esperar 5 minutos y reconectar. Si persiste, contactar al distribuidor o posventa.'},
-          {code:'F20',name:'Fallo de Flash',causa:'El almacenamiento Flash interno es anómalo.',sol:'Desconectar el interruptor de salida CA y el de entrada CC, esperar 5 minutos y reconectar. Si persiste, contactar al distribuidor o posventa.'},
-          {code:'F21',name:'Fallo de Arco en CC',causa:'Terminal de CC no conectado firmemente o cable de CC roto.',sol:'Revisar la Guía Rápida de Instalación y verificar que los cables estén bien conectados.'},
-          {code:'F22',name:'Fallo de Autocomprobación AFCI',causa:'La detección AFCI es anómala.',sol:'Desconectar el interruptor de salida CA y el de entrada CC, esperar 5 minutos y reconectar. Si persiste, contactar al distribuidor o posventa.'},
-          {code:'F23',name:'Sobretemperatura de Cavidad',causa:'Instalación con poca ventilación, temperatura ambiente superior a 60°C, o falla del ventilador interno.',sol:'Verificar ventilación y temperatura ambiente en el punto de instalación. Mejorar ventilación y disipación de calor si es necesario. Si todo es normal, contactar al distribuidor o posventa.'},
-          {code:'F24',name:'BUS Sobretensión',causa:'Tensión FV demasiado alta o muestreo de tensión del BUS anómalo.',sol:'Desconectar el interruptor de salida CA y el de entrada CC, esperar 5 minutos y reconectar. Si persiste, contactar al distribuidor o posventa.'},
-          {code:'F25',name:'Entrada de PV Sobretensión',causa:'Configuración del campo FV incorrecta: demasiados módulos en serie superan la Voc máxima del inversor.',sol:'Verificar la conexión en serie del campo FV y asegurar que la tensión en circuito abierto no supere la tensión máxima de operación del inversor.'},
-          {code:'F26',name:'Hardware Continuo PV Sobrecorriente',causa:'Configuración del campo FV inadecuada o hardware dañado.',sol:'Desconectar el interruptor de salida CA y el de entrada CC, esperar 5 minutos y reconectar. Si persiste, contactar al distribuidor o posventa.'},
-          {code:'F27',name:'Software Continuo PV Sobrecorriente',causa:'Configuración del campo FV inadecuada o hardware dañado.',sol:'Desconectar el interruptor de salida CA y el de entrada CC, esperar 5 minutos y reconectar. Si persiste, contactar al distribuidor o posventa.'},
-          {code:'F28',name:'Cadena FV Invertida (PV1 / PV2)',causa:'Una o ambas cadenas fotovoltaicas están conectadas con polaridad invertida.',sol:'Verificar que las cadenas PV1 y PV2 no estén conectadas al revés.'},
-          {code:'F29',name:'Fallo Detección Forma de Onda del Generador',causa:'Generador no conectado, defectuoso, o parámetros fuera de especificación.',sol:'Si el generador no está conectado, ignorar la falla. Si está conectado, detener inmediatamente su operación. Verificar fallas y parámetros. Si todo es correcto pero persiste tras reiniciar, contactar al distribuidor o posventa.'},
-          {code:'F30',name:'Conexión Anormal del Generador',causa:'Generador no conectado, defectuoso, o parámetros fuera de especificación.',sol:'Si el generador no está conectado, ignorar la falla. Si está conectado, detener inmediatamente su funcionamiento. Verificar fallas y parámetros. Si persiste tras reiniciar, contactar al distribuidor o posventa.'},
-          {code:'F31',name:'Tensión Anormal del Generador',causa:'Generador no conectado, defectuoso, o ajuste de tensión fuera de especificación.',sol:'Si el generador no está conectado, ignorar la falla. Si está conectado, detener su operación y verificar que el ajuste de tensión cumpla los requisitos. Si persiste tras reiniciar, contactar al distribuidor o posventa.'},
-          {code:'F32',name:'Frecuencia Anormal del Generador',causa:'Generador no conectado, defectuoso, o ajuste de frecuencia fuera de especificación.',sol:'Si el generador no está conectado, ignorar la falla. Si está conectado, detener su operación y verificar que el ajuste de frecuencia no exceda los requisitos. Si persiste tras reiniciar, contactar al distribuidor o posventa.'},
-          {code:'F33',name:'Puerto GEN Sobrecargado',causa:'La carga conectada excede la corriente/potencia del puerto GEN, hay cortocircuito en el lado de respaldo, o la carga alta supera los límites del puerto.',sol:'Con generador conectado: detener operación, verificar línea y parámetros de salida; si exceden la especificación, reajustar. Con carga pesada: apagar carga y verificar que no exceda la especificación. Si persiste, contactar al distribuidor o posventa.'},
-          {code:'F34',name:'Fallo de Conexión Ezlink',causa:'Conexión Ezlink fallida — señal WiFi débil, IP no obtenida o servidor inaccesible.',sol:'Verificar señal WiFi y funcionamiento del router. Comprobar si Ezlink obtiene IP desde la APP; si no, restablecer parámetros de comunicación. Verificar conexión al servidor en mqtt.goodwe-power.com.'},
-          {code:'F35',name:'Fallo Conexión Paralelo (Login APP)',causa:'Cable de comunicación en paralelo mal conectado o poco confiable, o Smart Meter/Ezlink no conectados al inversor maestro.',sol:'Verificar conexión del cable de comunicación en paralelo. Conectar el Smart Meter y módulo Ezlink al inversor maestro. Si el indicador es anormal, revisar cada inversor individualmente. Si persiste, reiniciar y reestablecer la conexión de red.'},
-          {code:'F36',name:'Comprobación E/S en Paralelo Fallida',causa:'Comunicación entre inversores en paralelo en error.',sol:'Verificar que el cable de comunicación en paralelo esté bien conectado y firme. Si la conexión es normal, puede ser falla interna de comunicación; contactar al distribuidor o posventa.'},
-          {code:'F37',name:'Línea de Red Paralela Invertida',causa:'Los cables L y N de CA están conectados al revés.',sol:'Verificar el cableado de CA y reconectar el cable CA ON-GRID para asegurar el cableado correcto de red.'},
-          {code:'F38',name:'Batería Anormal',causa:'Fallo de batería detectado.',sol:'Verificar la conexión del cable de comunicación del BMS y confirmar que sea confiable. Verificar si el tipo de batería coincide mediante la APP. Si no puede resolverse, consultar el manual de la batería correspondiente.'},
-          {code:'F39',name:'Dispositivo Fuera de Línea en APP',causa:'Fallo de comunicación o fallo del equipo en sistema paralelo.',sol:'Verificar que la cantidad de inversores en paralelo coincida con los realmente conectados. Obtener el SN del inversor desconectado y solucionar según su manual. Si la comunicación es normal sin conexiones sueltas o incorrectas, contactar al distribuidor o posventa.'}
-        ]
+        breakers:[{model:'GW3000-ES-20',batDis:'≥75A / ≥60V',acOnGrid:'≥40A',pe:'4–6 mm²'},{model:'GW6000-ES-20',batDis:'≥150A / ≥60V',acOnGrid:'≥63A',pe:'4–6 mm²'}],
+        docs:{datasheet:'https://es.goodwe.com/Ftp/Downloads/Datasheet/ES/GW_ES%20G2_Datasheet_EMEA-ES.pdf',manual:'https://es.goodwe.com/Ftp/Downloads/User%20Manual/GW_Residential-Smart-Inverter-Solutions_User-Manual-ES-G2-ES.pdf'}
       },
       {id:'ESUNIQ',name:'ES UNIQ',tag:'tag-mono',tl:'Mono',sub:'Inversor Híbrido Monofásico LV · 3–12 kW · IP66',
         highlights:[{val:'3–12 kW',lbl:'Potencia nominal'},{val:'1–2 MPPT',lbl:'Seguidores MPP'},{val:'600 V',lbl:'Vdc máx entrada'},{val:'IP66',lbl:'Protección'}],
@@ -1047,7 +1088,8 @@ function selectCountry(c){
   renderCountryList(ALL_C);
   document.getElementById('pf').textContent=c.flag;
   document.getElementById('pg').textContent=`${c.v1}V · ${c.hz}Hz`;
-  go('screen-project');
+  if(installFlow==='residential') go('screen-wizard-type');
+  else go('screen-project');
 }
 renderCountryList(ALL_C);
 
@@ -1925,6 +1967,377 @@ function importProject(event){
   reader.readAsText(file);
   event.target.value='';
 }
+
+// ─── WIZARD ──────────────────────────────────────────────────────────────────
+let wizModel=null,wizStep=0,installFlow='ci',wizType='';
+
+function selectInstallType(type){
+  installFlow=type;
+  go('screen-country');
+}
+
+function selectWizType(type){
+  wizType=type;
+  renderWizardModels();
+  go('screen-wizard-model');
+}
+
+function renderWizardModels(){
+  const catalog={
+    hybrid:[
+      {id:'ESG2',icon:'🔋',name:'ES-G2',badge:'Monofásico · LV',desc:'Inversor Híbrido Monofásico · 3–6 kW<br><span style="font-family:\'DM Mono\',monospace;font-size:11px;">1 fase · Batería LV 48V</span>'},
+      {id:'ETG2',icon:'⚡',name:'ET-G2',badge:'Trifásico · HV',desc:'Inversor Híbrido Trifásico · 6–15 kW<br><span style="font-family:\'DM Mono\',monospace;font-size:11px;">3 fases · Batería HV</span>'},
+    ],
+    ongrid:[
+      {id:'DNSG3',icon:'☀️',name:'DNS G3',badge:'Monofásico',desc:'Inversor On-Grid Monofásico · 3–6 kW<br><span style="font-family:\'DM Mono\',monospace;font-size:11px;">2 MPPT · IP66</span>'},
+      {id:'SMT50',icon:'🏭',name:'SMT 50-60kW',badge:'Trifásico C&I',desc:'Inversor On-Grid Trifásico · 50–60 kW<br><span style="font-family:\'DM Mono\',monospace;font-size:11px;">5-6 MPPT · IP65</span>'},
+    ]
+  };
+  document.getElementById('wiz-model-title').textContent=wizType==='hybrid'?'Modelo Híbrido':'Modelo On-Grid';
+  const cards=document.getElementById('wiz-model-cards');
+  cards.innerHTML='';
+  (catalog[wizType]||[]).forEach(m=>{
+    const card=document.createElement('div');
+    card.className='tcard';
+    card.innerHTML=`<div class="tcard-badge">${m.badge}</div><div class="tcard-icon">${m.icon}</div><div class="tcard-title">${m.name}</div><div class="tcard-desc">${m.desc}</div>`;
+    card.onclick=()=>startWizard(m.id);
+    cards.appendChild(card);
+  });
+}
+
+function startWizard(modelId){
+  wizModel=modelId;
+  wizStep=0;
+  renderWizardStep();
+  go('screen-wizard');
+}
+
+function wizNav(dir){
+  const steps=WIZARD_STEPS[wizModel];
+  if(!steps)return;
+  const next=wizStep+dir;
+  if(next<0){go('screen-wizard-model');return;}
+  if(next>=steps.length){
+    go('screen-splash');
+    showToast('🏆 ¡Comisionamiento '+WIZARD_STEPS[wizModel][0].model+' completado!');
+    return;
+  }
+  wizStep=next;
+  renderWizardStep();
+  window.scrollTo(0,0);
+}
+
+function renderWizardStep(){
+  const steps=WIZARD_STEPS[wizModel];
+  if(!steps)return;
+  const step=steps[wizStep];
+  const total=steps.length;
+  const pct=Math.round(((wizStep+1)/total)*100);
+  document.getElementById('wiz-phase-label').textContent=step.phase+' · '+wizModel;
+  document.getElementById('wiz-bar-fill').style.width=pct+'%';
+  document.getElementById('wiz-step-count').textContent=(wizStep+1)+' / '+total;
+  const isLast=wizStep===total-1;
+  const isFirst=wizStep===0;
+  document.getElementById('wiz-btn-back').textContent=isFirst?'← Modelos':'← Anterior';
+  const footer=document.getElementById('wiz-footer');
+  const nextBtn=document.getElementById('wiz-btn-next');
+  nextBtn.className=isLast?'wiz-final-btn':'wiz-btn-next';
+  nextBtn.textContent=isLast?'✓ Finalizar':'Siguiente →';
+  document.getElementById('wiz-body').innerHTML=`
+    <div class="wiz-step-num">Paso ${wizStep+1} de ${total} · ${step.phase}</div>
+    <div class="wiz-title">${step.title}</div>
+    <div class="wiz-img"><div class="wiz-img-icon">📷</div><div class="wiz-img-label">Imagen próximamente</div></div>
+    <div class="wiz-instruction">${step.instruction}</div>
+    ${step.tip?`<div class="wiz-tip">${step.tip}</div>`:''}`;
+}
+
+// ─── WIZARD STEPS DATA ────────────────────────────────────────────────────────
+const WIZARD_STEPS={
+  ESG2:[
+    {phase:'Físico',model:'ES-G2',title:'Unboxing del Inversor',
+      instruction:'Abre la caja del ES-G2 con cuidado. Colócala sobre una superficie plana y retira el embalaje protector paso a paso.',
+      tip:'No cortes hacia adentro para no dañar el equipo.'},
+    {phase:'Físico',model:'ES-G2',title:'Verificar Contenido de la Caja',
+      instruction:'Confirma que estén todos estos elementos:\n\n• 1 × Inversor ES-G2\n• 1 × Placa de montaje\n• 1 × Smart Meter GMK110\n• 1 × Dongle WiFi/LAN Kit 2.0\n• Conectores MC4\n• Documentación y manual',
+      tip:'Si falta algún elemento, documenta el problema y contacta a tu distribuidor antes de continuar.'},
+    {phase:'Físico',model:'ES-G2',title:'Montar Inversor en Pared',
+      instruction:'Fija la placa de montaje con los pernos de expansión incluidos.\n\nRequisitos de ubicación:\n• 30 cm de espacio libre en todos los lados\n• Sin exposición directa al sol\n• Temperatura ambiente: -25°C a +60°C\n• Superficie sólida que soporte ≈20 kg\n\nVerifica que la placa quede a plomo antes de colgar el inversor.',
+      tip:'No instalar en espacios confinados, cerca de materiales inflamables, ni en zonas con humedad excesiva.'},
+    {phase:'Físico',model:'ES-G2',title:'Conectar Strings FV (Paneles)',
+      instruction:'Antes de conectar, verifica con multímetro:\n• Polaridad correcta de cada string (+/−)\n• Voc por string inferior a 600V (límite del ES-G2)\n\nEl ES-G2 tiene 2 MPPTs, 1 string por MPPT.\n\nConecta los conectores MC4 de cada string al puerto DC del inversor. Escucha el "clic" de encaje en cada conector.',
+      tip:'El interruptor DC debe estar en posición OFF antes de conectar cualquier string.'},
+    {phase:'Físico',model:'ES-G2',title:'Conectar Batería DC',
+      instruction:'Conecta el cable de batería al puerto BAT del inversor.\n\nCalibre mínimo del interruptor de batería:\n• GW3000 / GW3600M: ≥75A / ≥60V\n• GW3600 / GW3500L: ≥100A / ≥60V\n• GW5000 / GW6000: ≥150A / ≥60V\n\nVerifica la polaridad con multímetro antes de conectar. No enciendas la batería todavía.',
+      tip:'Un error de polaridad en la batería puede dañar el inversor de forma permanente.'},
+    {phase:'Físico',model:'ES-G2',title:'Conectar Dongle WiFi/LAN Kit 2.0',
+      instruction:'Inserta el dongle WiFi/LAN Kit 2.0 en el puerto COM del inversor.\n\nAsegúrate de que quede firmemente encajado.\n\nEste dongle es el que permite la comunicación con la app SolarGo y el portal SEMS+.',
+      tip:null},
+    {phase:'Físico',model:'ES-G2',title:'Conectar Smart Meter GMK110',
+      instruction:'El GMK110 mide el flujo de energía entre la red y el hogar.\n\nUbicación del CT (transformador de corriente):\n• Instalar AGUAS ABAJO del medidor de la distribuidora\n• Instalar AGUAS ARRIBA de las cargas del hogar\n• La FLECHA del CT apunta siempre hacia la RED\n\nConecta el cable RS485 del GMK110 al puerto METER del inversor.',
+      tip:'Si el CT queda con la flecha hacia las cargas, el sistema inyectará en lugar de autoconsumr. Verifica siempre la dirección de la flecha.'},
+    {phase:'Configuración',model:'ES-G2',title:'Abrir SolarGo — Acceso Local',
+      instruction:'Descarga SolarGo en tu teléfono si aún no la tienes.\n\nPara conectarte al inversor:\n1. Activa el Bluetooth de tu teléfono\n2. Abre SolarGo → toca "Acceso Local"\n3. Selecciona tu inversor de la lista\n\nUna vez conectado:\n→ Ve a Settings → Communication Settings',
+      tip:null},
+    {phase:'Configuración',model:'ES-G2',title:'Communication Settings — Conectar WiFi',
+      instruction:'En Communication Settings:\n\n1. Selecciona el método: WLAN/LAN\n2. Activa WLAN\n3. Selecciona tu red WiFi de la lista\n4. Ingresa la contraseña\n5. Guarda y espera confirmación de conexión',
+      tip:'La red WiFi DEBE ser 2.4 GHz. Las redes 5 GHz no son compatibles. Si el router emite ambas frecuencias, elige la red con "2.4G" o "2G" en el nombre.'},
+    {phase:'Configuración',model:'ES-G2',title:'Basic Settings — Grid Code',
+      instruction:'Ve a Settings → Basic Settings → Safety Code\n\n1. Selecciona tu continente y país\n   → Para Chile: LATAM → Chile\n2. Toca Guardar\n3. Toca Next para continuar',
+      tip:'Este paso configura voltaje y frecuencia de red según la normativa de tu país. Es obligatorio antes de energizar.'},
+    {phase:'Configuración',model:'ES-G2',title:'Basic Settings — Working Mode',
+      instruction:'Selecciona el modo de operación del sistema:\n\n• Self Use → Autoconsumo prioritario (más común en residencial)\n• Backup Mode → Prioriza cargar la batería para respaldo\n• Off-Grid Mode → Operación sin red eléctrica\n• TOU Mode → Control por franjas horarias\n\nConsulta con el cliente qué modo se adapta a sus necesidades.',
+      tip:null},
+    {phase:'Configuración',model:'ES-G2',title:'Basic Settings — Seleccionar Batería',
+      instruction:'Selecciona el modelo de batería instalada.\n\nBaterías compatibles con ES-G2:\n• GoodWe Lynx Home U\n• Pylontech US2000 / US3000\n• BYD Battery-Box Premium LVS\n\nSelecciona el modelo exacto y guarda.',
+      tip:'Si el modelo no aparece en la lista, no es compatible. Nunca uses una batería no listada por GoodWe.'},
+    {phase:'Configuración',model:'ES-G2',title:'Basic Settings — Meter Detection',
+      instruction:'En Basic Settings → Meter Detection:\n\n1. Toca "Start" o "Iniciar detección"\n2. Espera que el proceso complete (1–2 minutos)\n3. El sistema debe detectar el GMK110\n4. Una vez confirmado, toca "Exit"',
+      tip:'Si la detección falla, verifica que el cable RS485 del GMK110 esté bien conectado al puerto METER del inversor.'},
+    {phase:'Configuración',model:'ES-G2',title:'Advanced Settings — DRED / Remote Shutdown / RCR',
+      instruction:'Ve a Settings → Advanced Settings.\n\nVerifica que estén DESHABILITADOS:\n• DRED (Demand Response Enabling Device)\n• Remote Shutdown\n• RCR (Reactive Current Response)\n\nEstas funciones son para contratos específicos con operadores de red.',
+      tip:null},
+    {phase:'Configuración',model:'ES-G2',title:'Advanced Settings — Power Limit',
+      instruction:'Configura el límite de exportación a la red:\n\n• 0% → Exportación cero (0 Export) — no inyecta nada\n• 50% → Exporta hasta el 50% de la potencia nominal\n• 100% → Exporta toda la energía generada disponible\n\nConfirma con el cliente según su contrato con la distribuidora.',
+      tip:'En Chile se requiere contrato de Net Billing vigente para exportar. Sin contrato → configura 0%.'},
+    {phase:'Configuración',model:'ES-G2',title:'Advanced Settings — Shadow Scan',
+      instruction:'Shadow Scan optimiza la generación cuando hay sombras parciales en los paneles.\n\n• Con sombras importantes → ACTIVAR\n• Sin sombras → DESACTIVAR\n\nRevisa el techo: sombras de antenas, chimeneas o árboles a ciertas horas del día cuentan.',
+      tip:'Con Shadow Scan activo sin sombras reales, la generación puede reducirse hasta un 5%. Solo actívalo si hay sombras.'},
+    {phase:'Configuración',model:'ES-G2',title:'Advanced Settings — Back-up ON Detection Mode',
+      instruction:'Configura el modo de detección para el arranque en respaldo:\n\n• Full Wave → Para baterías de ION DE LITIO ✓\n• Half Wave → Para baterías de PLOMO-ÁCIDO\n\nSelecciona según el tipo de batería instalada.',
+      tip:null},
+    {phase:'Configuración',model:'ES-G2',title:'Advanced Settings — First Cold Start',
+      instruction:'En Advanced Settings, busca "First Cold Start".\n\nActiva esta función.\n\nPermite que el inversor arranque desde la batería cuando no hay red disponible — es esencial para el modo de respaldo (back-up).',
+      tip:null},
+    {phase:'Configuración',model:'ES-G2',title:'Device Information — Actualización de Firmware',
+      instruction:'Ve a Device Information en SolarGo.\n\nSi hay actualizaciones disponibles:\n1. Actualiza primero el ARM → espera que termine completamente\n2. Luego actualiza el DSP → espera que termine\n\nSi no hay actualizaciones disponibles, continúa al siguiente paso.',
+      tip:'NUNCA interrumpas una actualización de firmware. El orden es siempre ARM primero, luego DSP. Invertir el orden puede inutilizar el equipo.'},
+    {phase:'Energización',model:'ES-G2',title:'Conectar Cables AC',
+      instruction:'Con los breakers AC ABIERTOS (OFF):\n\n• L (Fase) → Terminal L del inversor\n• N (Neutro) → Terminal N del inversor\n• PE (Tierra) → Terminal PE del inversor\n\nSección mínima del cable (lado ON-GRID):\n• GW3000: 5 mm²\n• GW3600 / GW3600M: 6 mm²\n• GW5000 / GW6000: 10 mm²\n\nAprieta terminales con el torque indicado en el manual.',
+      tip:'Verifica dos veces que L y N no estén invertidos. Con L/N al revés el inversor dará error y no generará.'},
+    {phase:'Energización',model:'ES-G2',title:'Subir Breakers AC',
+      instruction:'Todo conectado y configurado. Es el momento de energizar.\n\nSube los breakers en este orden:\n1. Breaker principal del tablero\n2. Breaker dedicado al inversor (AC)\n3. Breaker de batería (si es externo)\n4. Enciende la batería (botón en la batería)\n\nObserva el inversor — las luces deben comenzar a encenderse.',
+      tip:null},
+    {phase:'Energización',model:'ES-G2',title:'Autocomprobación del Equipo',
+      instruction:'El inversor realiza una autocomprobación automática al encender.\n\nDurante este proceso (1–2 minutos):\n• Los LED parpadearán\n• La pantalla mostrará "Self-checking"\n• No toques ni desconectes nada\n\nSi aparece un código de error, anótalo y consulta:\nFichas Técnicas → ES-G2 → Códigos de Error',
+      tip:null},
+    {phase:'Verificación',model:'ES-G2',title:'Verificar Flujos en SolarGo',
+      instruction:'Abre SolarGo y verifica que todo esté en orden:\n\n✓ Voltaje AC output: ~220 V\n✓ Salida Back-up con tensión presente\n✓ Voltaje DC correcto en paneles\n✓ Corriente DC visible (si hay sol)\n✓ Batería: cargando o descargando según nivel\n✓ Flujo de red: importando o exportando según configuración\n\nTodos los valores deben ser coherentes con la instalación.',
+      tip:null},
+    {phase:'Registro SEMS+',model:'ES-G2',title:'Descargar SEMS+',
+      instruction:'Si aún no tienes la app SEMS+:\n\n• iOS: App Store → buscar "SEMS"\n• Android: Google Play → buscar "SEMS Portal"\n\nAbre la app e ingresa con tu cuenta de instalador GoodWe.',
+      tip:null},
+    {phase:'Registro SEMS+',model:'ES-G2',title:'Crear Estación en SEMS+',
+      instruction:'En SEMS+, con tu cuenta de instalador:\n\n1. Toca "+" para crear nueva estación\n2. Completa todos los datos:\n   • Nombre de la estación\n   • Dirección completa\n   • Potencia instalada (kWp)\n   • Fecha de instalación\n   • Tipo de red',
+      tip:null},
+    {phase:'Registro SEMS+',model:'ES-G2',title:'Ingresar Datos de la Estación',
+      instruction:'Completa la información de la instalación:\n\n• Orientación e inclinación de los paneles\n• Cantidad y modelo de paneles\n• Marca y capacidad de la batería\n• Configuración de strings',
+      tip:null},
+    {phase:'Registro SEMS+',model:'ES-G2',title:'Vincular Inversor a la Estación',
+      instruction:'Para vincular el inversor:\n\nOpción 1 — Código QR:\n• Toca "Añadir dispositivo"\n• Escanea el código QR del sticker del inversor\n\nOpción 2 — Manual:\n• Ingresa el S/N (número de serie)\n• Ingresa el Check Code (del mismo sticker)\n\nEl inversor aparecerá online en SEMS+ en pocos minutos.',
+      tip:null}
+  ],
+  ETG2:[
+    {phase:'Físico',model:'ET-G2',title:'Unboxing del Inversor',
+      instruction:'Abre la caja del ET-G2 con cuidado. Colócala sobre una superficie plana.\n\nNota: el ET-G2 es más pesado que el ES-G2. Si supera los 25 kg, trabaja con ayuda.',
+      tip:null},
+    {phase:'Físico',model:'ET-G2',title:'Verificar Contenido de la Caja',
+      instruction:'Confirma que estén todos estos elementos:\n\n• 1 × Inversor ET-G2\n• 1 × Placa de montaje\n• 1 × Smart Meter GM3000 (trifásico)\n• 3 × CT (transformadores de corriente, uno por fase)\n• Conectores MC4\n• Documentación y manual',
+      tip:'Si falta algún elemento, documenta el problema y contacta a tu distribuidor antes de continuar.'},
+    {phase:'Físico',model:'ET-G2',title:'Montar Inversor en Pared',
+      instruction:'Fija la placa de montaje con los pernos de expansión incluidos.\n\nRequisitos de ubicación:\n• 30 cm de espacio libre en todos los lados\n• Sin exposición directa al sol\n• Temperatura: -35°C a +60°C\n• Altitud máxima: 4000 m s.n.m.\n\nVerifica que quede a plomo antes de colgar el inversor.',
+      tip:'No instalar en espacios confinados ni cerca de materiales inflamables.'},
+    {phase:'Físico',model:'ET-G2',title:'Conectar Strings FV (Paneles)',
+      instruction:'Antes de conectar, verifica con multímetro:\n• Polaridad correcta de cada string (+/−)\n• Voc por string inferior a 1000V (límite ET-G2)\n\nCantidad de MPPTs según modelo:\n• 2 MPPTs en modelos 6–10 kW\n• 3 MPPTs en modelos 12–15 kW\n\nConecta los MC4 de cada string al puerto DC correspondiente.',
+      tip:'El interruptor DC debe estar en OFF antes de conectar.'},
+    {phase:'Físico',model:'ET-G2',title:'Conectar Batería HV',
+      instruction:'El ET-G2 usa baterías de ALTA TENSIÓN (HV).\n\nBaterías compatibles:\n• GoodWe Lynx Home F (HV · 6.9–27.6 kWh)\n• GoodWe Lynx Home H (HV · 5–30 kWh)\n• BYD Battery-Box Premium HVS / HVM\n\nRango de tensión: 150–720V\n\nConecta el cable de batería al puerto BAT respetando la polaridad.',
+      tip:'Las baterías HV trabajan a tensiones peligrosas. Usa equipos de protección personal y verifica siempre la polaridad.'},
+    {phase:'Físico',model:'ET-G2',title:'Conectar Módulo de Comunicación',
+      instruction:'Inserta el módulo de comunicación (WiFi/LAN/BT) en el puerto COM del inversor.\n\nAsegúrate de que quede firmemente encajado. Este módulo permite la comunicación con SolarGo y SEMS+.',
+      tip:null},
+    {phase:'Físico',model:'ET-G2',title:'Conectar Smart Meter GM3000 y CTs',
+      instruction:'El GM3000 es un medidor trifásico. Requiere 3 CTs, uno por cada fase.\n\nConexión de los CTs:\n• CT1 → Fase L1\n• CT2 → Fase L2\n• CT3 → Fase L3\n\nDirección de cada CT:\n• La FLECHA apunta hacia la RED (hacia el medidor de la distribuidora)\n\nConecta el cable RS485 del GM3000 al puerto METER del inversor.',
+      tip:'Si algún CT queda con la flecha invertida, el flujo de esa fase se leerá al revés. Verifica la dirección de los 3 CTs.'},
+    {phase:'Configuración',model:'ET-G2',title:'Abrir SolarGo — Acceso Local',
+      instruction:'Descarga SolarGo en tu teléfono si aún no la tienes.\n\nPara conectarte al inversor:\n1. Activa el Bluetooth\n2. Abre SolarGo → "Acceso Local"\n3. Selecciona tu inversor ET-G2\n\nUna vez conectado:\n→ Ve a Settings → Communication Settings',
+      tip:null},
+    {phase:'Configuración',model:'ET-G2',title:'Communication Settings — Conectar WiFi',
+      instruction:'En Communication Settings:\n\n1. Selecciona el método: WLAN/LAN\n2. Activa WLAN\n3. Selecciona tu red WiFi\n4. Ingresa contraseña y guarda',
+      tip:'La red WiFi DEBE ser 2.4 GHz. Las redes 5 GHz no son compatibles.'},
+    {phase:'Configuración',model:'ET-G2',title:'Basic Settings — Grid Code',
+      instruction:'Ve a Settings → Basic Settings → Safety Code\n\n1. Selecciona tu país\n   → Para Chile: LATAM → Chile\n2. Guarda\n3. Toca Next',
+      tip:'Este paso es obligatorio. Configura los parámetros de red trifásica según la normativa local.'},
+    {phase:'Configuración',model:'ET-G2',title:'Basic Settings — Working Mode',
+      instruction:'Selecciona el modo de operación:\n\n• Self Use → Autoconsumo prioritario\n• Backup Mode → Prioriza carga de batería para respaldo\n• Off-Grid Mode → Operación sin red\n• TOU Mode → Control por franjas horarias\n• Peak Shaving → Reducción de demanda punta',
+      tip:null},
+    {phase:'Configuración',model:'ET-G2',title:'Basic Settings — Batería HV',
+      instruction:'Selecciona el modelo de batería HV instalada:\n\n• GoodWe Lynx Home F\n• GoodWe Lynx Home H\n• BYD Battery-Box Premium HVS\n• BYD Battery-Box Premium HVM\n\nSelecciona el modelo exacto y guarda.',
+      tip:'La selección incorrecta de batería puede causar daños. Verifica el modelo exacto en la etiqueta de la batería.'},
+    {phase:'Configuración',model:'ET-G2',title:'Basic Settings — Meter Detection',
+      instruction:'En Basic Settings → Meter Detection:\n\n1. Toca "Start"\n2. El sistema debe detectar el GM3000 en las 3 fases\n3. Espera que complete (1–2 min)\n4. Toca "Exit"',
+      tip:'Si falla, verifica la conexión RS485 y que los 3 CTs estén bien conectados al GM3000.'},
+    {phase:'Configuración',model:'ET-G2',title:'Advanced Settings — DRED / Remote Shutdown / RCR',
+      instruction:'Ve a Advanced Settings.\n\nVerifica que estén DESHABILITADOS:\n• DRED\n• Remote Shutdown\n• RCR\n\nSolo activar si el operador de red lo requiere expresamente.',
+      tip:null},
+    {phase:'Configuración',model:'ET-G2',title:'Advanced Settings — Power Limit',
+      instruction:'Configura el límite de exportación:\n\n• 0% → Sin exportación (0 Export)\n• 50% → Exporta hasta 50% de potencia nominal\n• 100% → Exporta toda la energía disponible\n\nVerifica el contrato del cliente con la distribuidora.',
+      tip:'En Chile se requiere contrato de Net Billing para exportar. Sin contrato → 0%.'},
+    {phase:'Configuración',model:'ET-G2',title:'Advanced Settings — Shadow Scan',
+      instruction:'Evalúa si hay sombras en los paneles:\n\n• Con sombras importantes → ACTIVAR Shadow Scan\n• Sin sombras → DESACTIVAR\n\nSombras de antenas, chimeneas o árboles a ciertas horas del día cuentan.',
+      tip:'Con Shadow Scan activo sin sombras, la generación puede bajar hasta un 5%.'},
+    {phase:'Configuración',model:'ET-G2',title:'Advanced Settings — Back-up ON Detection Mode',
+      instruction:'Para baterías de ion de litio HV (todas las compatibles con ET-G2):\n\n→ Selecciona FULL WAVE\n\nEste es el modo correcto para todas las baterías HV listadas.',
+      tip:null},
+    {phase:'Configuración',model:'ET-G2',title:'Advanced Settings — First Cold Start',
+      instruction:'En Advanced Settings, activa "First Cold Start".\n\nPermite que el inversor arranque desde la batería HV sin necesidad de red eléctrica disponible.',
+      tip:null},
+    {phase:'Configuración',model:'ET-G2',title:'Device Information — Actualización de Firmware',
+      instruction:'Ve a Device Information en SolarGo.\n\nSi hay actualización disponible:\n1. Actualiza el ARM primero → espera que termine\n2. Luego actualiza el DSP → espera que termine\n\nSi no hay actualizaciones, continúa.',
+      tip:'Nunca interrumpas una actualización. Orden siempre: ARM primero, DSP después.'},
+    {phase:'Energización',model:'ET-G2',title:'Conectar Cables AC Trifásicos',
+      instruction:'Con los breakers AC ABIERTOS:\n\n• L1 → Terminal L1 del inversor\n• L2 → Terminal L2 del inversor\n• L3 → Terminal L3 del inversor\n• N (Neutro) → Terminal N\n• PE (Tierra) → Terminal PE\n\nVerifica la secuencia de fases con analizador de red antes de conectar.',
+      tip:'Una secuencia de fases incorrecta causará error en el inversor trifásico.'},
+    {phase:'Energización',model:'ET-G2',title:'Subir Breakers AC',
+      instruction:'Sube los breakers en este orden:\n1. Breaker principal del tablero\n2. Breaker trifásico del inversor\n3. Enciende la batería HV (botón en el módulo de batería)\n\nObserva el inversor — las luces deben encenderse.',
+      tip:null},
+    {phase:'Energización',model:'ET-G2',title:'Autocomprobación del Equipo',
+      instruction:'El inversor realiza autocomprobación automática al encender.\n\nDurante este proceso (1–2 minutos):\n• Los LED parpadearán\n• Pantalla mostrará "Self-checking"\n• No toques ni desconectes nada\n\nSi aparece un error, anótalo y consulta:\nFichas Técnicas → ET-G2 → Códigos de Error',
+      tip:null},
+    {phase:'Verificación',model:'ET-G2',title:'Verificar Flujos en SolarGo',
+      instruction:'Verifica en SolarGo que todo sea correcto:\n\n✓ Voltaje trifásico: ~380–400V (L-L)\n✓ Las 3 fases generando correctamente\n✓ Salida Back-up con tensión\n✓ Corriente DC visible en paneles (con sol)\n✓ Batería HV: cargando o descargando\n✓ Flujo de red: importando o exportando',
+      tip:null},
+    {phase:'Registro SEMS+',model:'ET-G2',title:'Descargar SEMS+',
+      instruction:'Si aún no tienes la app:\n\n• iOS: App Store → "SEMS"\n• Android: Google Play → "SEMS Portal"\n\nIngresa con tu cuenta de instalador GoodWe.',
+      tip:null},
+    {phase:'Registro SEMS+',model:'ET-G2',title:'Crear Estación en SEMS+',
+      instruction:'En SEMS+ → "+" → Nueva estación:\n\n• Nombre de la estación\n• Dirección completa\n• Potencia instalada (kWp)\n• Fecha de instalación\n• Tipo de red: Trifásica',
+      tip:null},
+    {phase:'Registro SEMS+',model:'ET-G2',title:'Ingresar Datos de la Estación',
+      instruction:'Completa los datos:\n\n• Orientación e inclinación de paneles\n• Cantidad y modelo de paneles\n• Marca y capacidad de batería HV (kWh)\n• Configuración de strings',
+      tip:null},
+    {phase:'Registro SEMS+',model:'ET-G2',title:'Vincular Inversor',
+      instruction:'Para vincular el ET-G2:\n\nOpción 1 — QR:\n• "Añadir dispositivo" → Escanear QR del sticker\n\nOpción 2 — Manual:\n• Ingresa S/N (número de serie)\n• Ingresa Check Code (del sticker)\n\nEl inversor aparecerá online en SEMS+ en pocos minutos.',
+      tip:null}
+  ],
+  DNSG3:[
+    {phase:'Físico',model:'DNS G3',title:'Unboxing del Inversor',
+      instruction:'Abre la caja del DNS G3 con cuidado. Colócala sobre una superficie plana y retira el embalaje protector.',
+      tip:'No cortes hacia adentro para no dañar el equipo.'},
+    {phase:'Físico',model:'DNS G3',title:'Verificar Contenido de la Caja',
+      instruction:'Confirma que estén todos estos elementos:\n\n• 1 × Inversor DNS G3\n• 1 × Placa de montaje\n• 3 × Pernos de expansión\n• 2 × Conectores MC4\n• 1 × Conector de CA\n• 1 × Terminal OT\n• 1 × Módulo COM (WiFi/LAN/4G según comunicación elegida)\n• Documentación',
+      tip:'Si falta algún elemento, contacta a tu distribuidor antes de continuar.'},
+    {phase:'Físico',model:'DNS G3',title:'Montar Inversor en Pared',
+      instruction:'Fija la placa de montaje con los pernos de expansión.\n\nRequisitos de ubicación:\n• 30 cm de espacio libre alrededor\n• Sin exposición directa al sol\n• Temperatura: -25°C a +60°C\n• Superficie sólida que soporte ≈13 kg\n\nVerifica que la placa quede a plomo antes de colgar el inversor.',
+      tip:'No instalar en espacios confinados ni cerca de materiales inflamables.'},
+    {phase:'Físico',model:'DNS G3',title:'Conectar Strings FV (Paneles)',
+      instruction:'Antes de conectar, verifica con multímetro:\n• Polaridad correcta de cada string (+/−)\n• Voc por string inferior a 600V\n\nEl DNS G3 tiene 2 MPPTs, 1 string por MPPT.\n\nConecta los conectores MC4 de cada string al puerto DC del inversor. Escucha el "clic" de encaje.',
+      tip:'El interruptor DC debe estar en OFF antes de conectar.'},
+    {phase:'Físico',model:'DNS G3',title:'Conectar Módulo de Comunicación',
+      instruction:'Instala el módulo COM en el puerto de comunicación del inversor.\n\n• Si usas WiFi: módulo WLAN (incluido)\n• Si usas cable: módulo LAN\n• En zonas sin WiFi: módulo 4G (opcional)\n\nRetira la tapa del puerto COM, inserta el módulo y fija con los tornillos incluidos.',
+      tip:null},
+    {phase:'Físico',model:'DNS G3',title:'Conectar Smart Meter GM1000',
+      instruction:'El GM1000 mide el flujo de energía entre la red y el hogar.\n\nUbicación del CT:\n• Instalar AGUAS ABAJO del medidor de la distribuidora\n• Instalar AGUAS ARRIBA de las cargas del hogar\n• La FLECHA del CT apunta hacia la RED\n\nConecta el cable RS485 del GM1000 al puerto METER del inversor.',
+      tip:'Si el CT queda invertido, el sistema inyectará en lugar de autoconsumr. Siempre verifica la flecha.'},
+    {phase:'Configuración',model:'DNS G3',title:'Abrir SolarGo — Acceso Local',
+      instruction:'Descarga SolarGo en tu teléfono si aún no la tienes.\n\nPara conectarte:\n1. Activa el Bluetooth\n2. Abre SolarGo → "Acceso Local"\n3. Selecciona tu inversor de la lista\n\n→ Ve a Settings → Communication Settings',
+      tip:null},
+    {phase:'Configuración',model:'DNS G3',title:'Communication Settings — Conectar WiFi',
+      instruction:'En Communication Settings:\n\n1. Selecciona el método: WLAN/LAN\n2. Activa WLAN\n3. Selecciona tu red WiFi\n4. Ingresa la contraseña\n5. Guarda y espera confirmación',
+      tip:'La red WiFi DEBE ser 2.4 GHz. Las redes 5 GHz no son compatibles.'},
+    {phase:'Configuración',model:'DNS G3',title:'Basic Settings — Grid Code',
+      instruction:'Ve a Settings → Basic Settings → Safety Code\n\n1. Selecciona tu país\n   → Para Chile: LATAM → Chile\n2. Guarda\n3. Toca Next para continuar',
+      tip:'Este paso configura los parámetros de red según la normativa de tu país. Obligatorio.'},
+    {phase:'Configuración',model:'DNS G3',title:'Basic Settings — Working Mode',
+      instruction:'El DNS G3 es on-grid, sus modos son más simples:\n\n• General Mode → Modo normal de inyección a red\n• Self Consumption → Autoconsumo (requiere Smart Meter)\n• Battery First → No aplica (sin batería)\n\nPara Chile con GM1000 instalado: selecciona Self Consumption.',
+      tip:null},
+    {phase:'Configuración',model:'DNS G3',title:'Basic Settings — Meter Detection',
+      instruction:'En Basic Settings → Meter Detection:\n\n1. Toca "Start"\n2. El sistema detecta el GM1000\n3. Espera que complete (1–2 min)\n4. Toca "Exit"',
+      tip:'Si falla, verifica que el cable RS485 del GM1000 esté bien conectado al puerto METER.'},
+    {phase:'Configuración',model:'DNS G3',title:'Advanced Settings — DRED / Remote Shutdown',
+      instruction:'Ve a Advanced Settings.\n\nVerifica que estén DESHABILITADOS:\n• DRED\n• Remote Shutdown\n\nSolo activar bajo indicación expresa del operador de red.',
+      tip:null},
+    {phase:'Configuración',model:'DNS G3',title:'Advanced Settings — Power Limit',
+      instruction:'Configura el límite de exportación:\n\n• 0% → Sin exportación (0 Export)\n• 50% → Exporta hasta 50%\n• 100% → Exporta toda la energía disponible\n\nVerifica el contrato del cliente con la distribuidora.',
+      tip:'En Chile se requiere contrato de Net Billing para exportar. Sin contrato → 0%.'},
+    {phase:'Configuración',model:'DNS G3',title:'Advanced Settings — Shadow Scan',
+      instruction:'Evalúa si hay sombras en los paneles:\n\n• Con sombras importantes → ACTIVAR\n• Sin sombras → DESACTIVAR\n\nSombras de antenas, chimeneas o árboles a ciertas horas cuentan.',
+      tip:'Con Shadow Scan activo sin sombras, la generación puede bajar hasta un 5%.'},
+    {phase:'Energización',model:'DNS G3',title:'Conectar Cables AC',
+      instruction:'Con los breakers AC ABIERTOS:\n\n• L (Fase) → Terminal L\n• N (Neutro) → Terminal N\n• PE (Tierra) → Terminal PE\n\nSección mínima del cable:\n• GW3000 / GW3600: 4 mm²\n• GW4200 / GW5000: 4 mm²\n• GW6000: 4 mm²\n\nAprieta con el torque indicado en el manual.',
+      tip:'Verifica que L y N no estén invertidos. Con L/N al revés el inversor dará error.'},
+    {phase:'Energización',model:'DNS G3',title:'Subir Breakers AC',
+      instruction:'Sube los breakers en este orden:\n1. Breaker principal del tablero\n2. Breaker dedicado al inversor\n\nObserva el inversor — las luces deben encenderse.',
+      tip:null},
+    {phase:'Energización',model:'DNS G3',title:'Autocomprobación del Equipo',
+      instruction:'El inversor realiza autocomprobación automática.\n\nDurante este proceso (1–2 minutos):\n• LED parpadearán\n• Pantalla mostrará "Self-checking"\n• No toques ni desconectes nada\n\nSi aparece un error, anótalo y consulta:\nFichas Técnicas → DNS G3 → Códigos de Error',
+      tip:null},
+    {phase:'Verificación',model:'DNS G3',title:'Verificar Generación en SolarGo',
+      instruction:'Verifica en SolarGo que todo esté correcto:\n\n✓ Voltaje AC: ~220V\n✓ Potencia generada visible (con sol)\n✓ Flujo de red: exportando o en autoconsumo\n✓ Smart Meter mostrando consumo del hogar\n✓ Sin alarmas activas',
+      tip:null},
+    {phase:'Registro SEMS+',model:'DNS G3',title:'Descargar SEMS+',
+      instruction:'Si aún no tienes la app:\n\n• iOS: App Store → "SEMS"\n• Android: Google Play → "SEMS Portal"\n\nIngresa con tu cuenta de instalador GoodWe.',
+      tip:null},
+    {phase:'Registro SEMS+',model:'DNS G3',title:'Crear Estación y Vincular Inversor',
+      instruction:'En SEMS+:\n\n1. Toca "+" → Nueva estación\n2. Ingresa datos: nombre, dirección, kWp, fecha\n3. Vincula el inversor:\n   → Opción QR: escanea el sticker del inversor\n   → Opción manual: ingresa S/N y Check Code\n\nEl inversor aparecerá online en minutos.',
+      tip:null}
+  ],
+  SMT50:[
+    {phase:'Físico',model:'SMT 50-60kW',title:'Unboxing del Inversor',
+      instruction:'Abre la caja del SMT 50-60kW. El equipo pesa ≈55 kg — trabaja siempre con ayuda y usa faja de seguridad.',
+      tip:'No muevas el inversor inclinado. Mantenlo vertical para no dañar los componentes internos.'},
+    {phase:'Físico',model:'SMT 50-60kW',title:'Verificar Contenido de la Caja',
+      instruction:'Confirma que estén todos estos elementos:\n\n• 1 × Inversor SMT 50-60kW\n• 1 × Soporte de montaje\n• Pernos y tornillos de fijación\n• Conectores FV positivos y negativos\n• 1 × Conector CA\n• Conectores de comunicación\n• 1 × Fusible externo\n• 1 × Herramienta PV Tool\n• Documentación',
+      tip:'Si falta algún elemento, documenta y contacta a tu distribuidor.'},
+    {phase:'Físico',model:'SMT 50-60kW',title:'Montar Inversor',
+      instruction:'El SMT puede montarse en pared o en pedestal.\n\nRequisitos:\n• 50 cm libre en frente (acceso ventilación)\n• 30 cm libre en lados y arriba\n• Temperatura: -30°C a +60°C\n• Superficie que soporte ≈55 kg\n\nUsa los pernos de expansión incluidos.',
+      tip:'El ventilador del SMT necesita espacio libre al frente. No bloquees la salida de aire.'},
+    {phase:'Físico',model:'SMT 50-60kW',title:'Conectar Strings FV',
+      instruction:'Antes de conectar, verifica:\n• Polaridad de cada string con multímetro\n• Voc por string inferior a 1100V\n\nEl SMT 50-60kW tiene 5-6 MPPTs, 2 strings por MPPT.\n\nUsa la herramienta PV Tool para conectar/desconectar los conectores FV.',
+      tip:'El DC switch debe estar en OFF. Siempre usa la PV Tool incluida, no uses pinzas.'},
+    {phase:'Físico',model:'SMT 50-60kW',title:'Conectar Smart Meter GM3000 y CTs',
+      instruction:'El GM3000 es trifásico. Requiere 3 CTs, uno por fase.\n\nConexión:\n• CT1 → L1, CT2 → L2, CT3 → L3\n• Flecha de cada CT apunta hacia la RED\n\nConecta RS485 del GM3000 al puerto COM del inversor.',
+      tip:'Si algún CT queda invertido, el flujo de esa fase se leerá al revés.'},
+    {phase:'Físico',model:'SMT 50-60kW',title:'Conectar Módulo de Comunicación',
+      instruction:'Instala el módulo de comunicación elegido:\n• WiFi/LAN Kit → comunicación inalámbrica y por cable\n• 4G → zonas sin WiFi\n• EzLogger Pro → múltiples inversores en un sitio\n\nInserta en el puerto COM del inversor.',
+      tip:null},
+    {phase:'Configuración',model:'SMT 50-60kW',title:'Abrir SolarGo — Acceso Local',
+      instruction:'Conecta al inversor:\n1. Bluetooth activo en tu teléfono\n2. SolarGo → Acceso Local\n3. Selecciona el SMT de la lista\n\n→ Ve a Settings → Communication Settings',
+      tip:null},
+    {phase:'Configuración',model:'SMT 50-60kW',title:'Communication Settings — Conectar Red',
+      instruction:'Selecciona el método de comunicación:\n\n• WLAN/LAN → más común\n• 4G → sin WiFi disponible\n\nSi usas WiFi: red 2.4 GHz, ingresa contraseña y guarda.',
+      tip:'Red 2.4 GHz obligatoria. 5 GHz no es compatible.'},
+    {phase:'Configuración',model:'SMT 50-60kW',title:'Basic Settings — Grid Code',
+      instruction:'Settings → Basic Settings → Safety Code\n\n1. Selecciona país → Chile: LATAM → Chile\n2. Guarda → Next',
+      tip:'Obligatorio antes de energizar. Define parámetros trifásicos de red local.'},
+    {phase:'Configuración',model:'SMT 50-60kW',title:'Basic Settings — Working Mode',
+      instruction:'Modos disponibles:\n\n• General → Inyección máxima a red\n• Self Consumption → Autoconsumo con Smart Meter\n• Peak Shaving → Limitación de demanda punta\n\nSelecciona según el requerimiento del proyecto.',
+      tip:null},
+    {phase:'Configuración',model:'SMT 50-60kW',title:'Meter Detection',
+      instruction:'Basic Settings → Meter Detection:\n\n1. Start → espera detección del GM3000 en las 3 fases\n2. Verifica que las 3 fases estén detectadas\n3. Exit',
+      tip:'Si falla, verifica RS485 y orientación de los 3 CTs.'},
+    {phase:'Configuración',model:'SMT 50-60kW',title:'Advanced Settings — Power Limit y DRED',
+      instruction:'Advanced Settings:\n\n• DRED → Deshabilitado (salvo indicación del operador)\n• Power Limit → según contrato con distribuidora\n  - 0% = sin exportación\n  - 100% = exportación total',
+      tip:null},
+    {phase:'Configuración',model:'SMT 50-60kW',title:'Advanced Settings — Shadow Scan',
+      instruction:'Evalúa sombras en el campo FV:\n\n• Con sombras → ACTIVAR\n• Sin sombras → DESACTIVAR',
+      tip:'En instalaciones C&I grandes, evaluar con cuidado. Shadow Scan puede afectar la producción.'},
+    {phase:'Energización',model:'SMT 50-60kW',title:'Conectar Cables AC Trifásicos',
+      instruction:'Con breakers ABIERTOS:\n\n• L1, L2, L3 → terminales de fase\n• N → terminal neutro\n• PE → terminal tierra\n\nSección cable GW50KS: ≥ 96A\nSección cable GW60KS: ≥ 116A\n\nVerifica secuencia de fases con analizador.',
+      tip:'Secuencia incorrecta de fases causará error en el inversor trifásico.'},
+    {phase:'Energización',model:'SMT 50-60kW',title:'Subir Breakers AC',
+      instruction:'Sube breakers en orden:\n1. Breaker principal del tablero\n2. Breaker trifásico del inversor\n\nEl SMT encenderá y comenzará secuencia de inicio.',
+      tip:null},
+    {phase:'Energización',model:'SMT 50-60kW',title:'Autocomprobación del Equipo',
+      instruction:'El SMT realiza autocomprobación al encender.\n\nDurante el proceso (1–3 min):\n• Pantalla mostrará estado del chequeo\n• No toques ni desconectes nada\n\nSi hay error, anota el código y consulta manual.',
+      tip:null},
+    {phase:'Verificación',model:'SMT 50-60kW',title:'Verificar Generación en SolarGo',
+      instruction:'Verifica en SolarGo:\n\n✓ Voltaje trifásico: ~380–400V (L-L)\n✓ Las 3 fases generando\n✓ Potencia activa visible (con sol)\n✓ Smart Meter mostrando consumo\n✓ Sin alarmas activas',
+      tip:null},
+    {phase:'Registro SEMS+',model:'SMT 50-60kW',title:'Registrar en SEMS+',
+      instruction:'En SEMS+ con cuenta de instalador:\n\n1. Crear nueva estación\n2. Ingresar datos del proyecto\n3. Vincular inversor por QR o S/N + Check Code\n\nEl SMT aparecerá online en pocos minutos.',
+      tip:null}
+  ]
+};
 
 // ─── THEME ───────────────────────────────────────────────────────────────────
 function toggleTheme(){
