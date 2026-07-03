@@ -318,6 +318,9 @@ body{font-family:'Inter',sans-serif;background:var(--d);color:var(--t);min-heigh
 .wiz-btn-next:active{transform:scale(.96);box-shadow:0 0 20px rgba(232,0,45,.5);}
 .wiz-final-btn{background:var(--g);color:#fff;border:none;padding:14px;border-radius:10px;font-family:'Syne',sans-serif;font-size:14px;font-weight:700;cursor:pointer;flex:2;transition:transform .15s,box-shadow .15s;}
 .wiz-final-btn:active{transform:scale(.96);box-shadow:0 0 20px rgba(34,197,94,.5);}
+.wiz-confirm-btn{width:100%;padding:14px;border-radius:10px;border:2px solid var(--r);background:transparent;color:var(--r);font-family:'Syne',sans-serif;font-size:14px;font-weight:700;cursor:pointer;margin-bottom:16px;transition:background .2s,color .2s,border-color .2s,transform .15s;}
+.wiz-confirm-btn:active{transform:scale(.97);}
+.wiz-confirm-btn.done{background:var(--g);border-color:var(--g);color:#fff;cursor:default;}
 </style>
 </head>
 <body>
@@ -2010,7 +2013,7 @@ function importProject(event){
 }
 
 // ─── WIZARD ──────────────────────────────────────────────────────────────────
-let wizModel=null,wizStep=0,installFlow='ci',wizType='';
+let wizModel=null,wizStep=0,installFlow='ci',wizType='',wizDone={};
 
 function selectInstallType(type){
   installFlow=type;
@@ -2049,6 +2052,7 @@ function renderWizardModels(){
 function startWizard(modelId){
   wizModel=modelId;
   wizStep=0;
+  wizDone={};
   renderWizardStep();
   go('screen-wizard');
 }
@@ -2068,28 +2072,60 @@ function wizNav(dir){
   window.scrollTo(0,0);
 }
 
+function confirmWizStep(){
+  wizDone[wizStep]=true;
+  // Cambiar el botón de confirmación a estado "hecho"
+  const btn=document.getElementById('wiz-confirm-btn');
+  if(btn){
+    btn.textContent='✓ Paso confirmado';
+    btn.style.background='var(--g)';
+    btn.style.cursor='default';
+    btn.onclick=null;
+  }
+  // Desbloquear el botón Siguiente
+  document.getElementById('wiz-btn-next').disabled=false;
+}
+
 function renderWizardStep(){
   const steps=WIZARD_STEPS[wizModel];
   if(!steps)return;
   const step=steps[wizStep];
   const total=steps.length;
   const pct=Math.round(((wizStep+1)/total)*100);
+  const isDone=!!wizDone[wizStep];
+  const isLast=wizStep===total-1;
+  const isFirst=wizStep===0;
+
+  // Header
   document.getElementById('wiz-phase-label').textContent=step.phase+' · '+wizModel;
   document.getElementById('wiz-bar-fill').style.width=pct+'%';
   document.getElementById('wiz-step-count').textContent=(wizStep+1)+' / '+total;
-  const isLast=wizStep===total-1;
-  const isFirst=wizStep===0;
+
+  // Botón atrás
   document.getElementById('wiz-btn-back').textContent=isFirst?'← Modelos':'← Anterior';
-  const footer=document.getElementById('wiz-footer');
+
+  // Botón siguiente: bloqueado si el paso no está confirmado
   const nextBtn=document.getElementById('wiz-btn-next');
   nextBtn.className=isLast?'wiz-final-btn':'wiz-btn-next';
   nextBtn.textContent=isLast?'✓ Finalizar':'Siguiente →';
+  nextBtn.disabled=!isDone;
+
+  // Botón de confirmación
+  const confirmHTML=isDone
+    ?`<button class="wiz-confirm-btn done" id="wiz-confirm-btn">✓ Paso confirmado</button>`
+    :`<button class="wiz-confirm-btn" id="wiz-confirm-btn" onclick="confirmWizStep()">✓ Marcar como hecho</button>`;
+
+  // Cuerpo del paso: instrucción → tip → confirmar → imagen
   document.getElementById('wiz-body').innerHTML=`
     <div class="wiz-step-num">Paso ${wizStep+1} de ${total} · ${step.phase}</div>
     <div class="wiz-title">${step.title}</div>
-    <div class="wiz-img"><div class="wiz-img-icon">📷</div><div class="wiz-img-label">Imagen próximamente</div></div>
+    <div class="wiz-img">
+      <div class="wiz-img-icon">📷</div>
+      <div class="wiz-img-label">Imagen de referencia · Próximamente</div>
+    </div>
     <div class="wiz-instruction">${step.instruction}</div>
-    ${step.tip?`<div class="wiz-tip">${step.tip}</div>`:''}`;
+    ${step.tip?`<div class="wiz-tip">${step.tip}</div>`:''}
+    ${confirmHTML}`;
 }
 
 // ─── WIZARD STEPS DATA ────────────────────────────────────────────────────────
