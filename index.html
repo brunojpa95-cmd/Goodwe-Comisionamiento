@@ -390,6 +390,14 @@ body{font-family:'Inter',sans-serif;background:var(--d);color:var(--t);min-heigh
       <label class="proj-label">N° de Serie (S/N) del inversor</label>
       <input class="proj-input" id="proj-serial" type="text" placeholder="Ej: 90NXXXXXXXX" autocomplete="off" style="font-family:'DM Mono',monospace;letter-spacing:.05em;">
     </div>
+    <div class="proj-divider">🔋 Batería <span style="color:var(--m);font-size:9px;font-weight:400;letter-spacing:0;">(si aplica)</span></div>
+    <div id="battery-sns-container">
+      <div class="proj-field" id="bat-sn-1">
+        <label class="proj-label">S/N Batería 1</label>
+        <input class="proj-input" id="bat-sn-input-1" type="text" placeholder="Ej: LXDXXXXXXXX (opcional)" autocomplete="off" style="font-family:'DM Mono',monospace;letter-spacing:.05em;">
+      </div>
+    </div>
+    <button type="button" onclick="addBatterySN()" class="btn-s" style="max-width:none;font-size:12px;padding:10px;gap:6px;">＋ Agregar batería</button>
     <button class="btn-p" onclick="confirmProject()" style="margin-top:8px;">Continuar →</button>
   </div>
 </div>
@@ -531,7 +539,7 @@ body{font-family:'Inter',sans-serif;background:var(--d);color:var(--t);min-heigh
 
 <!-- WIZARD TYPE (Híbrido / On-Grid) -->
 <div id="screen-wizard-type" class="screen">
-  <div class="sh"><button class="back" onclick="go('screen-country')">←</button><div class="st">Tipo de Inversor</div></div>
+  <div class="sh"><button class="back" onclick="go('screen-project')">←</button><div class="st">Tipo de Inversor</div></div>
   <p class="ss2">¿Qué tipo de inversor vas a instalar?</p>
   <div class="tc" style="padding-top:8px;">
     <div class="tcard" onclick="selectWizType('hybrid')">
@@ -554,6 +562,13 @@ body{font-family:'Inter',sans-serif;background:var(--d);color:var(--t);min-heigh
   <div class="sh"><button class="back" onclick="go('screen-wizard-type')">←</button><div class="st" id="wiz-model-title">Modelo</div></div>
   <p class="ss2" id="wiz-model-sub">Selecciona el inversor que vas a instalar.</p>
   <div class="tc" style="padding-top:8px;" id="wiz-model-cards"></div>
+</div>
+
+<!-- WIZARD BATTERY -->
+<div id="screen-wizard-battery" class="screen">
+  <div class="sh"><button class="back" onclick="go('screen-wizard-model')">←</button><div class="st">Batería</div></div>
+  <p class="ss2">¿Qué batería se instala con este inversor?</p>
+  <div class="tc" style="padding-top:8px;" id="wiz-battery-cards"></div>
 </div>
 
 <!-- WIZARD -->
@@ -1086,9 +1101,10 @@ const TRI_MODELS=['ET','ETG2','ET4050','ET1530','SDTG3','SMT2536','SMT5060','GT'
 function isTri(){return TRI_MODELS.includes(S.model);}
 
 // ─── STATE ───────────────────────────────────────────────────────────────────
-let S={country:null,category:'',model:'',modelObj:null,mppt:2,stringsPerMppt:[1,1],batEnabled:true,checks:{},measures:{},photos:{},phasesDone:{},project:{installer:'',company:'',client:'',address:'',serial:''}};
+let S={country:null,category:'',model:'',modelObj:null,mppt:2,stringsPerMppt:[1,1],batEnabled:true,checks:{},measures:{},photos:{},phasesDone:{},project:{installer:'',company:'',client:'',address:'',serial:'',batterySNs:[]}};
 let curPhase=null;
 let startTime=Date.now();
+let batSNCount=1;
 
 // ─── NAV ─────────────────────────────────────────────────────────────────────
 function go(id){
@@ -1098,7 +1114,6 @@ function go(id){
   if(id==='screen-manuals') renderManuals();
   if(id==='screen-saved') renderSavedProjects();
   if(id==='screen-project'){
-    // Precargar instalador guardado, limpiar cliente
     try{
       const saved=JSON.parse(localStorage.getItem('gw_installer')||'{}');
       document.getElementById('proj-installer').value=saved.installer||'';
@@ -1107,6 +1122,12 @@ function go(id){
     document.getElementById('proj-client').value='';
     document.getElementById('proj-address').value='';
     document.getElementById('proj-serial').value='';
+    batSNCount=1;
+    document.getElementById('battery-sns-container').innerHTML=`
+      <div class="proj-field" id="bat-sn-1">
+        <label class="proj-label">S/N Batería 1</label>
+        <input class="proj-input" id="bat-sn-input-1" type="text" placeholder="Ej: LXDXXXXXXXX (opcional)" autocomplete="off" style="font-family:'DM Mono',monospace;letter-spacing:.05em;">
+      </div>`;
   }
   window.scrollTo(0,0);
 }
@@ -1137,8 +1158,7 @@ function selectCountry(c){
   renderCountryList(ALL_C);
   document.getElementById('pf').textContent=c.flag;
   document.getElementById('pg').textContent=`${c.v1}V · ${c.hz}Hz`;
-  if(installFlow==='residential') go('screen-wizard-type');
-  else go('screen-project');
+  go('screen-project');
 }
 renderCountryList(ALL_C);
 
@@ -1149,9 +1169,12 @@ function confirmProject(){
   S.project.client=document.getElementById('proj-client').value.trim();
   S.project.address=document.getElementById('proj-address').value.trim();
   S.project.serial=document.getElementById('proj-serial').value.trim();
-  // Recordar instalador y empresa para próxima vez
+  const batSNs=[];
+  document.querySelectorAll('[id^="bat-sn-input-"]').forEach(input=>{if(input.value.trim())batSNs.push(input.value.trim());});
+  S.project.batterySNs=batSNs;
   localStorage.setItem('gw_installer',JSON.stringify({installer:S.project.installer,company:S.project.company}));
-  go('screen-type');
+  if(installFlow==='residential') go('screen-wizard-type');
+  else go('screen-type');
 }
 
 // ─── TYPE & MODEL ─────────────────────────────────────────────────────────────
@@ -2018,11 +2041,70 @@ function importProject(event){
 }
 
 // ─── WIZARD ──────────────────────────────────────────────────────────────────
-let wizModel=null,wizStep=0,installFlow='ci',wizType='',wizDone={};
+let wizModel=null,wizStep=0,installFlow='ci',wizType='',wizDone={},wizBattery=null;
 
 function selectInstallType(type){
   installFlow=type;
   go('screen-country');
+}
+
+function addBatterySN(){
+  batSNCount++;
+  const container=document.getElementById('battery-sns-container');
+  const field=document.createElement('div');
+  field.className='proj-field';
+  field.id='bat-sn-'+batSNCount;
+  field.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+    <label class="proj-label">S/N Batería ${batSNCount}</label>
+    <button type="button" onclick="removeBatterySN(${batSNCount})" style="background:transparent;border:none;color:var(--m2);font-size:12px;cursor:pointer;padding:2px 8px;border-radius:5px;font-family:'DM Mono',monospace;transition:color .15s;" onmouseover="this.style.color='var(--re)'" onmouseout="this.style.color='var(--m2)'">✕ Quitar</button>
+  </div>
+  <input class="proj-input" id="bat-sn-input-${batSNCount}" type="text" placeholder="Ej: LXDXXXXXXXX (opcional)" autocomplete="off" style="font-family:'DM Mono',monospace;letter-spacing:.05em;">`;
+  container.appendChild(field);
+}
+
+function removeBatterySN(n){
+  const field=document.getElementById('bat-sn-'+n);
+  if(field)field.remove();
+}
+
+const BATTERY_OPTIONS={
+  ESG2:[
+    {id:'lynx-home-a',icon:'🔋',name:'Lynx Home A',badge:'LV · LFP',spec:'Baja tensión · 48V · LFP'},
+    {id:'lynx-home-u',icon:'🔋',name:'Lynx Home U',badge:'LV · LFP',spec:'Baja tensión · 48V · LFP'},
+    {id:'none',icon:'⚡',name:'Sin batería',badge:'Solo on-grid',spec:'Instalación sin almacenamiento'},
+  ],
+  ETG2:[
+    {id:'lynx-home-d',icon:'🔋',name:'Lynx Home D',badge:'HV · LFP · 5 kWh',spec:'Alta tensión · 320–480V · LFP · 5 kWh'},
+    {id:'lynx-home-f-g2',icon:'🔋',name:'Lynx Home F G2',badge:'HV · LFP',spec:'Alta tensión · LFP · 2ª Generación'},
+    {id:'none',icon:'⚡',name:'Sin batería',badge:'Solo generación',spec:'Instalación sin almacenamiento'},
+  ]
+};
+
+function selectWizModel(modelId){
+  wizModel=modelId;
+  renderBatteryOptions();
+  go('screen-wizard-battery');
+}
+
+function renderBatteryOptions(){
+  const options=BATTERY_OPTIONS[wizModel]||[];
+  const cards=document.getElementById('wiz-battery-cards');
+  cards.innerHTML='';
+  options.forEach(b=>{
+    const card=document.createElement('div');
+    card.className='tcard';
+    card.innerHTML=`<div class="tcard-badge">${b.badge}</div><div class="tcard-icon">${b.icon}</div><div class="tcard-title">${b.name}</div><div class="tcard-desc">${b.spec}</div>`;
+    card.onclick=()=>selectWizBattery(b.id,b.name);
+    cards.appendChild(card);
+  });
+}
+
+function selectWizBattery(batteryId,batteryName){
+  wizBattery={id:batteryId,name:batteryName};
+  wizStep=0;
+  wizDone={};
+  renderWizardStep();
+  go('screen-wizard');
 }
 
 function selectWizType(type){
@@ -2049,13 +2131,14 @@ function renderWizardModels(){
     const card=document.createElement('div');
     card.className='tcard';
     card.innerHTML=`<div class="tcard-badge">${m.badge}</div><div class="tcard-icon">${m.icon}</div><div class="tcard-title">${m.name}</div><div class="tcard-desc">${m.desc}</div>`;
-    card.onclick=()=>startWizard(m.id);
+    card.onclick=()=>wizType==='hybrid'?selectWizModel(m.id):startWizard(m.id);
     cards.appendChild(card);
   });
 }
 
 function startWizard(modelId){
   wizModel=modelId;
+  wizBattery=null;
   wizStep=0;
   wizDone={};
   renderWizardStep();
@@ -2102,7 +2185,7 @@ function renderWizardStep(){
   const isFirst=wizStep===0;
 
   // Header
-  document.getElementById('wiz-phase-label').textContent=step.phase+' · '+wizModel;
+  document.getElementById('wiz-phase-label').textContent=step.phase+' · '+wizModel+(wizBattery&&wizBattery.id!=='none'?' · '+wizBattery.name:'');
   document.getElementById('wiz-bar-fill').style.width=pct+'%';
   document.getElementById('wiz-step-count').textContent=(wizStep+1)+' / '+total;
 
