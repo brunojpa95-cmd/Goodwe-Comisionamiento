@@ -655,7 +655,12 @@ const FICHAS={
         boxContents:[{qty:'1',name:'Inversor ESG2'},{qty:'1',name:'Placa de montaje'},{qty:'N',name:'Conectores MC4'},{qty:'1',name:'Smart Meter GM1000'},{qty:'1',name:'Documentación'}],
         protections:[{name:'Anti-isla',val:'Integrado'},{name:'Polaridad inversa DC',val:'Integrado'},{name:'Aislamiento FV',val:'Integrado'},{name:'DPS CC',val:'Tipo II'},{name:'DPS CA',val:'Tipo III'},{name:'AFCI',val:'Opcional'}],
         comms:[{icon:'🔋',name:'BMS',desc:'CAN · Puerto RJ45 · Baterías litio'},{icon:'📊',name:'Smart Meter',desc:'RS485 · Puerto METER'},{icon:'📱',name:'SEMS+',desc:'WiFi 2.4 GHz + LAN + Bluetooth 5.1'}],
-        breakers:[{model:'GW3000-ES-20',batDis:'≥75A / ≥60V',acOnGrid:'≥40A',pe:'4–6 mm²'},{model:'GW6000-ES-20',batDis:'≥150A / ≥60V',acOnGrid:'≥63A',pe:'4–6 mm²'}],
+        breakers:[
+          {model:'GW3600M-ES-20',batDis:'≥75A / ≥60V',acOnGrid:'≥20A / ≥230V · RCD ON-GRID 300mA / Respaldo 30mA · Tipo A',pe:'4–6 mm²'},
+          {model:'GW3000-ES-20 / GW5000M-ES-20 / GW6000M-ES-20',batDis:'≥75A / ≥60V',acOnGrid:'≥35A / ≥230V · RCD ON-GRID 300mA / Respaldo 30mA · Tipo A',pe:'4–6 mm²'},
+          {model:'GW3600-ES-20',batDis:'≥100A / ≥60V',acOnGrid:'≥40A / ≥230V · RCD ON-GRID 300mA / Respaldo 30mA · Tipo A',pe:'4–6 mm²'},
+          {model:'GW5000-ES-20 / GW6000-ES-20',batDis:'≥150A / ≥60V',acOnGrid:'≥63A / ≥230V · RCD ON-GRID 300mA / Respaldo 30mA · Tipo A',pe:'4–6 mm²'}
+        ],
         docs:{datasheet:'https://es.goodwe.com/Ftp/Downloads/Datasheet/ES/GW_ES%20G2_Datasheet_EMEA-ES.pdf',manual:'https://es.goodwe.com/Ftp/Downloads/User%20Manual/GW_Residential-Smart-Inverter-Solutions_User-Manual-ES-G2-ES.pdf'},
         errors:[
           {code:'F01',name:'Pérdida de Utilidad',causa:'Suministro de energía FV fallido, cable de CA desconectado o disyuntor de CA apagado.',sol:'La alarma se borra automáticamente al restablecerse la red. Verificar que el cable de CA esté conectado y el disyuntor encendido.'},
