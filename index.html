@@ -1656,6 +1656,38 @@ function launchConfetti(){
   }
 }
 
+// ─── COMPARTIR / DESCARGAR INFORME ─────────────────────────────────────────────
+async function shareOrDownloadHTML(html, filename){
+  const blob=new Blob([html],{type:'text/html'});
+  const file=new File([blob], filename, {type:'text/html'});
+
+  // 1) Intento con Web Share API (funciona mejor en celular: WhatsApp, Drive, Archivos, etc.)
+  if(navigator.canShare && navigator.canShare({files:[file]})){
+    try{
+      await navigator.share({
+        files:[file],
+        title:'Informe de Comisionamiento GoodWe',
+        text:'Informe de comisionamiento — ábrelo y usa Imprimir → Guardar como PDF.'
+      });
+      showToast('Informe compartido. Ábrelo y usa Imprimir → Guardar como PDF.');
+      return;
+    }catch(err){
+      // Si el usuario cancela el panel de compartir, no hacemos nada más (no caemos a descarga)
+      if(err && err.name==='AbortError')return;
+      // Cualquier otro error → seguimos al fallback de descarga clásica
+    }
+  }
+
+  // 2) Fallback: descarga clásica por blob (navegadores de escritorio o sin soporte de Web Share)
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;
+  a.download=filename;
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast('Informe descargado. Ábrelo y usa Imprimir → Guardar como PDF.');
+}
+
 // ─── WIZARD PDF ──────────────────────────────────────────────────────────────
 function downloadWizardPDF(){
   const c=S.country||{flag:'',name:'—',v1:'—',v3:'—',hz:'—'};
@@ -1757,14 +1789,8 @@ function downloadWizardPDF(){
   <div class="footer"><div>GoodWe Comisionamiento App · Residencial</div><div>Generado automáticamente — ${date}</div></div>
   </body></html>`;
 
-  const blob=new Blob([html],{type:'text/html'});
-  const url=URL.createObjectURL(blob);
-  const a=document.createElement('a');
-  a.href=url;
-  a.download=`GoodWe_${modelName.replace(/\s/g,'_')}_${p.client?p.client.replace(/\s/g,'_')+'_':''}${date.replace(/\//g,'-')}.html`;
-  a.click();
-  URL.revokeObjectURL(url);
-  showToast('Informe descargado. Ábrelo y usa Imprimir → Guardar como PDF.');
+  const filename=`GoodWe_${modelName.replace(/\s/g,'_')}_${p.client?p.client.replace(/\s/g,'_')+'_':''}${date.replace(/\//g,'-')}.html`;
+  shareOrDownloadHTML(html, filename);
 }
 
 // ─── PDF ─────────────────────────────────────────────────────────────────────
@@ -1884,14 +1910,8 @@ function downloadPDF(){
   <div class="footer"><div>GoodWe Comisionamiento App · v2.5</div><div>Documento generado automáticamente — ${date}</div></div>
   </body></html>`;
 
-  const blob=new Blob([html],{type:'text/html'});
-  const url=URL.createObjectURL(blob);
-  const a=document.createElement('a');
-  a.href=url;
-  a.download=`GoodWe_${S.modelObj.name.replace(/\s/g,'_')}_${p.client?p.client.replace(/\s/g,'_')+'_':''}${date.replace(/\//g,'-')}.html`;
-  a.click();
-  URL.revokeObjectURL(url);
-  showToast('Informe descargado. Ábrelo y usa Imprimir → Guardar como PDF.');
+  const filename=`GoodWe_${S.modelObj.name.replace(/\s/g,'_')}_${p.client?p.client.replace(/\s/g,'_')+'_':''}${date.replace(/\//g,'-')}.html`;
+  shareOrDownloadHTML(html, filename);
 }
 
 // ─── MANUALES ────────────────────────────────────────────────────────────────
