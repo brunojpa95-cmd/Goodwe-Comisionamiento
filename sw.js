@@ -1,4 +1,4 @@
-const CACHE = 'goodwe-v2';
+const CACHE = 'goodwe-v3';
 const ASSETS = [
   './',
   './index.html',
@@ -21,7 +21,26 @@ self.addEventListener('activate', e => {
 });
 
 self.addEventListener('fetch', e => {
+  const isHTML = e.request.mode === 'navigate' || e.request.url.endsWith('/index.html') || e.request.url.endsWith('/');
+
+  if (isHTML) {
+    // Network-first para el HTML: siempre intenta traer la versión más nueva.
+    // Si no hay internet, recién ahí usa la copia guardada en caché.
+    e.respondWith(
+      fetch(e.request)
+        .then(res => {
+          const copy = res.clone();
+          caches.open(CACHE).then(c => c.put(e.request, copy));
+          return res;
+        })
+        .catch(() => caches.match(e.request).then(cached => cached || caches.match('./index.html')))
+    );
+    return;
+  }
+
+  // Cache-first para el resto (íconos, fuentes, manifest): más rápido y funciona offline.
   e.respondWith(
     caches.match(e.request).then(cached => cached || fetch(e.request).catch(() => caches.match('./index.html')))
   );
 });
+
